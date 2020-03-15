@@ -1,6 +1,6 @@
 using System;
 
-namespace Bouquet.Models
+namespace Bouquet.Models.ViewModels
 {
     public class ErrorViewModel
     {

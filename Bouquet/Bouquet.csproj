@@ -16,6 +16,20 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\Bouquet.DataAccess\Bouquet.DataAccess.csproj" />
+    <ProjectReference Include="..\Bouquet.Models\Bouquet.Models.csproj" />
+    <ProjectReference Include="..\Bouquet.Utility\Bouquet.Utility.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Controllers\" />
+    <Folder Include="Areas\Admin\Views - Copy\" />
   </ItemGroup>
 
 </Project>
