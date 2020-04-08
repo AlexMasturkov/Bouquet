@@ -5,11 +5,11 @@ using System.Text;
 
 namespace Bouquet.Models
 {
-    public class Category
+    public class EventType
     {
         public int Id { get; set; }
 
-        [Display(Name = "Category Name")]
+        [Display(Name="Event Type")]
         [Required]
         [MaxLength(30)]
         public string Name { get; set; }

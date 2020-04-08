@@ -8,6 +8,7 @@ namespace Bouquet.DataAccess.Repository.IRepository
     {
         ICategoryRepository Category { get; }
         ISPCall SPCall { get; }
+        void Save();
 
     }
 }

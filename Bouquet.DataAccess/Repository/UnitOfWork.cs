@@ -13,10 +13,12 @@ namespace Bouquet.DataAccess.Repository
         {
             _db = db;
             Category = new CategoryRepository(_db);
+            EventType = new EventTypeRepository(_db);
             SPCall = new SPCall(_db);
         }
 
         public ICategoryRepository Category { get; private set; }
+        public IEventTypeRepository EventType { get; private set; }
 
         public ISPCall SPCall { get; private set; }
 

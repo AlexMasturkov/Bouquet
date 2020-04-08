@@ -21,8 +21,7 @@ namespace Bouquet.DataAccess.Repository
             var categoryDb = _db.Categories.FirstOrDefault(c => c.Id == category.Id);
             if (categoryDb != null)
             {
-                categoryDb.Name = category.Name;
-                _db.SaveChanges();
+                categoryDb.Name = category.Name;               
             }
         }
     }

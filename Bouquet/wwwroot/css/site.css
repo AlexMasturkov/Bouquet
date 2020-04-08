@@ -2,7 +2,7 @@
 for details on configuring this project to bundle and minify static web assets. */
 
 .my-base-color{
-    background-color:mediumpurple!important;
+    background-color:rebeccapurple!important;
 }
 
 a.navbar-brand {
@@ -202,4 +202,25 @@ body {
 .form-signup .social-login {
     width: 210px !important;
     margin: 0 auto;
+}
+.btn-primary{
+    background-color:mediumpurple;
+    color:white!important;
+}
+.btn-primary:hover {
+    background-color:rebeccapurple;
+    color: white !important;
+}
+.btn-danger {
+    background-color:red;
+    color: white !important;
+}
+.btn-success {
+    background-color: green;
+    color: white !important;
+}
+.table .thead-dark th {
+    color: white;
+    background-color: rebeccapurple;
+    border-color: #dee2e6;
 }

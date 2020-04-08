@@ -15,5 +15,6 @@ namespace Bouquet.DataAccess.Data
         }
 
         public DbSet<Category> Categories { get; set; }
+        public DbSet<EventType> EventTypes { get; set; }
     }
 }
