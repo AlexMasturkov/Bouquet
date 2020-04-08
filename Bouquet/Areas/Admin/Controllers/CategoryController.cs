@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Bouquet.DataAccess.Repository.IRepository;
+﻿using Bouquet.DataAccess.Repository.IRepository;
 using Bouquet.Models;
 using Microsoft.AspNetCore.Mvc;
 

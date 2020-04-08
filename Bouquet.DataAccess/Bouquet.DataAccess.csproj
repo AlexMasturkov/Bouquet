@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200408160307_AddProductToDb.cs" />
+    <Compile Remove="Migrations\20200408160307_AddProductToDb.Designer.cs" />
+    <Compile Remove="Migrations\20200408160909_add-migration AddProductDecimal.cs" />
+    <Compile Remove="Migrations\20200408160909_add-migration AddProductDecimal.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.30" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.2" />

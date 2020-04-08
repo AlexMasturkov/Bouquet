@@ -7,6 +7,8 @@ namespace Bouquet.DataAccess.Repository.IRepository
    public interface IUnitOfWork:IDisposable
     {
         ICategoryRepository Category { get; }
+        IEventTypeRepository EventType { get; }
+        IProductRepository Product{ get; }
         ISPCall SPCall { get; }
         void Save();
 
