@@ -9,6 +9,8 @@ namespace Bouquet.DataAccess.Repository.IRepository
         ICategoryRepository Category { get; }
         IEventTypeRepository EventType { get; }
         IProductRepository Product{ get; }
+        ICompanyRepository Company { get; }
+        IApplicationUserRepository ApplicationUser { get; }
         ISPCall SPCall { get; }
         void Save();
 
