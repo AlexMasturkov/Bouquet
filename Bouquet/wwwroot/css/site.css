@@ -203,12 +203,12 @@ body {
     width: 210px !important;
     margin: 0 auto;
 }
-.btn-primary{
-    background-color:mediumpurple;
-    color:white!important;
+.btn-primary {
+    background-color: rebeccapurple;
+    color: white !important;
 }
 .btn-primary:hover {
-    background-color:rebeccapurple;
+    background-color:mediumpurple;
     color: white !important;
 }
 .btn-danger {
