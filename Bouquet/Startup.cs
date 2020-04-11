@@ -14,6 +14,8 @@ using Microsoft.Extensions.Hosting;
 using Bouquet.DataAccess.Data;
 using Bouquet.DataAccess.Repository.IRepository;
 using Bouquet.DataAccess.Repository;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Bouquet.Utility;
 
 namespace Bouquet
 {
@@ -29,11 +31,11 @@ namespace Bouquet
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddDbContext<ApplicationDbContext>(options =>options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            // services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<ApplicationDbContext>(); we change it after added IdentityRole in Register page
+            services.AddIdentity<IdentityUser,IdentityRole>().AddDefaultTokenProviders().
+                AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddSingleton<IEmailSender, EmailSender>();
             services.AddScoped<IUnitOfWork,UnitOfWork>();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages();
