@@ -54,6 +54,11 @@ namespace Bouquet
                 options.AppId = "3455988557750675";
                 options.AppSecret = "596dc72a7ea946857409d4b460218a29";
             });
+            services.AddAuthentication().AddGoogle(options =>
+            {
+                options.ClientId = "719585898384-p909jf35t5m4r2t5j886t85vll3rkrin.apps.googleusercontent.com";
+                options.ClientSecret = "sb9SuS6D9nLVtpg17EocqrEu";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
