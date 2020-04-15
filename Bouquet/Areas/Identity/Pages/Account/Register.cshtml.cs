@@ -25,7 +25,7 @@ namespace Bouquet.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager; 
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly IUnitOfWork _unitOfWork;
@@ -95,7 +95,7 @@ namespace Bouquet.Areas.Identity.Pages.Account
                     Text = i.Name,
                     Value = i.Id.ToString()
                 }),
-                RoleList = _roleManager.Roles.Where(r => r.Name != SD.RoleIndividual).Select(n=>n.Name).Select(i => new SelectListItem
+                RoleList = _roleManager.Roles.Where(r => r.Name != SD.RoleIndividual).Select(n => n.Name).Select(i => new SelectListItem
                 {
                     Text = i,
                     Value = i
@@ -129,7 +129,7 @@ namespace Bouquet.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
-                    if(!await _roleManager.RoleExistsAsync(SD.RoleAdmin))
+                    if (!await _roleManager.RoleExistsAsync(SD.RoleAdmin))
                     {
                         await _roleManager.CreateAsync(new IdentityRole(SD.RoleAdmin));
                     }
@@ -146,28 +146,27 @@ namespace Bouquet.Areas.Identity.Pages.Account
                         await _roleManager.CreateAsync(new IdentityRole(SD.RoleIndividual));
                     }
 
-                    if(user.Role == null)
+                    if (user.Role == null)
                     {
                         await _userManager.AddToRoleAsync(user, SD.RoleIndividual);
                     }
                     else
                     {
-                        if(user.CompanyId > 0)
+                        if (user.CompanyId > 0)
                         {
                             await _userManager.AddToRoleAsync(user, SD.RoleCompanyUser);
                         }
                         await _userManager.AddToRoleAsync(user, user.Role);
                     }
-                    //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    //code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                    //var callbackUrl = Url.Page(
-                    //    "/Account/ConfirmEmail",
-                    //    pageHandler: null,
-                    //    values: new { area = "Identity", userId = user.Id, code = code },
-                    //    protocol: Request.Scheme);
-
-                    //await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                    //    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                    var callbackUrl = Url.Page(
+                        "/Account/ConfirmEmail",
+                        pageHandler: null,
+                        values: new { area = "Identity", userId = user.Id, code = code },
+                        protocol: Request.Scheme);
+                        await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
@@ -175,7 +174,7 @@ namespace Bouquet.Areas.Identity.Pages.Account
                     }
                     else
                     {
-                        if(user.Role == null)
+                        if (user.Role == null)
                         {
                             await _signInManager.SignInAsync(user, isPersistent: false);
                             return LocalRedirect(returnUrl);
@@ -184,7 +183,7 @@ namespace Bouquet.Areas.Identity.Pages.Account
                         {
                             //Admin is registering a new user
                             return RedirectToAction("Index", "User", new { Area = "Admin" });
-                        }                     
+                        }
                     }
                 }
                 foreach (var error in result.Errors)

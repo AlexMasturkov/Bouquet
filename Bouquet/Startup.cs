@@ -36,6 +36,7 @@ namespace Bouquet
             services.AddIdentity<IdentityUser,IdentityRole>().AddDefaultTokenProviders().
                 AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddSingleton<IEmailSender, EmailSender>();
+            services.Configure<EmailOptions>(Configuration);
             services.AddScoped<IUnitOfWork,UnitOfWork>();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages();
