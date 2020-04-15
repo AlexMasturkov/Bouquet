@@ -5,12 +5,15 @@ using System.Threading.Tasks;
 using Bouquet.DataAccess.Data;
 using Bouquet.DataAccess.Repository.IRepository;
 using Bouquet.Models;
+using Bouquet.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bouquet.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.RoleAdmin + "," + SD.RoleEmployee)]
     public class UserController : Controller
     {
         private readonly ApplicationDbContext _db;

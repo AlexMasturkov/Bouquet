@@ -1,10 +1,13 @@
 ﻿using Bouquet.DataAccess.Repository.IRepository;
 using Bouquet.Models;
+using Bouquet.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bouquet.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.RoleAdmin)]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

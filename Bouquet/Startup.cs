@@ -39,6 +39,21 @@ namespace Bouquet
             services.AddScoped<IUnitOfWork,UnitOfWork>();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages();
+            services.ConfigureApplicationCookie(options =>
+            {
+                // Cookie settings
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+
+                options.LoginPath = "/Identity/Account/Login";
+                options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+                options.SlidingExpiration = true;
+            });
+            services.AddAuthentication().AddFacebook(options =>
+            {
+                options.AppId = "3455988557750675";
+                options.AppSecret = "596dc72a7ea946857409d4b460218a29";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
