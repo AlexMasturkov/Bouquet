@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 
@@ -79,12 +80,28 @@ namespace Bouquet.Areas.Identity.Pages.Account
             public string PhoneNumber { get; set; }
             public int? CompanyId { get; set; }
             public string Role { get; set; }
+            public IEnumerable<SelectListItem> CompanyList { get; set; }
+            public IEnumerable<SelectListItem> RoleList { get; set; }
 
         }
 
         public async Task OnGetAsync(string returnUrl = null)
         {
             ReturnUrl = returnUrl;
+            Input = new InputModel()
+            {
+                CompanyList = _unitOfWork.Company.GetAll().Select(i => new SelectListItem
+                {
+                    Text = i.Name,
+                    Value = i.Id.ToString()
+                }),
+                RoleList = _roleManager.Roles.Where(r => r.Name != SD.RoleIndividual).Select(n=>n.Name).Select(i => new SelectListItem
+                {
+                    Text = i,
+                    Value = i
+                })
+            };
+
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
@@ -129,8 +146,18 @@ namespace Bouquet.Areas.Identity.Pages.Account
                         await _roleManager.CreateAsync(new IdentityRole(SD.RoleIndividual));
                     }
 
-                    await _userManager.AddToRoleAsync(user, SD.RoleAdmin);
-
+                    if(user.Role == null)
+                    {
+                        await _userManager.AddToRoleAsync(user, SD.RoleIndividual);
+                    }
+                    else
+                    {
+                        if(user.CompanyId > 0)
+                        {
+                            await _userManager.AddToRoleAsync(user, SD.RoleCompanyUser);
+                        }
+                        await _userManager.AddToRoleAsync(user, user.Role);
+                    }
                     //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     //code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     //var callbackUrl = Url.Page(
@@ -148,8 +175,16 @@ namespace Bouquet.Areas.Identity.Pages.Account
                     }
                     else
                     {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
+                        if(user.Role == null)
+                        {
+                            await _signInManager.SignInAsync(user, isPersistent: false);
+                            return LocalRedirect(returnUrl);
+                        }
+                        else
+                        {
+                            //Admin is registering a new user
+                            return RedirectToAction("Index", "User", new { Area = "Admin" });
+                        }                     
                     }
                 }
                 foreach (var error in result.Errors)
@@ -157,7 +192,6 @@ namespace Bouquet.Areas.Identity.Pages.Account
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
-
             // If we got this far, something failed, redisplay form
             return Page();
         }
