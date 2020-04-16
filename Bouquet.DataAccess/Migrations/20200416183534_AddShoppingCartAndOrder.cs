@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Bouquet.DataAccess.Migrations
 {
-    public partial class AddShoppintCartAndDetailsToDb : Migration
+    public partial class AddShoppingCartAndOrder : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

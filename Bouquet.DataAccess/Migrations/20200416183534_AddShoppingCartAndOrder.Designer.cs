@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bouquet.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200416163839_AddShoppintCartAndDetailsToDb")]
-    partial class AddShoppintCartAndDetailsToDb
+    [Migration("20200416183534_AddShoppingCartAndOrder")]
+    partial class AddShoppingCartAndOrder
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

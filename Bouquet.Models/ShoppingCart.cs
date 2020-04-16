@@ -23,8 +23,8 @@ namespace Bouquet.Models
         [Required]
         public int ProductId { get; set; }
         [ForeignKey("ProductId")]
-        public Product Product { get; set; }   
-        [Range(1,100,ErrorMessage ="Please enter a value between 1 and 100")]
+        public Product Product { get; set; }
+        [Range(1, 100, ErrorMessage = "Please enter a value between 1 and 100")]
         public int Count { get; set; }
         [NotMapped]
         [Column(TypeName = "decimal(7, 2)")]
