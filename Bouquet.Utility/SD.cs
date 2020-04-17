@@ -17,7 +17,7 @@ namespace Bouquet.Utility
         public const string RoleAdmin = "Admin";
         public const string RoleEmployee = "Employee";
 
-        public const string ssShoppingCart = "Shopping Cart Session";
+        public const string ssShoppingCart = "Shopping Cart Session";      
         public static string ConvertToRawHtml(string source)
         {
             char[] array = new char[source.Length];

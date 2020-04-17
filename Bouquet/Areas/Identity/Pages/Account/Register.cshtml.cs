@@ -72,9 +72,13 @@ namespace Bouquet.Areas.Identity.Pages.Account
             public string ConfirmPassword { get; set; }
             [Required]
             public string Name { get; set; }
+            [Required]
             public string StreetAddress { get; set; }
+            [Required]
             public string City { get; set; }
+            [Required]
             public string State { get; set; }
+            [Required]
             public string PostalCode { get; set; }
             [Required]
             public string PhoneNumber { get; set; }
@@ -192,6 +196,19 @@ namespace Bouquet.Areas.Identity.Pages.Account
                 }
             }
             // If we got this far, something failed, redisplay form
+            Input = new InputModel()
+            {
+                CompanyList = _unitOfWork.Company.GetAll().Select(i => new SelectListItem
+                {
+                    Text = i.Name,
+                    Value = i.Id.ToString()
+                }),
+                RoleList = _roleManager.Roles.Where(r => r.Name != SD.RoleIndividual).Select(n => n.Name).Select(i => new SelectListItem
+                {
+                    Text = i,
+                    Value = i
+                })
+            };
             return Page();
         }
     }
