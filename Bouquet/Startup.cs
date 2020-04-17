@@ -60,6 +60,11 @@ namespace Bouquet
                 options.ClientId = "719585898384-p909jf35t5m4r2t5j886t85vll3rkrin.apps.googleusercontent.com";
                 options.ClientSecret = "sb9SuS6D9nLVtpg17EocqrEu";
             });
+            services.AddSession(options =>{
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -80,7 +85,7 @@ namespace Bouquet
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseSession();
             app.UseAuthentication();
             app.UseAuthorization();
 
