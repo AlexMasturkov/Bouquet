@@ -16,6 +16,7 @@ using Bouquet.DataAccess.Repository.IRepository;
 using Bouquet.DataAccess.Repository;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Bouquet.Utility;
+using Stripe;
 
 namespace Bouquet
 {
@@ -37,9 +38,12 @@ namespace Bouquet
                 AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddSingleton<IEmailSender, EmailSender>();
             services.Configure<EmailOptions>(Configuration);
+            services.Configure<StripeSettings>(Configuration.GetSection("Stripe"));
             services.AddScoped<IUnitOfWork,UnitOfWork>();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages();
+            services.AddServerSideBlazor();
+            services.AddControllersWithViews();
             services.ConfigureApplicationCookie(options =>
             {
                 // Cookie settings
@@ -85,6 +89,7 @@ namespace Bouquet
             app.UseStaticFiles();
 
             app.UseRouting();
+            StripeConfiguration.ApiKey = Configuration.GetSection("Stripe")["SecretKey"];
             app.UseSession();
             app.UseAuthentication();
             app.UseAuthorization();
@@ -95,6 +100,7 @@ namespace Bouquet
                     name: "default",
                     pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
+                endpoints.MapBlazorHub();
             });
         }
     }

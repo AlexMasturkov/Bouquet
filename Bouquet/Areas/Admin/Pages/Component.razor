@@ -1,0 +1,10 @@
+﻿
+<h3>Component @cuurentCount</h3>
+<button class="btn btn-primary" @onclick="IncrementCount"></button>
+@code {
+    private int cuurentCount = 0;
+    private void IncrementCount()
+    {
+        cuurentCount++;
+    }
+}
