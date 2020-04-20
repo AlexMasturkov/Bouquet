@@ -13,6 +13,18 @@ a.navbar-brand {
     text-align: center;
     word-break: break-all;
 }
+.text-primary {
+    color: lightslategray !important;
+    text-shadow:1px 1px 0px #fff;
+
+}
+
+.list-group-item-primary {
+    background-color: rebeccapurple !important;
+}
+.list-group-item-secondary {
+    background-color: lightslategray !important;
+}
 
 /* Provide sufficient contrast against white background */
 a {
@@ -27,8 +39,7 @@ a {
 }*/
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  
+  color: #fff; 
 
 background-color: #2c3e50;
 border-color: #1861ac;
@@ -209,9 +220,10 @@ body {
 .btn-primary {
     background-color: rebeccapurple;
     color: white !important;
+    border: 0px solid ;
 }
 .btn-primary:hover {
-    background-color:mediumpurple;
+    background-color:purple;
     color: white !important;
 }
 .btn-danger {

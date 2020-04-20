@@ -32,8 +32,8 @@
                         @if (User.IsInRole(SD.RoleAdmin))
                         {
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Content Management
+                                <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-tasks"></i>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">Category</a>
@@ -46,38 +46,48 @@
                         @if (User.IsInRole(SD.RoleAdmin) || User.IsInRole(SD.RoleEmployee))
                         {
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    User/Company
+                                <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-users-cog"></i>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" asp-area="Admin" asp-controller="Company" asp-action="Index">Company</a>
                                     <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Index">User</a>
-                                    @*<div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Something else here</a>*@
                                 </div>
                             </li>
                         }
-                        @if (HttpContextAccessor.HttpContext.Session.GetInt32(SD.ssShoppingCart) != null)
+                        <li class="nav-item">
+                            <a class="nav-link text-light " asp-area="Admin" asp-controller="Order" asp-action="Index">
+
+                                @if (User.IsInRole(SD.RoleAdmin) || User.IsInRole(SD.RoleEmployee))
+                                {
+                                    <span><i class="fas fa-clipboard-list"></i></span>
+                                }
+                                @if (User.IsInRole(SD.RoleIndividual) || User.IsInRole(SD.RoleCompanyUser))
+                                {
+                                    <span>Order History</span>
+                                }
+                            </a>
+                        </li>
+
+                        @if (HttpContextAccessor.HttpContext.Session.GetInt32(SD.ssShoppingCart) != 0)
                         {
                             <li style="color:white;">
-                                <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="nav-link">
+                                <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="nav-link text-light">
                                     @{
                                         var count = HttpContextAccessor.HttpContext.Session.GetInt32(SD.ssShoppingCart);
                                     }
-                                    <i class="fas fa-shopping-cart"></i> &nbsp; (@count)
+                                    <i class="fas fa-shopping-cart "></i> &nbsp; (@count)
                                 </a>
                             </li>
                         }
                         else
                         {
-                            <li style="color:white;">
+                            <li style="color:wheat;">
                                 <a href="#" class="nav-link">
-                                    <i class="fas fa-shopping-cart"></i> &nbsp;(0)
+                                    <i class="fas fa-shopping-cart "></i> &nbsp;(0)
                                 </a>
                             </li>
-
                         }
-
                     </ul>
                 </div>
             </div>

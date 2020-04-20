@@ -1,0 +1,78 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var status = Context.Request.Query["status"];
+
+    var inprocess = "list-group-item-secondary";
+    var pending = "list-group-item-secondary";
+    var completed = "list-group-item-secondary";
+    var rejected = "list-group-item-secondary";
+    var all = "list-group-item-secondary";
+
+    switch (status)
+    {
+        case "inprocess":
+            inprocess = "list-group-item-primary";
+            break;
+        case "pending":
+            pending = "list-group-item-primary";
+            break;
+        case "completed":
+            completed = "list-group-item-primary";
+            break;
+        case "rejected":
+            rejected = "list-group-item-primary";
+            break;
+        default:
+            all = "list-group-item-primary";
+            break;
+    }
+}
+
+<br />
+<div class="border p-3">
+    <div class="d-flex justify-content-between mb-3">
+        <div class="p-2">
+            <h2 class="text-primary">Order's List </h2>
+        </div>
+        <div class="p-2">
+            <ul class="list-group list-group-horizontal-sm">
+                <li class="list-group-item @inprocess">
+                    <a style="text-decoration:none;color:white;" asp-controller="Order" asp-action="Index" asp-route-status="inprocess">In Process</a>
+                </li>
+                <li class="list-group-item @pending">
+                    <a style="text-decoration:none; color:white;" asp-controller="Order" asp-action="Index" asp-route-status="pending">Payment Pending</a>
+                </li>
+                <li class="list-group-item @completed">
+                    <a style="text-decoration:none;color:white;" asp-controller="Order" asp-action="Index" asp-route-status="completed">Completed</a>
+                </li>
+                <li class="list-group-item @rejected">
+                    <a style="text-decoration:none;color:white;" asp-controller="Order" asp-action="Index" asp-route-status="rejected">Rejected</a>
+                </li>
+                <li class="list-group-item @all">
+                    <a style="text-decoration:none;color:white;" asp-controller="Order" asp-action="Index" asp-route-status="all">All</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <br /><br />
+    <table id="tblData" class="table table-striped table-bordered" style="width:100%">
+        <thead class="thead-dark">
+            <tr class="">
+                <th>Id</th>
+                <th>Name</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+                <th>Order Status</th>
+                <th>Amount</th>
+                <th></th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+
+@section Scripts{
+
+    <script src="~/js/order.js"></script>
+}
+
