@@ -3,6 +3,7 @@ using Bouquet.Models;
 using Bouquet.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Bouquet.Areas.Admin.Controllers
 {
@@ -20,7 +21,7 @@ namespace Bouquet.Areas.Admin.Controllers
             return View();
         }
 
-        public IActionResult Upsert(int? id)
+        public async Task<IActionResult> Upsert(int? id)
         {
             Category category = new Category();
 
@@ -30,7 +31,7 @@ namespace Bouquet.Areas.Admin.Controllers
             }
             else //this is for editing
             {
-                category = _unitOfWork.Category.Get(id.GetValueOrDefault());
+                category = await _unitOfWork.Category.GetAsync(id.GetValueOrDefault());
                 if(category == null)
                 {
                     return NotFound();
@@ -41,13 +42,13 @@ namespace Bouquet.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Upsert(Category category)
+        public async Task<IActionResult> Upsert(Category category)
         { 
             if(ModelState.IsValid)
             {
                 if(category.Id == 0)//POST to create new Category 
                 {
-                    _unitOfWork.Category.Add(category);                  
+                   await _unitOfWork.Category.AddAsync(category);                  
                 }
                 else// POST to update existed Category
                 {
@@ -62,23 +63,23 @@ namespace Bouquet.Areas.Admin.Controllers
         #region API CALLS
 
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var allCategories = _unitOfWork.Category.GetAll();
+            var allCategories = await _unitOfWork.Category.GetAllAsync();
             return Json(new { data = allCategories });
         }
 
         [HttpDelete]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             if( id != 0)
             {
-                var removeCategory = _unitOfWork.Category.Get(id);
+                var removeCategory = await _unitOfWork.Category.GetAsync(id);
                 if(removeCategory == null)
                 {
                     return Json(new { success = false, message ="Error while deleting" });
                 }
-                _unitOfWork.Category.Remove(removeCategory);
+               await _unitOfWork.Category.RemoveAsync(removeCategory);
                 _unitOfWork.Save();
                 return Json(new { success = true, message = "Success deleting Category: " + removeCategory.Name });
             }
