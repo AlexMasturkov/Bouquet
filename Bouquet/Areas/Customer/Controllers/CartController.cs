@@ -14,7 +14,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Options;
 using Stripe;
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
 
 namespace Bouquet.Areas.Customer.Controllers
 {
@@ -23,16 +26,18 @@ namespace Bouquet.Areas.Customer.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IEmailSender _emailSender;
+        private TwilioSettings _twilioSettings { get; set; }
         private readonly UserManager<IdentityUser> _userManager;
 
         [BindProperty]
         public ShoppingCartVM ShoppingCartVM { get; set; }
 
-        public CartController(IUnitOfWork unitOfWork, IEmailSender emailSender, UserManager<IdentityUser> userManager)
+        public CartController(IUnitOfWork unitOfWork, IEmailSender emailSender, UserManager<IdentityUser> userManager,IOptions<TwilioSettings> twilioSettings)
         {
             _unitOfWork = unitOfWork;
             _emailSender = emailSender;
             _userManager = userManager;
+            _twilioSettings = twilioSettings.Value;
         }
         public IActionResult Index()
         {
@@ -227,7 +232,22 @@ namespace Bouquet.Areas.Customer.Controllers
 
 
         public IActionResult OrderConfirmation(int id)
-        {
+        {  //Need to uncomment to use sms
+
+            //OrderHeader orderHeader = _unitOfWork.OrderHeader.GetFirstOrDefault(u => u.Id == id);
+            //TwilioClient.Init(_twilioSettings.AccountSid, _twilioSettings.AuthToken);
+            //try
+            //{
+            //    var message = MessageResource.Create(
+            //        body: "Order Placed on Bouquet. Your Order Id: " + id,
+            //        from: new Twilio.Types.PhoneNumber(_twilioSettings.PhoneNumber),
+            //        to: new Twilio.Types.PhoneNumber(orderHeader.PhoneNumber)
+            //        );
+            //}
+            //catch(Exception ex)
+            //{
+
+            //}
             return View(id);
         }
     }
