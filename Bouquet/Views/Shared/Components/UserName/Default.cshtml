@@ -1,0 +1,18 @@
+﻿@model Bouquet.Models.ApplicationUser
+
+@{
+    string fullName = @Model.Name;
+    int foundS1 = fullName.IndexOf(" ");
+    string firstName = fullName;
+    if(foundS1!=-1)
+    {
+        firstName = firstName.Remove(foundS1+1);
+    }
+    else
+    {
+        firstName = firstName + " ";
+    }
+
+}
+
+@firstName<i class="far fa-user"></i>
