@@ -1,8 +1,10 @@
 ﻿using Bouquet.DataAccess.Repository.IRepository;
 using Bouquet.Models;
+using Bouquet.Models.ViewModels;
 using Bouquet.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Bouquet.Areas.Admin.Controllers
@@ -16,9 +18,23 @@ namespace Bouquet.Areas.Admin.Controllers
         {
             _unitOfWork = unitOfWork;
         }
-        public IActionResult Index()
+        public async Task< IActionResult> Index(int productPage = 1)
         {
-            return View();
+            CategoryVM categoryVM = new CategoryVM()
+            {
+                Categories = await _unitOfWork.Category.GetAllAsync()
+            };
+            var count = categoryVM.Categories.Count();
+            categoryVM.Categories = categoryVM.Categories.OrderBy(p => p.Name).Skip((productPage - 1) * 2).Take(2).ToList();
+            categoryVM.PagingInfo = new PagingInfo
+            {
+                CurrentPage = productPage,
+                ItemsPerPage = 2,
+                TotalItem = count,
+                UrlParam= "/Admin/Category/Index?productPage=:"
+            };
+
+            return View(categoryVM);
         }
 
         public async Task<IActionResult> Upsert(int? id)
