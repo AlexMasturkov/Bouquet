@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Bouquet.Utility;
 using Stripe;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Bouquet.DataAccess.Initializer;
 
 namespace Bouquet
 {
@@ -43,6 +44,7 @@ namespace Bouquet
             services.Configure<StripeSettings>(Configuration.GetSection("Stripe"));
             services.Configure<TwilioSettings>(Configuration.GetSection("Twilio"));
             services.AddScoped<IUnitOfWork,UnitOfWork>();
+            services.AddScoped<IDbInitializer, DbInitializer>();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages();
             services.AddServerSideBlazor();
@@ -74,7 +76,7 @@ namespace Bouquet
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IDbInitializer dbInitializer)
         {
             if (env.IsDevelopment())
             {
@@ -95,6 +97,7 @@ namespace Bouquet
             app.UseSession();
             app.UseAuthentication();
             app.UseAuthorization();
+            dbInitializer.Inizialize();
 
             app.UseEndpoints(endpoints =>
             {

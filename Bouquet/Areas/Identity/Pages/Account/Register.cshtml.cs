@@ -133,22 +133,22 @@ namespace Bouquet.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
-                    if (!await _roleManager.RoleExistsAsync(SD.RoleAdmin))
-                    {
-                        await _roleManager.CreateAsync(new IdentityRole(SD.RoleAdmin));
-                    }
-                    if (!await _roleManager.RoleExistsAsync(SD.RoleEmployee))
-                    {
-                        await _roleManager.CreateAsync(new IdentityRole(SD.RoleEmployee));
-                    }
-                    if (!await _roleManager.RoleExistsAsync(SD.RoleCompanyUser))
-                    {
-                        await _roleManager.CreateAsync(new IdentityRole(SD.RoleCompanyUser));
-                    }
-                    if (!await _roleManager.RoleExistsAsync(SD.RoleIndividual))
-                    {
-                        await _roleManager.CreateAsync(new IdentityRole(SD.RoleIndividual));
-                    }
+                    //if (!await _roleManager.RoleExistsAsync(SD.RoleAdmin))
+                    //{
+                    //    await _roleManager.CreateAsync(new IdentityRole(SD.RoleAdmin));
+                    //}
+                    //if (!await _roleManager.RoleExistsAsync(SD.RoleEmployee))
+                    //{
+                    //    await _roleManager.CreateAsync(new IdentityRole(SD.RoleEmployee));
+                    //}
+                    //if (!await _roleManager.RoleExistsAsync(SD.RoleCompanyUser))
+                    //{
+                    //    await _roleManager.CreateAsync(new IdentityRole(SD.RoleCompanyUser));
+                    //}
+                    //if (!await _roleManager.RoleExistsAsync(SD.RoleIndividual))
+                    //{
+                    //    await _roleManager.CreateAsync(new IdentityRole(SD.RoleIndividual));
+                    //}
 
                     if (user.Role == null)
                     {

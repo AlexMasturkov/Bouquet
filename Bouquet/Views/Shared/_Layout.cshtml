@@ -18,7 +18,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-white border-bottom my-base-color box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Bouquet</a>
+                <a class="navbar-brand" asp-area="Customer" asp-controller="Home" asp-action="Index">Bouquet</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -26,9 +26,7 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1" style="color:azure!important;">
-                        <li class="nav-item">
-                            <a class="nav-link text-light " asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
+
                         @if (User.IsInRole(SD.RoleAdmin))
                         {
                             <li class="nav-item dropdown">
@@ -68,6 +66,12 @@
                                 }
                             </a>
                         </li>
+                        @if (User.IsInRole(SD.RoleAdmin) || User.IsInRole(SD.RoleEmployee))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light " asp-area="Admin" asp-controller="BrainTree" asp-action="Index">BrainTree</a>
+                            </li>
+                        }
 
                         @if (HttpContextAccessor.HttpContext.Session.GetInt32(SD.ssShoppingCart) != 0)
                         {
