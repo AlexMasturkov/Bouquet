@@ -93,10 +93,13 @@ namespace Bouquet.Areas.Admin.Controllers
                 var removeCategory = await _unitOfWork.Category.GetAsync(id);
                 if(removeCategory == null)
                 {
+                    TempData["Error"] = "Error deleteing Category";
                     return Json(new { success = false, message ="Error while deleting" });
                 }
                await _unitOfWork.Category.RemoveAsync(removeCategory);
                 _unitOfWork.Save();
+
+                TempData["Success"] = "Category successfully deleted";
                 return Json(new { success = true, message = "Success deleting Category: " + removeCategory.Name });
             }
             else
