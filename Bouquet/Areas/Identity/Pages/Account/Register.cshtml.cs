@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -10,6 +11,7 @@ using Bouquet.Models;
 using Bouquet.Utility;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -29,6 +31,7 @@ namespace Bouquet.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IWebHostEnvironment _hostEnvironment;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
@@ -36,6 +39,7 @@ namespace Bouquet.Areas.Identity.Pages.Account
             RoleManager<IdentityRole> roleManager,
             ILogger<RegisterModel> logger,
             IUnitOfWork unitOfWork,
+            IWebHostEnvironment hostEnvironment,
             IEmailSender emailSender)
         {
             _userManager = userManager;
@@ -44,6 +48,7 @@ namespace Bouquet.Areas.Identity.Pages.Account
             _logger = logger;
             _unitOfWork = unitOfWork;
             _emailSender = emailSender;
+            _hostEnvironment = hostEnvironment;
         }
 
         [BindProperty]
@@ -133,23 +138,7 @@ namespace Bouquet.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
-                    //if (!await _roleManager.RoleExistsAsync(SD.RoleAdmin))
-                    //{
-                    //    await _roleManager.CreateAsync(new IdentityRole(SD.RoleAdmin));
-                    //}
-                    //if (!await _roleManager.RoleExistsAsync(SD.RoleEmployee))
-                    //{
-                    //    await _roleManager.CreateAsync(new IdentityRole(SD.RoleEmployee));
-                    //}
-                    //if (!await _roleManager.RoleExistsAsync(SD.RoleCompanyUser))
-                    //{
-                    //    await _roleManager.CreateAsync(new IdentityRole(SD.RoleCompanyUser));
-                    //}
-                    //if (!await _roleManager.RoleExistsAsync(SD.RoleIndividual))
-                    //{
-                    //    await _roleManager.CreateAsync(new IdentityRole(SD.RoleIndividual));
-                    //}
-
+                 
                     if (user.Role == null)
                     {
                         await _userManager.AddToRoleAsync(user, SD.RoleIndividual);
@@ -170,9 +159,37 @@ namespace Bouquet.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = user.Id, code = code },
                         protocol: Request.Scheme);
 
-                        await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    var pathToFile = _hostEnvironment.WebRootPath + Path.DirectorySeparatorChar.ToString()
+                        + "Templates" + Path.DirectorySeparatorChar.ToString() + "EmailTemplates"
+                        + Path.DirectorySeparatorChar.ToString() + "Confirm_Account_Registration.html";
 
+                    var subject = "Confirm Account Registration";
+                    string HtmlBody = "";
+                    using (StreamReader streamReader = System.IO.File.OpenText(pathToFile))
+                    {
+                        HtmlBody = streamReader.ReadToEnd();
+                    }
+
+                    //{0} : Subject  
+                    //{1} : DateTime  
+                    //{2} : Name  
+                    //{3} : Email  
+                    //{4} : Message  
+                    //{5} : callbackURL  
+
+                    string message = $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.";
+
+                    string messageBody = string.Format(HtmlBody,
+                        subject,
+                        String.Format("{0:dddd, d MMMM yyyy}", DateTime.Now),
+                        user.Name,
+                        user.Email,
+                        message,
+                        callbackUrl
+                        );
+
+
+                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email", messageBody);
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
                         return RedirectToPage("RegisterConfirmation", new { email = Input.Email });
@@ -186,7 +203,7 @@ namespace Bouquet.Areas.Identity.Pages.Account
                         }
                         else
                         {
-                            //Admin is registering a new user
+                            //admin is registering a new user
                             return RedirectToAction("Index", "User", new { Area = "Admin" });
                         }
                     }

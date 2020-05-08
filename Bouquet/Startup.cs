@@ -43,6 +43,8 @@ namespace Bouquet
             services.Configure<EmailOptions>(Configuration);
             services.Configure<StripeSettings>(Configuration.GetSection("Stripe"));
             services.Configure<TwilioSettings>(Configuration.GetSection("Twilio"));
+            services.Configure<BrainTreeSettings>(Configuration.GetSection("BrainTree"));
+            services.AddSingleton<IBrainTreeGate, BrainTreeGate>();
             services.AddScoped<IUnitOfWork,UnitOfWork>();
             services.AddScoped<IDbInitializer, DbInitializer>();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
