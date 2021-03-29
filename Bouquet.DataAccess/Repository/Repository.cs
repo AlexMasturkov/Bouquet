@@ -64,7 +64,6 @@ namespace Bouquet.DataAccess.Repository
                     query = query.Include(includeProp);
                 }
             }
-
             return query.FirstOrDefault();
         }
 

@@ -1,16 +1,21 @@
 ﻿using Bouquet.DataAccess.Repository.IRepository;
 using Bouquet.Models;
 using Bouquet.Models.ViewModels;
+using Bouquet.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Bouquet.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.RoleAdmin)]
     public class ProductController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -25,12 +30,14 @@ namespace Bouquet.Areas.Admin.Controllers
             return View();
         }
 
-        public IActionResult Upsert(int? id)
+        public async Task<IActionResult> Upsert(int? id)
         {
-            ProductVM productVM = new ProductVM()
+            IEnumerable<Category> CategoryFirstList = await _unitOfWork.Category.GetAllAsync();
+
+           ProductVM productVM = new ProductVM()
             {
                 Product = new Product(),
-                CategoryList = _unitOfWork.Category.GetAll().Select(i=> new SelectListItem { 
+                CategoryList = CategoryFirstList.Select(i=> new SelectListItem { 
                     Text = i.Name,
                     Value = i.Id.ToString()                
                 }),
@@ -59,7 +66,7 @@ namespace Bouquet.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Upsert(ProductVM productVM)
+        public async Task< IActionResult> Upsert(ProductVM productVM)
         {
             if (ModelState.IsValid)
             {
@@ -110,7 +117,8 @@ namespace Bouquet.Areas.Admin.Controllers
             }
             else
             {
-                productVM.CategoryList = _unitOfWork.Category.GetAll().Select(i => new SelectListItem
+                IEnumerable<Category> CategoryFirstList = await _unitOfWork.Category.GetAllAsync();
+                productVM.CategoryList = CategoryFirstList.Select(i => new SelectListItem
                 {
                     Text = i.Name,
                     Value = i.Id.ToString()

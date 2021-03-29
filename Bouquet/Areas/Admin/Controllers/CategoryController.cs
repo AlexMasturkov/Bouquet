@@ -1,10 +1,16 @@
 ﻿using Bouquet.DataAccess.Repository.IRepository;
 using Bouquet.Models;
+using Bouquet.Models.ViewModels;
+using Bouquet.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Bouquet.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.RoleAdmin)]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -12,12 +18,26 @@ namespace Bouquet.Areas.Admin.Controllers
         {
             _unitOfWork = unitOfWork;
         }
-        public IActionResult Index()
+        public async Task< IActionResult> Index(int productPage = 1)
         {
-            return View();
+            CategoryVM categoryVM = new CategoryVM()
+            {
+                Categories = await _unitOfWork.Category.GetAllAsync()
+            };
+            var count = categoryVM.Categories.Count();
+            categoryVM.Categories = categoryVM.Categories.OrderBy(p => p.Name).Skip((productPage - 1) * 2).Take(2).ToList();
+            categoryVM.PagingInfo = new PagingInfo
+            {
+                CurrentPage = productPage,
+                ItemsPerPage = 2,
+                TotalItem = count,
+                UrlParam= "/Admin/Category/Index?productPage=:"
+            };
+
+            return View(categoryVM);
         }
 
-        public IActionResult Upsert(int? id)
+        public async Task<IActionResult> Upsert(int? id)
         {
             Category category = new Category();
 
@@ -27,7 +47,7 @@ namespace Bouquet.Areas.Admin.Controllers
             }
             else //this is for editing
             {
-                category = _unitOfWork.Category.Get(id.GetValueOrDefault());
+                category = await _unitOfWork.Category.GetAsync(id.GetValueOrDefault());
                 if(category == null)
                 {
                     return NotFound();
@@ -38,13 +58,13 @@ namespace Bouquet.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Upsert(Category category)
+        public async Task<IActionResult> Upsert(Category category)
         { 
             if(ModelState.IsValid)
             {
                 if(category.Id == 0)//POST to create new Category 
                 {
-                    _unitOfWork.Category.Add(category);                  
+                   await _unitOfWork.Category.AddAsync(category);                  
                 }
                 else// POST to update existed Category
                 {
@@ -59,24 +79,27 @@ namespace Bouquet.Areas.Admin.Controllers
         #region API CALLS
 
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var allCategories = _unitOfWork.Category.GetAll();
+            var allCategories = await _unitOfWork.Category.GetAllAsync();
             return Json(new { data = allCategories });
         }
 
         [HttpDelete]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             if( id != 0)
             {
-                var removeCategory = _unitOfWork.Category.Get(id);
+                var removeCategory = await _unitOfWork.Category.GetAsync(id);
                 if(removeCategory == null)
                 {
+                    TempData["Error"] = "Error deleteing Category";
                     return Json(new { success = false, message ="Error while deleting" });
                 }
-                _unitOfWork.Category.Remove(removeCategory);
+               await _unitOfWork.Category.RemoveAsync(removeCategory);
                 _unitOfWork.Save();
+
+                TempData["Success"] = "Category successfully deleted";
                 return Json(new { success = true, message = "Success deleting Category: " + removeCategory.Name });
             }
             else

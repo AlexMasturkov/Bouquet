@@ -9,6 +9,10 @@
     <Compile Remove="Migrations\20200408160307_AddProductToDb.Designer.cs" />
     <Compile Remove="Migrations\20200408160909_add-migration AddProductDecimal.cs" />
     <Compile Remove="Migrations\20200408160909_add-migration AddProductDecimal.Designer.cs" />
+    <Compile Remove="Migrations\20200419142155_UpdatengFix.cs" />
+    <Compile Remove="Migrations\20200419142155_UpdatengFix.Designer.cs" />
+    <Compile Remove="Migrations\20200419162435_UpdatedProduct.cs" />
+    <Compile Remove="Migrations\20200419162435_UpdatedProduct.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

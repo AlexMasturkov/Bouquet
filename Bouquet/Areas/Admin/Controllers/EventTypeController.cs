@@ -2,6 +2,7 @@
 using Bouquet.Models;
 using Bouquet.Utility;
 using Dapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bouquet.Areas.Admin.Controllers
@@ -10,6 +11,7 @@ namespace Bouquet.Areas.Admin.Controllers
     // we can uncomment commented parts to use without stored procedure methods
 
     [Area("Admin")]
+    [Authorize(Roles = SD.RoleAdmin)]
     public class EventTypeController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
