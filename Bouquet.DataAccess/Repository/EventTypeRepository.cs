@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Bouquet.DataAccess.Repository
 {
-    public class EventTypeRepository : Repository<EventType>, IEventTypeRepository
+    public class EventTypeRepository : RepositoryAsync<EventType>, IEventTypeRepository
     {
         private readonly ApplicationDbContext _db;
         public EventTypeRepository(ApplicationDbContext db) : base(db)

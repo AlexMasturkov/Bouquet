@@ -18,6 +18,7 @@ namespace Bouquet.Utility
         public const string RoleEmployee = "Employee";
 
         public const string ssShoppingCart = "Shopping Cart Session";
+        public const string ssShoppingAmount = "Shopping Amount Session";
 
         public const string StatusPending = "Pending";
         public const string StatusApproved = "Approved";
@@ -29,11 +30,18 @@ namespace Bouquet.Utility
         public const string PaymentStatusPending = "Pending";
         public const string PaymentStatusApproved = "Approved";
         public const string PaymentStatusDelayedPayment = "ApprovedForDelayedPayment";
-        public const string PaymentStatusRejected = "Rejected"; 
+        public const string PaymentStatusRejected = "Rejected";
+
+        public const string ImageFolder = @"images\products";
 
 
         public static string ConvertToRawHtml(string source)
         {
+            if(source == null)
+            {
+                return new string("");
+            }
+
             char[] array = new char[source.Length];
             int arrayIndex = 0;
             bool inside = false;

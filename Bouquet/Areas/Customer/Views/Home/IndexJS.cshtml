@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Bouquet.Models.Product>
+@using Bouquet.Utility;
+<div class="btn-group container-fluid p-0 m-0 " role="group">
+    <button class="btn btn-light col-2 pt-2 pb-2 " id="1">Roses</button>
+    <button class="btn btn-light col-2 pt-2 pb-2 " id="2">Bouquets</button>
+    <button class="btn btn-light col-2 pt-2 pb-2" id="3">Anniversary</button>
+    <button class="btn btn-light col-2 pt-2 pb-2" id="4">Birthday</button>
+    <button class="btn btn-light col-2 pt-2 pb-2" id="5">Love</button>
+    <button class="btn btn-light col-2 pt-2 pb-2" id="6">Funeral</button>
+
+</div>
+<div class="row align-content-center ml-1 mr-1" style="margin: auto;" id="columns">
+
+
+
+    @*@foreach (var product in Model)
+        {
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 p-1 trest">
+                @{
+                    string myString = "" + SD.ConvertToRawHtml(@product.Description);
+                }
+
+                <div class="card-body p-1 pb-0 m-0 my-shadow-transp" style=" border-radius: .5rem !important; ">
+                    <label class=" p-2 text-center col-12 m-0 font-adjust my-font" style="font-weight: 300;font-size:22px; color: white;">
+                        @product.Name
+                    </label>
+                    <div class="flw">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <img class="frameContainer card-img-top " src="@product.ImageUrl" alt="Card Image" />
+                        </div>
+                    </div>
+                    <div class="description">
+                        <div class="d-flex justify-content-center ">
+                            <textarea style="font-size:14px; border-radius:5px; " class="p-1 mt-1 text-center"> @myString</textarea>
+                        </div>
+                    </div>
+                    <div class=" description p-1 text-center col-12 m-0 pt-2" style="font-size: 16px; font-weight: 600; color: white;">
+                        <span style="font-size:14px; " class="mr-2 text-white mb-0 p-0">from</span> <span style="font-size:14px; ">   @product.Price CAD</span>
+                        <a class="btn my-button-success  text-white ml-2 mb-0 " asp-action="Details" asp-controller="Home" asp-route-id="@product.Id">
+                            Add
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        }*@
+</div>
+
+@section Scripts{
+
+    <script src="~/js/indexJS.js"></script>   
+}
+
