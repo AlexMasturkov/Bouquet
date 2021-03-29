@@ -52,7 +52,7 @@ namespace Bouquet.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (eventType.Id == 0)//POST to create new Category 
+                if (eventType.Id == 0)//POST tto create new Category 
                 {
                     await _unitOfWork.EventType.AddAsync(eventType);
                 }
