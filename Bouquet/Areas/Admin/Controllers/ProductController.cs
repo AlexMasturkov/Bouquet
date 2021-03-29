@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,19 +30,25 @@ namespace Bouquet.Areas.Admin.Controllers
         {
             return View();
         }
+       
+        public IActionResult IndexTest()
+        {
+            return View();
+        }
 
         public async Task<IActionResult> Upsert(int? id)
         {
             IEnumerable<Category> CategoryFirstList = await _unitOfWork.Category.GetAllAsync();
+            IEnumerable<EventType> EventTypeFirstList = await _unitOfWork.EventType.GetAllAsync();
 
-           ProductVM productVM = new ProductVM()
+            ProductVM productVM = new ProductVM()
             {
                 Product = new Product(),
                 CategoryList = CategoryFirstList.Select(i=> new SelectListItem { 
                     Text = i.Name,
                     Value = i.Id.ToString()                
                 }),
-                EventTypeList = _unitOfWork.EventType.GetAll().Select(i => new SelectListItem
+                EventTypeList = EventTypeFirstList.Select(i => new SelectListItem
                 {
                     Text = i.Name,
                     Value = i.Id.ToString()
@@ -75,9 +82,25 @@ namespace Bouquet.Areas.Admin.Controllers
                 if(files.Count > 0)
                 {
                     string fileName = Guid.NewGuid().ToString();
-                    var uploads = Path.Combine(webRootPath, @"images\products\");
+                    var uploads = Path.Combine(webRootPath, SD.ImageFolder + @"\");
                     var extension = Path.GetExtension(files[0].FileName);
-                    if(productVM.Product.ImageUrl != null)
+                    
+                    byte[] picture = null;//new Image to create from User Input
+                    using (var mstream = new MemoryStream())
+                    {
+                        files[0].CopyTo(mstream);
+                        picture = mstream.ToArray();
+                    }
+                    //change size after image uploaded to memory
+                      MemoryStream ms = new MemoryStream(picture);
+                        Image returnImage = Image.FromStream(ms);
+                        returnImage = ImageBuilder.ResizeImage(returnImage);
+
+                    var upload_memory = Path.Combine(webRootPath, SD.ImageFolder + @"\" + fileName + ".jpeg");
+                  
+
+
+                    if (productVM.Product.ImageUrl != null)
                     {
                         //this is an edit and we need to remove old image
                       
@@ -87,11 +110,8 @@ namespace Bouquet.Areas.Admin.Controllers
                             System.IO.File.Delete(imagePath);
                         }
                     }
-                    using (var filesStreams = new FileStream(Path.Combine(uploads,fileName+extension),FileMode.Create))
-                    {
-                        files[0].CopyTo(filesStreams);
-                    }
-                    productVM.Product.ImageUrl = @"\images\products\" + fileName + extension;
+                    returnImage.Save(upload_memory, System.Drawing.Imaging.ImageFormat.Jpeg);
+                    productVM.Product.ImageUrl = @"\"+ SD.ImageFolder + @"\" + fileName + ".jpeg";
                 }
                 else
                 {
@@ -118,12 +138,13 @@ namespace Bouquet.Areas.Admin.Controllers
             else
             {
                 IEnumerable<Category> CategoryFirstList = await _unitOfWork.Category.GetAllAsync();
+                IEnumerable<EventType> EventTypeFirstList = await _unitOfWork.EventType.GetAllAsync();
                 productVM.CategoryList = CategoryFirstList.Select(i => new SelectListItem
                 {
                     Text = i.Name,
                     Value = i.Id.ToString()
                 });
-                productVM.EventTypeList = _unitOfWork.EventType.GetAll().Select(i => new SelectListItem
+                productVM.EventTypeList =EventTypeFirstList.Select(i => new SelectListItem
                 {
                     Text = i.Name,
                     Value = i.Id.ToString()
@@ -137,12 +158,55 @@ namespace Bouquet.Areas.Admin.Controllers
         }
 
         #region API CALLS
+      
 
         [HttpGet]
         public IActionResult GetAll()
         {
             var allProducts = _unitOfWork.Product.GetAll(includeProperties:"Category,EventType");
             return Json(new { data = allProducts });
+        }
+        [HttpGet]
+        public IActionResult GetAllTest(int? id)
+        {          
+            var allProducts = _unitOfWork.Product.GetAll(includeProperties: "Category,EventType").ToList();
+            if(id == 1)
+            {
+                return Json(new { data = allProducts.OrderBy(p => p.Name).ToList()});  
+            }
+            else if (id == 11)
+            {
+                return Json(new { data = allProducts.OrderByDescending(p => p.Name).ToList() });
+            }
+            else if(id == 2)
+            {
+                return Json(new { data = allProducts.OrderBy(p => p.Price).ToList()});
+            }
+            else if (id == 12)
+            {
+                return Json(new { data = allProducts.OrderByDescending(p => p.Price).ToList() });
+            }
+            else if(id == 3)
+            {
+                return Json(new { data = allProducts.OrderBy(p => p.Category.Name).ToList()});
+            }
+            else if (id == 13)
+            {
+                return Json(new { data = allProducts.OrderByDescending(p => p.Category.Name).ToList() });
+            }
+            else if (id == 4)
+            {
+                return Json(new { data = allProducts.OrderBy(p => p.EventType.Name).ToList()});
+            }
+            else if (id == 14)
+            {
+                return Json(new { data = allProducts.OrderByDescending(p => p.EventType.Name).ToList() });
+            }
+            else
+            {
+                return Json(new { data = allProducts });
+            }         
+          
         }
 
         [HttpDelete]

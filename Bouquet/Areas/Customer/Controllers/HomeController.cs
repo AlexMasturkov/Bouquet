@@ -28,9 +28,14 @@ namespace Bouquet.Area.Customer.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string id ="")
         {
-            IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperties: "Category,EventType");
+            IEnumerable<Product> productListDb = _unitOfWork.Product.GetAll(includeProperties: "Category,EventType");
+            var productList = productListDb;
+            if(id != "")
+            {
+                productList = productListDb.Where(p => p.Category.Name.Contains(id.Substring(0,3)) || p.EventType.Name.Contains(id.Substring(0, 3))|| p.Name.Contains(id.Substring(0, 3)));
+            }
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
             if(claim!=null)
@@ -40,9 +45,24 @@ namespace Bouquet.Area.Customer.Controllers
                 .ToList().Count();
                 HttpContext.Session.SetInt32(SD.ssShoppingCart, count);
             }
-            return View(productList);
-
+            return View(productList.ToList());
         }
+
+        public IActionResult IndexJS()
+        {
+            IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperties: "Category,EventType");
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            if (claim != null)
+            {
+                var count = _unitOfWork.ShoppingCart
+                .GetAll(c => c.ApplicationUserId == claim.Value)
+                .ToList().Count();
+                HttpContext.Session.SetInt32(SD.ssShoppingCart, count);
+            }
+            return View(productList);
+        }
+
         public IActionResult Details(int id)
         {
             var productFromDb = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == id, includeProperties: "Category,EventType");
@@ -118,5 +138,54 @@ namespace Bouquet.Area.Customer.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        #region API CALLS
+        [HttpGet]
+        public IActionResult GetAllIndex(int? id)
+        {
+            var allProducts = _unitOfWork.Product.GetAll(includeProperties: "Category,EventType").ToList();           
+            foreach (var item in allProducts)
+            {
+                item.Description = SD.ConvertToRawHtml(item.Description);
+            }
+          
+            if (id == 1)
+            {
+                return Json(new { data = allProducts.Where(p => p.Category.Name == "Rosas").ToList() });
+            }
+            else if (id == 11)
+            {
+                return Json(new { data = allProducts.OrderByDescending(p => p.Name).ToList() });
+            }
+            else if (id == 2)
+            {
+                return Json(new { data = allProducts.OrderBy(p => p.Price).ToList() });
+            }
+            else if (id == 12)
+            {
+                return Json(new { data = allProducts.OrderByDescending(p => p.Price).ToList() });
+            }
+            else if (id == 3)
+            {
+                return Json(new { data = allProducts.OrderBy(p => p.Category.Name).ToList() });
+            }
+            else if (id == 13)
+            {
+                return Json(new { data = allProducts.OrderByDescending(p => p.Category.Name).ToList() });
+            }
+            else if (id == 4)
+            {
+                return Json(new { data = allProducts.OrderBy(p => p.EventType.Name).ToList() });
+            }
+            else if (id == 14)
+            {
+                return Json(new { data = allProducts.OrderByDescending(p => p.EventType.Name).ToList() });
+            }
+            else
+            {
+                return Json(new { data = allProducts });
+            }
+
+        }
+        #endregion
     }
 }

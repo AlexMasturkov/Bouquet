@@ -33,7 +33,7 @@ function loadDataTable(url) {
             { "data": "phoneNumber", "width": "15%" },
             { "data": "applicationUser.email", "width": "20%" },
             { "data": "orderStatus", "width": "15%" },
-            { "data": "orderTotal", "width": "10%" },
+            { "data": "orderTotal", "width": "8%" },
             {
                 "data": "id",
                 "render": function (data) {
@@ -44,7 +44,7 @@ function loadDataTable(url) {
                                 </a>                               
                             </div>
                            `;
-                }, "width": "5%"
+                }, "width": "7%"
             }
         ]
     });

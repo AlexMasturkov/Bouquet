@@ -1,12 +1,13 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
-.my-base-color{
-    background-color:rebeccapurple!important;
+.my-base-color {
+    /*background-color:rebeccapurple!important;*/
+    background-color: rgba(120,7,148,.8) !important;
 }
 
 .font-base {
-    color: rebeccapurple !important;
+    background-color: rgba(120,7,148,1) !important;
 }
 a.navbar-brand {
     white-space: normal;
@@ -18,12 +19,18 @@ a.navbar-brand {
     text-shadow:1px 1px 0px #fff;
 
 }
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 
 .list-group-item-primary {
-    background-color: rebeccapurple !important;
+    background-color: rgba(120,7,148,.8) !important;
 }
 .list-group-item-secondary {
-    background-color: lightslategray !important;
+    background-color: rgba(120,7,148,.6) !important;
 }
 
 /* Provide sufficient contrast against white background */
@@ -84,7 +91,9 @@ html {
 
 body {
     /* Margin bottom by footer height */
+    /*background-color: rgba(205,2,255,.1) !important;*/
     margin-bottom: 60px;
+    background-image: linear-gradient(0deg, rgb(5, 39, 103) 0%, #3a0647 70%);
 }
 
 .footer {
@@ -218,12 +227,16 @@ body {
     margin: 0 auto;
 }
 .btn-primary {
-    background-color: rebeccapurple;
+    background-color: rgba(120,7,148,.8) !important;
     color: white !important;
-    border: 0px solid ;
+    border: 0px solid;
 }
-.btn-primary:hover {
-    background-color:purple;
+    .btn-primary:hover {
+        background-color: rgba(120,7,148,.6) !important;
+        color: white !important;
+    }
+.selected {
+    background-color: rgba(120,7,148,.9) !important;
     color: white !important;
 }
 .btn-danger {
@@ -236,6 +249,138 @@ body {
 }
 .table .thead-dark th {
     color: white;
-    background-color: rebeccapurple;
+    background-color: rgba(120,7,148,.8) !important;
     border-color: #dee2e6;
 }
+
+
+.zoom {
+    transition: transform .2s; /* Animation */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+    .zoom:hover {
+        transform: scale(1.02); 
+        box-shadow: 1px 1px 3px rgba(0,0,0,0.24), -1px -1px 3px rgba(0,0,0,0.24);
+    }
+
+.my-shadow-transp {
+    -webkit-box-shadow: 0px 6px 0px #2b638f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
+    -moz-box-shadow: 0px 6px 0px #2b638f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
+    box-shadow: 0px 1px 0px rgba(0,0,0,.4), 0px 3px 5px rgba(0,0,0,.4);
+    border-radius: 2px !important;
+    background-color: rgba(120,7,148,.8) !important;
+    text-shadow: 0px -1px 1px rgba(0,0,0,.6),0px 1px 2px rgba(0,0,0,.4);
+}
+.my-button-return {
+    display: inline-block;
+    text-decoration: none;
+    color: white !important;
+    background-color: lightslategrey;
+    /*font-weight: bolder;*/
+    font-size: 14px;
+    margin-left: 1px;
+    border-radius: 6px !important;
+    text-shadow: 0px 1px 1px rgba(0,0,0,.6);
+    box-shadow: 0px 1px 0px #2b398f, 0px 3px 5px rgba(0,0,0,.4), inset 0px 1px 1px rgba(255,255,255,.5), inset 0px 0px 2px rgba(255,255,255,.5);
+}
+
+    .my-button-return:hover {
+        color: whitesmoke !important;
+        box-shadow: 0 1px 2px 0 rgba(255, 255, 255, 0.2);
+        transform: translate(0, 1px);
+    }
+.my-button-success {
+    display: inline-block;
+    text-decoration: none;
+    color: white !important;
+    background-color: darkgreen;
+    /*font-weight: bolder;*/
+    font-size: 14px;
+    margin-left: 1px;
+    border-radius: 6px !important;
+    text-shadow: 0px 1px 1px rgba(0,0,0,.6);
+    box-shadow: 0px 1px 0px #2b398f, 0px 3px 5px rgba(0,0,0,.4), inset 0px 1px 1px rgba(255,255,255,.5), inset 0px 0px 2px rgba(255,255,255,.5);
+}
+
+    .my-button-success:hover {
+        color: whitesmoke !important;
+        box-shadow: 0 1px 2px 0 rgba(255, 255, 255, 0.2);
+        transform: translate(0, 1px);
+    }
+
+.my-font {
+    font-family: 'Script MT';
+    color: white;
+    font-size: 28px;
+    text-shadow: 0px 1px 2px rgba(0,0,0,.6), -1px -1px 1px rgba(0,0,0,.6);
+}
+.my-no-shadows {
+    text-shadow: 0px 0px 0px rgba(0,0,0,0);
+}
+.my-text-primary {
+    background-color: rgba(245,61,179,.7) !important;
+    font-size: 24px;
+    /*text-shadow: 0px 1px 1px rgba(0,0,0,.1);*/
+}
+.my-line-primary{
+    background-color:whitesmoke;
+}
+.my-line-secondary {
+    background-color: white;
+}
+.main .top-row a:first-child {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sidebar {
+    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+}
+
+    .sidebar .top-row {
+        background-color: rgba(0,0,0,0.4);
+    }
+
+    .sidebar .navbar-brand {
+        font-size: 1.1rem;
+    }
+
+    .sidebar .oi {
+        width: 2rem;
+        font-size: 1.1rem;
+        vertical-align: text-top;
+        top: -2px;
+    }
+
+    .sidebar .nav-item {
+        font-size: 0.9rem;
+        padding-bottom: 0.5rem;
+    }
+
+        .sidebar .nav-item:first-of-type {
+            padding-top: 1rem;
+        }
+
+        .sidebar .nav-item:last-of-type {
+            padding-bottom: 1rem;
+        }
+
+        .sidebar .nav-item a {
+            color: #d7d7d7;
+            border-radius: 4px;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            line-height: 3rem;
+        }
+
+            .sidebar .nav-item a.active {
+                background-color: rgba(255,255,255,0.25);
+                color: white;
+            }
+
+            .sidebar .nav-item a:hover {
+                background-color: rgba(255,255,255,0.1);
+                color: white;
+            }

@@ -13,111 +13,113 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-white border-bottom my-base-color box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="Customer" asp-controller="Home" asp-action="Index">Bouquet</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <partial name="_LoginPartial" />
-                    <ul class="navbar-nav flex-grow-1" style="color:azure!important;">
 
-                        @if (User.IsInRole(SD.RoleAdmin))
-                        {
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-tasks"></i>
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">Category</a>
-                                    <a class="dropdown-item" asp-area="Admin" asp-controller="EventType" asp-action="Index">Event Type</a>
-                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Product" asp-action="Index">Product</a>
+   
+            <header >
+                <nav class="navbar navbar-expand-sm navbar-toggleable-sm  navbar-dark  my-shadow-transp mb-1">
+                    <a class="navbar-brand text-left" asp-area="Customer" asp-controller="Home" asp-action="Index"><i class="fab fa-pagelines"></i></a>
+                    <div class="my-font">Natalie Flowers</div>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                        <partial name="_LoginPartial" />
+                        <ul class="navbar-nav flex-grow-0" style="color:azure!important;">
 
-                                </div>
-                            </li>
-                        }
-                        @if (User.IsInRole(SD.RoleAdmin) || User.IsInRole(SD.RoleEmployee))
-                        {
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-users-cog"></i>
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Company" asp-action="Index">Company</a>
-                                    <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Index">User</a>
-                                </div>
-                            </li>
-                        }
-                        <li class="nav-item">
-                            <a class="nav-link text-light " asp-area="Admin" asp-controller="Order" asp-action="Index">
+                            @if (User.IsInRole(SD.RoleAdmin))
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fab fa-servicestack"></i>
+                                    </a>
+                                    <div class="dropdown-menu my-no-shadows" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">Category</a>
+                                        <a class="dropdown-item" asp-area="Admin" asp-controller="EventType" asp-action="Index">Event Type</a>
+                                        <a class="dropdown-item" asp-area="Admin" asp-controller="Product" asp-action="Index">Product</a>
+                                        <a class="dropdown-item" asp-area="Admin" asp-controller="Product" asp-action="IndexTest">ProductTest</a>
 
-                                @if (User.IsInRole(SD.RoleAdmin) || User.IsInRole(SD.RoleEmployee))
-                                {
-                                    <span><i class="fas fa-clipboard-list"></i></span>
-                                }
-                                @if (User.IsInRole(SD.RoleIndividual) || User.IsInRole(SD.RoleCompanyUser))
-                                {
-                                    <span>Order History</span>
-                                }
-                            </a>
-                        </li>
-                        @if (User.IsInRole(SD.RoleAdmin) || User.IsInRole(SD.RoleEmployee))
-                        {
+                                    </div>
+                                </li>
+                            }
+                            @if (User.IsInRole(SD.RoleAdmin) || User.IsInRole(SD.RoleEmployee))
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-users-cog"></i>
+                                    </a>
+                                    <div class="dropdown-menu my-no-shadows" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" asp-area="Admin" asp-controller="Company" asp-action="Index">Company</a>
+                                        <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Index">User</a>
+                                    </div>
+                                </li>
+                            }
                             <li class="nav-item">
-                                <a class="nav-link text-light " asp-area="Admin" asp-controller="BrainTree" asp-action="Index">BrainTree</a>
-                            </li>
-                        }
+                                <a class="nav-link text-light " asp-area="Admin" asp-controller="Order" asp-action="Index">
 
-                        @if (HttpContextAccessor.HttpContext.Session.GetInt32(SD.ssShoppingCart) != 0)
-                        {
-                            <li style="color:white;">
-                                <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="nav-link text-light">
-                                    @{
-                                        var count = HttpContextAccessor.HttpContext.Session.GetInt32(SD.ssShoppingCart);
+                                    @if (User.IsInRole(SD.RoleAdmin) || User.IsInRole(SD.RoleEmployee))
+                                    {
+                                        <span><i class="fas fa-tasks"></i></span>
                                     }
-                                    <i class="fas fa-shopping-cart "></i> &nbsp; (@count)
+                                    @if (User.IsInRole(SD.RoleIndividual) || User.IsInRole(SD.RoleCompanyUser))
+                                    {
+                                        <span>Order History</span>
+                                    }
                                 </a>
                             </li>
-                        }
-                        else
-                        {
-                            <li style="color:wheat;">
-                                <a href="#" class="nav-link">
-                                    <i class="fas fa-shopping-cart "></i> &nbsp;(0)
-                                </a>
-                            </li>
-                        }
-                    </ul>
-                </div>
+                            @if (User.IsInRole(SD.RoleAdmin) || User.IsInRole(SD.RoleEmployee))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-light " asp-area="Admin" asp-controller="BrainTree" asp-action="Index"><i class="far fa-credit-card"></i></a>
+                                </li>
+                            }
+
+                            @if (HttpContextAccessor.HttpContext.Session.GetInt32(SD.ssShoppingCart) != null && HttpContextAccessor.HttpContext.Session.GetInt32(SD.ssShoppingCart) > 0)
+                            {
+                                <li style="color:white;" class="my-shadow-transp ">
+                                    <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="nav-link text-light">
+                                        @{
+                                            var count = HttpContextAccessor.HttpContext.Session.GetInt32(SD.ssShoppingCart);
+
+                                        }
+                                        <i class="fas fa-shopping-cart "></i> <span style="color:gold;"> @count</span>
+                                    </a>
+                                </li>
+                            }
+
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+
+
+
+            <main role="main">
+                <partial name="_Notifications" />
+                @RenderBody()
+            </main>
+
+
+
+
+
+        <footer class="border-top footer text-muted my-base-color">
+            <div class="container text-center text-light">
+                &copy; 2020 - Bouquet
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            <partial name="_Notifications" />
-            @RenderBody()
-        </main>
-    </div>
+        </footer>
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="https://kit.fontawesome.com/f84f191520.js" crossorigin="anonymous"></script>
 
-    <footer class="border-top footer text-muted my-base-color">
-        <div class="container text-center text-light">
-            &copy; 2020 - Bouquet
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="https://kit.fontawesome.com/f84f191520.js" crossorigin="anonymous"></script>
-
-    @RenderSection("Scripts", required: false)
+        @RenderSection("Scripts", required: false)
 </body>
 </html>
