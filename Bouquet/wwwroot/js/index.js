@@ -1,7 +1,12 @@
 
 
 
-$(document).ready(function () {
+
+
+
+
+
+/*$(document).ready(function () {
     function displayWindowSize() {
         // Get width and height of the window excluding scrollbars
         var w = document.documentElement.clientWidth;
@@ -79,4 +84,4 @@ $(document).ready(function () {
     });
 
 });
-
+*/

@@ -4,49 +4,97 @@
 @{
     string description = SD.ConvertToRawHtml(@Model.Product.Description);
 }
-    <form method="post">
-        <input hidden asp-for="ProductId" />
+<form method="post">
+    <input hidden asp-for="ProductId" />
 
-        @*extra small layout*@
-        <div class="row d-sm-none my-shadow-transp m-2" style="background-color: rgba(0,51,102,.7);">
-            <div class="col-12 card-header  p-0" style="text-align:center;">
-                <div class="row  text-center m-0 " style="border-radius:.3rem!important;">
-                    <div class="col-12 p-2 my-font my-shadow-transp">
-                        @Model.Product.Name
-                    </div>
-                </div>
-                <div class="col-12 col-lg-3 offset-lg-1 text-center mt-3 mb-3">
-                    <img src="@Model.Product.ImageUrl" class="rounded p-0" style="width: 98%;" />
-                </div>
-                <div class="col-12 col-lg-8 my-font my-shadow-transp " style="text-align:center; font-size:24px;">
-                    <div class=" m-0 mt-2 p-1 rounded text-center" readonly>
-                        <div class="col-12 p-2 " style="font-size:22px;">
-                            @description
-                        </div>
-                    </div>
 
-                    <div class=" m-0 mt-2 p-1 rounded " readonly style="height:auto; ">
-                        <div class=" row m-0 p-1 " style="font-size:20px;">
-                            <div class="col-5 ">@Model.Product.Price CAD</div>
-                            <div class="col-4 ">Amount</div>
-                            <div class="col-3 "><input class="form-control" asp-for="Count" /></div>
+
+    <section class="item-container">
+        <div class="item-header text-header">@Model.Product.Name</div>
+        <div class="item-container-vertical">
+            <div class="text-description item-1 container1">
+                @description
+            </div>
+            <hr>
+            <div class="text-description item-1 container2">
+                <div class="grid-two-column">
+                    <div class="rounded-5" id="image01">
+                        <img src="@Model.Product.ImageUrl" class="w3-image" alt="Flower">
+                    </div>
+                    <div class="grid-three-column">
+                        <div class="item-row ">
+                            <div class="m-t-10">regular</div>
                         </div>
+                        <div class="item-row">
+                            <div class="m-t-10">$ @Model.Product.Price</div>
+                        </div>
+                        <div class="item-row"> <i class="icon-plus-in-box item-row"></i></div>
+                        <div class="item-row ">
+                            <div class="m-t-10">premium</div>
+                        </div>
+                        <div class="item-row">
+                            <div class="m-t-10">$ @Model.Product.Price</div>
+                        </div>
+                        <div class="item-row"> <i class="icon-plus-in-box item-row"></i></div>
+                        <div class="item-row ">
+                            <div class="m-t-10">luxury</div>
+                        </div>
+                        <div class="item-row">
+                            <div class="m-t-10">$ @Model.Product.Price</div>
+                        </div>
+                        <div class="item-row"> <i class="icon-plus-in-box item-row"></i></div>
                     </div>
                 </div>
-                <div class="card-footer row my-base-color m-0 ">
-                    <div class="col-6 col-md-6 pb-1 d-md-none">
-                        <button asp-action="Index" class="btn my-button-return btn-square btn-lg form-control" style="height:50px;">Back to List</button>
+
+            </div>
+            <hr>
+            <div class="text-description item-1 container3">
+                <button asp-action="Index" class="btn-wide btn-secondary m-v-5 " id="btn-cancel-options">Cancel</button>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!--<div class="row d-sm-none my-shadow-transp m-2" style="background-color: rgba(0,51,102,.7);">
+        <div class="col-12 card-header  p-0" style="text-align:center;">-->
+           @* <div class="row  text-center m-0 " style="border-radius:.3rem!important;">
+                <div class="col-12 p-2 my-font my-shadow-transp">
+                    @Model.Product.Name
+                </div>
+            </div>
+            <div class="col-12 col-lg-3 offset-lg-1 text-center mt-3 mb-3">
+                <img src="@Model.Product.ImageUrl" class="rounded p-0" style="width: 98%;" />
+            </div>*@
+            <!--<div class="col-12 col-lg-8 my-font my-shadow-transp " style="text-align:center; font-size:24px;">-->
+               @* <div class=" m-0 mt-2 p-1 rounded text-center" readonly>
+                    <div class="col-12 p-2 " style="font-size:22px;">
+                        @description
                     </div>
-                    <div class="col-6 col-md-6 pb-1 d-md-none">
-                        <button type="submit" value="Add to Cart" class="btn my-button-success btn-square btn-lg form-control" style="height:50px;">Add to Cart</button>
+                </div>*@
+
+                <!--<div class=" m-0 mt-2 p-1 rounded " readonly style="height:auto; ">
+                    <div class=" row m-0 p-1 " style="font-size:20px;">
+                       
+                        <div class="col-4 ">Amount</div>
+                        <div class="col-3 "><input class="form-control" asp-for="Count" /></div>
                     </div>
                 </div>
             </div>
+            <div class="card-footer row my-base-color m-0 ">
+                <div class="col-6 col-md-6 pb-1 d-md-none">
+                    <button asp-action="Index" class="btn my-button-return btn-square btn-lg form-control" style="height:50px;">Back to List</button>
+                </div>
+                <div class="col-6 col-md-6 pb-1 d-md-none">
+                    <button type="submit" value="Add to Cart" class="btn my-button-success btn-square btn-lg form-control" style="height:50px;">Add to Cart</button>
+                </div>
+            </div>
         </div>
-        @* small layout*@
+    </div>-->
 
-    
-    <div class="row d-none d-sm-block my-shadow-transp m-2" style="background-color: rgba(0,51,102,.7);">
+
+
+    @*    <div class="row d-none d-sm-block my-shadow-transp m-2" style="background-color: rgba(0,51,102,.7);">
         <div class="col-12 card-header  p-0" style="text-align:center;">
             <div class="row  text-center m-0 my-shadow-transp " style="border-radius:.3rem!important;">
                 <div class="col-4 row my-no-shadows">
@@ -86,12 +134,12 @@
                 </div>
 
             </div>
-               
+
             </div>
 
 
 
 
-        </div>
+        </div>*@
 
-    </form>
+</form>

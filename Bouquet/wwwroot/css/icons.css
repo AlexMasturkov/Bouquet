@@ -1,0 +1,185 @@
+﻿.icon-item {
+    flex: 1;
+    /* background-color: wheat; */
+    margin: auto;
+}
+
+.icon-logo {
+    content: url("../images/icons/FlowerLogo.svg");
+    height: auto;
+    width: 12vw;
+    max-width: 86px;
+    margin: 2vw;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.icon-expand {
+    content: url("../images/icons/ion_reorder-three.svg");
+    height: auto;
+    width: 8vw;
+    max-width: 56px;
+    margin: 2vw;
+    margin-top: 1vw;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.icon-search {
+    content: url("../images/icons/fluent_search-20-filled.svg");
+    height: auto;
+    width: 22px;
+    float: left;
+    margin-top: 0px;
+}
+
+.icon-plus-in-box {
+    content: url("../images/icons/plus-in-box.svg");
+    height: auto;
+    width: 40px;
+}
+
+.icon-home {
+    content: url("../images/icons/home.svg");
+    height: auto;
+    width: 26px;
+    margin: auto;
+    margin-top: 6px;
+}
+
+.icon-favorite {
+    content: url("../images/icons/favorite.svg");
+    height: auto;
+    width: 26px;
+    margin: auto;
+    margin-top: 16px;
+}
+
+.icon-user {
+    content: url("../images/icons/user.svg");
+    height: auto;
+    width: 26px;
+    margin: auto;
+    margin-top: 8px;
+}
+
+.icon-details {
+    content: url("../images/icons/details.svg");
+    height: auto;
+    width: 26px;
+    margin: auto;
+    margin-top: 18px;
+}
+
+.icon-filter {
+    content: url("../images/icons/filters.svg");
+    height: auto;
+    width: 24px;
+    margin: auto;
+    margin-top: 8px;
+}
+
+.icon-plus-circle {
+    content: url("../images/icons/plus-in-circle.svg");
+    height: auto;
+    width: 24px;
+    margin: auto;
+    /* margin-top: 5px; */
+}
+
+.icon-minus-circle {
+    content: url("../images/icons/minus-circle.svg");
+    height: auto;
+    width: 24px;
+    margin: auto;
+}
+
+.icon-trash {
+    content: url("../images/icons/trash.svg");
+    height: auto;
+    width: 22px;
+    margin: auto;
+    /* margin-top: 5px; */
+}
+
+.icon-cart-empty {
+    content: url("../images/icons/cart-empty.svg");
+    height: auto;
+    width: 26px;
+    margin: auto;
+    margin-top: 10px;
+}
+
+.icon-cart-full {
+    content: url("../images/icons/cart-full.svg");
+    height: auto;
+    width: 26px;
+    margin: auto;
+    margin-top: 8px;
+}
+
+.icon-heart-default {
+    content: url("../images/icons/HeartDefault.svg");
+    height: auto;
+    max-width: 56px;
+    width: 6vw;
+    margin: 2vw;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 3;
+}
+
+.icon-heart-active {
+    content: url("../images/icons/HeartActive.svg");
+    height: auto;
+    max-width: 62px;
+    width: 8vw;
+    margin: 2vw;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 3;
+}
+
+.icon-check-in-box {
+    content: url("~/images/icons/check-in-box.svg");
+}
+
+
+
+.icon-cross {
+    content: url("../images/icons/cross-small.svg");
+    height: auto;
+    width: 9vw;
+    max-width: 56px;
+    margin: 2vw;
+    margin-top: 2vw;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}
+
+.icon-cross-small {
+    content: url("../images/icons/cross-small.svg");
+    height: auto;
+    width: 7vw;
+    max-width: 56px;
+    margin: 4vw;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}
+
+.icon-arrow-right {
+    content: url("../images/icons/arrow-right.svg");
+    margin: 7px;
+}
+
+    .icon-arrow-right:hover {
+        transform: scale(1.2) translateX(2px);
+    }
