@@ -1,0 +1,194 @@
+﻿label {
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+}
+
+.sign-up-container {
+    margin: auto;
+    background-color: var(--ui-white);
+    width: 98%;
+    position: relative;
+    border-radius: 8px;
+    padding: 10px 0px;
+    font-family: 'Rubik', sans-serif;
+    top: 0;
+    margin-top: 5px;
+    height: calc(100vh - 150px);
+    overflow: visible;
+    overflow-x: hidden;
+}
+
+.sign-in-container {
+    margin: auto;
+    background-color: var(--ui-white);
+    width: 98%;
+    position: relative;
+    border-radius: 8px;
+    padding: 10px 0px;
+    font-family: 'Rubik', sans-serif;
+    top: 0;
+    margin-top: 5px;
+    height: calc(100vh - 150px);
+    overflow: visible;
+    overflow-x: hidden;
+}
+
+.sign-container {
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
+    height: 90px;
+}
+
+
+.sign-up {
+    text-align: center;
+}
+
+.sign-in {
+    text-align: end;
+    margin-top: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+input {
+    border: none !important;
+    background-color: white;
+    transition: all 0.3s;
+}
+
+    input:valid {
+        border: none !important;
+        background-color: rgba(0, 60, 255, 0.07);
+    }
+
+    input:invalid {
+        /* border:2px solid red !important; */
+        background-color: rgba(255, 0, 0, 0.05);
+    }
+
+
+
+/* Style the input container */
+.input-container {
+    display: flex;
+    width: 100%;
+    margin-bottom: 6px;
+    cursor: pointer;
+    border-radius: 6px;
+    font-size: 14px;
+    border: 1px solid var(--main-02);
+}
+
+/* Style the form icons */
+.icon {
+    padding: 8px;
+    /* color: white; */
+    min-width: 36px;
+    text-align: center;
+}
+
+/* Style the input fields */
+.input-field {
+    width: 100%;
+    padding: 8px;
+    border-radius: 0px 5px 5px 0px;
+    margin: 1px;
+}
+
+.my-checkbox {
+    width: 24px;
+    height: 24px;
+    margin-top: 7px;
+    margin-bottom: 20px;
+}
+/* input[type='checkbox']{
+    width: 30px !important;
+    height: 30px !important;
+    margin: 5px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    appearance:none;
+   
+  } */
+
+input[type='checkbox'], input[type='radio'] {
+    filter: hue-rotate(-141deg) brightness(1.45);
+}
+
+
+/* .input-field:focus {
+    background-color: white;
+} */
+
+
+
+/* Set a style for the submit button */
+/* .btn {
+    background-color: dodgerblue;
+    color: white;
+    padding: 15px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+} */
+/* 
+.btn:hover {
+    opacity: 1;
+} */
+
+
+.icon-sign-up-main {
+    content: url("../images/icons/SignUp.svg");
+    margin-top: 14px;
+}
+
+.icon-sign-in-main {
+    content: url("../images/icons/SignIn.svg");
+}
+
+.icon-sign-up-small {
+    content: url("../images/icons/SignUpSmall.svg");
+}
+
+.icon-sign-in-small {
+    content: url("../images/icons/SignInSmall.svg");
+}
+
+.icon-facebook {
+    content: url("../images/icons/facebook.svg");
+}
+
+.icon-google {
+    content: url("../images/icons/flat-color-icons_google.svg");
+}
+
+.icon-user-name {
+    content: url("../images/icons/carbon_user-avatar.svg");
+    width: 44px;
+}
+
+.icon-email {
+    content: url("../images/icons/Email.svg");
+    width: 36px;
+}
+
+.icon-key {
+    content: url("../images/icons/Key.svg");
+    width: 44px;
+}
+
+.icon-eye-off {
+    content: url("../images/icons/eye-off.svg");
+    /* background-color: white; */
+}
+
+.icon-eye-on {
+    content: url("../images/icons/eye.svg");
+    /* background-color: white; */
+}

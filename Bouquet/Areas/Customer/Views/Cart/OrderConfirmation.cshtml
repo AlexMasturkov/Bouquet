@@ -1,15 +1,32 @@
 ﻿@model int
-<div class="container row">
-    <div class="col-12 text-center">
-        <h1 class="text-primary text-center">Order Submitted Successfully</h1><br />
-        <img src="~/images/lawn_leaf.jpg" style="width:50%;" />
+<div class="form-container shadow5 background-bright-grey p-b-5">
+
+    <div class="item-header text-header grid-three-column-center mobile-item " id="orderHeader">
+        <div></div>
+        <h1 class="item-row-center">
+            Order Submitted
+        </h1>
+        <div class="item-row-right ">
+            <a asp-area="Customer" asp-controller="Home" asp-action="Index" class="p-0 a-btn"><i class="icon-arrow-left-in-square i-btn"></i> </a>
+        </div>
     </div>
-    <div class="col-12 text-center" style="color:maroon">
-        <br />
-        Thank you for your order! <br />
-        We have received your order and we will send a follow up email shortly!
-        <br />
-        Your Order Number is : @Model
+
+    <div class="item-header text-header grid-three-column-center main-item header-height" id="orderHeader">
+        <div></div>
+        <h1 class="item-row-center p-5 font-22">Order Submitted</h1>
+        <div class="item-row p-5">
+            <a asp-area="Customer" asp-controller="Home" asp-action="Index"  class="p-0 a-btn item-row-right m-r-15"><i class="icon-arrow-left-in-square i-btn"></i> </a>
+        </div>
+    </div>
+    <div class="p-10 m-10 text-center">
+        <img src="~/images/icons/NCraft-color.svg" style="width:50%; " class="shadow2 p-10 m-l-5 m-t-10" />
+        <div class=" text-center text-info p-10 font-14">
+            <br />
+            Thank you for your order! <br />
+            We have received your order and we will send a follow up email shortly!
+            <br />
+            Your Order Number is : @Model
+        </div>
     </div>
 </div>
 

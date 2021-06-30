@@ -16,7 +16,6 @@ namespace Bouquet.Models
         public string State { get; set; }
         public string PostalCode { get; set; }
         public string Phone { get; set; }
-
         public int? CompanyId { get; set; }
 
         [ForeignKey("CompanyId")]
@@ -24,5 +23,6 @@ namespace Bouquet.Models
 
         [NotMapped]
         public string Role { get; set; }
+       
     }
 }

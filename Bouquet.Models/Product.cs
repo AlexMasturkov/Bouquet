@@ -13,10 +13,23 @@ namespace Bouquet.Models
         [Required]
         public string Name { get; set; }
         public string Description { get; set; }
+
+        public string RegularOption { get; set; }
+        public string PremiumOption { get; set; }
+        public string LuxuryOption { get; set; }
+
         [Required]
         [Column(TypeName = "decimal(7, 2)")]
-        [Range(1,1000)]
+        [Range(typeof(Decimal),"1","1000", ErrorMessage = "value must be between {1} and {2}.")]
         public decimal Price { get; set; }
+        [Required]
+        [Column(TypeName = "decimal(7, 2)")]
+        [Range(1, 1000, ErrorMessage = "value must be between {1} and {2}.")]
+        public decimal Price2 { get; set; }
+        [Required]
+        [Column(TypeName = "decimal(7, 2)")]
+        [Range(1, 1000, ErrorMessage = "value must be between {1} and {2}.")]
+        public decimal Price3 { get; set; }
         public string ImageUrl { get; set; }
         //
         [Required]

@@ -1,6 +1,27 @@
-﻿@{
-    ViewData["Title"] = "Privacy Policy";
-}
-<h1>@ViewData["Title"]</h1>
+﻿@using Bouquet.Utility;
 
-<p>Use this page to detail your site's privacy policy.</p>
+<section class="form-container background-bright-grey shadow5 main-item">
+    <div class="item-header text-header grid-three-column-center  header-height">
+        <div></div>
+        <h1 class="item-row-center p-5 font-22">Privacy</h1>
+        <div class="item-row p-5">
+            <a asp-area="Customer" asp-controller="Home" asp-action="Index" class="p-0 a-btn item-row-right m-r-15"><i class="icon-arrow-left-in-square i-btn"></i> </a>
+        </div>
+    </div>
+    <div class="item-container-vertical text-center p-15">
+        <p class=" font-14 text-left">
+            @Html.Raw(SDextra.Privacy)
+        </p>
+    </div>
+    <div class="item-header background-medium-grey text-header grid-four-column-equal main-item p-5 p-t-10">
+        <a asp-area="Customer" asp-controller="Home" asp-action="About" class=" btn-wide btn-secondary text-center rounded-5 p-8 font-14">About <i class="icon-info m-l-5"></i> </a>
+        <a asp-area="Customer" asp-controller="Home" asp-action="Payment" class=" btn-wide btn-secondary text-center rounded-5 p-8  font-14">Payment <i class="icon-info m-l-5"></i> </a>
+        <a asp-area="Customer" asp-controller="Home" asp-action="Contact" class=" btn-wide btn-secondary text-center rounded-5 p-8  font-14">Contact <i class="icon-info m-l-5"></i> </a>
+        <a asp-area="Customer" asp-controller="Home" asp-action="Shipping" class=" btn-wide btn-secondary text-center rounded-5 p-8  font-14">Shipping <i class="icon-info m-l-5"></i> </a>
+    </div>
+</section>
+
+
+@section Scripts {
+    <script src="~/js/loginMenu.js"></script>
+}

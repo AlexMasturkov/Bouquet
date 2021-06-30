@@ -29,12 +29,7 @@ namespace Bouquet.Areas.Admin.Controllers
         public IActionResult Index()
         {
             return View();
-        }
-       
-        public IActionResult IndexTest()
-        {
-            return View();
-        }
+        }     
 
         public async Task<IActionResult> Upsert(int? id)
         {
@@ -77,51 +72,79 @@ namespace Bouquet.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                string webRootPath = _webHost.WebRootPath;
-                var files = HttpContext.Request.Form.Files;
-                if(files.Count > 0)
+                try
                 {
-                    string fileName = Guid.NewGuid().ToString();
-                    var uploads = Path.Combine(webRootPath, SD.ImageFolder + @"\");
-                    var extension = Path.GetExtension(files[0].FileName);
-                    
-                    byte[] picture = null;//new Image to create from User Input
-                    using (var mstream = new MemoryStream())
+                    string webRootPath = _webHost.WebRootPath;
+                    var files = HttpContext.Request.Form.Files;
+                    if (files.Count > 0)
                     {
-                        files[0].CopyTo(mstream);
-                        picture = mstream.ToArray();
-                    }
-                    //change size after image uploaded to memory
-                      MemoryStream ms = new MemoryStream(picture);
+                        string fileName = Guid.NewGuid().ToString();
+                        var uploads = Path.Combine(webRootPath, SD.ImageFolder + @"\");
+                        var extension = Path.GetExtension(files[0].FileName);
+                        var extUpper = extension.Substring(1).ToUpper();                   
+                        
+                        if ((!String.Equals(extUpper ,"JPEG") && !String.Equals(extUpper, "JPG") && !String.Equals(extUpper, "PNG")) || (files[0].Length > 5000000))
+                        {
+                            IEnumerable<Category> CategoryFirstList = await _unitOfWork.Category.GetAllAsync();
+                            IEnumerable<EventType> EventTypeFirstList = await _unitOfWork.EventType.GetAllAsync();
+                            productVM.CategoryList = CategoryFirstList.Select(i => new SelectListItem
+                            {
+                                Text = i.Name,
+                                Value = i.Id.ToString()
+                            });
+                            productVM.EventTypeList = EventTypeFirstList.Select(i => new SelectListItem
+                            {
+                                Text = i.Name,
+                                Value = i.Id.ToString()
+                            });
+                            if (productVM.Product.Id != 0)
+                            {
+                                productVM.Product = _unitOfWork.Product.Get(productVM.Product.Id);
+                            }
+                            return View(productVM);
+                        }
+
+                        byte[] picture = null;//new Image to create from User Input
+                        using (var mstream = new MemoryStream())
+                        {
+
+                            files[0].CopyTo(mstream);
+                            picture = mstream.ToArray();
+                        }
+                        //change size after image uploaded to memory
+                        MemoryStream ms = new MemoryStream(picture);
                         Image returnImage = Image.FromStream(ms);
                         returnImage = ImageBuilder.ResizeImage(returnImage);
 
-                    var upload_memory = Path.Combine(webRootPath, SD.ImageFolder + @"\" + fileName + ".jpeg");
-                  
+                        var upload_memory = Path.Combine(webRootPath, SD.ImageFolder + @"\" + fileName + ".jpeg");
 
 
-                    if (productVM.Product.ImageUrl != null)
-                    {
-                        //this is an edit and we need to remove old image
-                      
-                        var imagePath = Path.Combine(webRootPath, productVM.Product.ImageUrl.TrimStart('\\'));
-                        if(System.IO.File.Exists(imagePath))
+                        if (productVM.Product.ImageUrl != null)
                         {
-                            System.IO.File.Delete(imagePath);
+                            //this is an edit and we need to remove old image
+                            var imagePath = Path.Combine(webRootPath, productVM.Product.ImageUrl.TrimStart('\\'));
+                            if (System.IO.File.Exists(imagePath))
+                            {
+                                System.IO.File.Delete(imagePath);
+                            }
+                        }
+                        returnImage.Save(upload_memory, System.Drawing.Imaging.ImageFormat.Jpeg);
+                        productVM.Product.ImageUrl = @"\" + SD.ImageFolder + @"\" + fileName + ".jpeg";
+                    }
+                    else
+                    {
+                        //update when not change image
+                        if (productVM.Product.Id != 0)
+                        {
+                            var productFromDb = _unitOfWork.Product.Get(productVM.Product.Id);
+                            productVM.Product.ImageUrl = productFromDb.ImageUrl;
                         }
                     }
-                    returnImage.Save(upload_memory, System.Drawing.Imaging.ImageFormat.Jpeg);
-                    productVM.Product.ImageUrl = @"\"+ SD.ImageFolder + @"\" + fileName + ".jpeg";
                 }
-                else
+                catch
                 {
-                    //update when not change image
-                    if(productVM.Product.Id!=0)
-                    {
-                        var productFromDb = _unitOfWork.Product.Get(productVM.Product.Id);
-                        productVM.Product.ImageUrl = productFromDb.ImageUrl;
-                    }
-                }
+                    return RedirectToAction(nameof(Index));
+                }               
 
 
                 if (productVM.Product.Id == 0)//POST to create new Category 
@@ -165,49 +188,7 @@ namespace Bouquet.Areas.Admin.Controllers
         {
             var allProducts = _unitOfWork.Product.GetAll(includeProperties:"Category,EventType");
             return Json(new { data = allProducts });
-        }
-        [HttpGet]
-        public IActionResult GetAllTest(int? id)
-        {          
-            var allProducts = _unitOfWork.Product.GetAll(includeProperties: "Category,EventType").ToList();
-            if(id == 1)
-            {
-                return Json(new { data = allProducts.OrderBy(p => p.Name).ToList()});  
-            }
-            else if (id == 11)
-            {
-                return Json(new { data = allProducts.OrderByDescending(p => p.Name).ToList() });
-            }
-            else if(id == 2)
-            {
-                return Json(new { data = allProducts.OrderBy(p => p.Price).ToList()});
-            }
-            else if (id == 12)
-            {
-                return Json(new { data = allProducts.OrderByDescending(p => p.Price).ToList() });
-            }
-            else if(id == 3)
-            {
-                return Json(new { data = allProducts.OrderBy(p => p.Category.Name).ToList()});
-            }
-            else if (id == 13)
-            {
-                return Json(new { data = allProducts.OrderByDescending(p => p.Category.Name).ToList() });
-            }
-            else if (id == 4)
-            {
-                return Json(new { data = allProducts.OrderBy(p => p.EventType.Name).ToList()});
-            }
-            else if (id == 14)
-            {
-                return Json(new { data = allProducts.OrderByDescending(p => p.EventType.Name).ToList() });
-            }
-            else
-            {
-                return Json(new { data = allProducts });
-            }         
-          
-        }
+        }     
 
         [HttpDelete]
         public IActionResult Delete(int id)

@@ -1,82 +1,67 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
     var status = Context.Request.Query["status"];
-
-    var inprocess = "list-group-item-secondary";
-    var pending = "list-group-item-secondary";
-    var completed = "list-group-item-secondary";
-    var rejected = "list-group-item-secondary";
-    var all = "list-group-item-secondary";
-
-    switch (status)
-    {
-        case "inprocess":
-            inprocess = "list-group-item-primary";
-            break;
-        case "pending":
-            pending = "list-group-item-primary";
-            break;
-        case "completed":
-            completed = "list-group-item-primary";
-            break;
-        case "rejected":
-            rejected = "list-group-item-primary";
-            break;
-        default:
-            all = "list-group-item-primary";
-            break;
-    }
 }
-
-<br />
-<div class="border p-3">
-    <div class="d-flex justify-content-between mb-3">
-        <div class="p-2">
-            <ul class="list-group list-group-horizontal-sm">
-                <li class="list-group-item list-group-item-primary text-white">
-                    All Orders
-                </li>              
-            </ul>
+<section class="form-container shadow5 background-bright-grey p-b-5 font-mobile-11" id="tableContainer">
+    <div class="item-header text-header grid-three-column-center mobile-item ">
+        <div>
         </div>
-        <div class="p-2">
-            <ul class="list-group list-group-horizontal-sm">               
-                <li class="list-group-item @inprocess">
-                    <a style="text-decoration:none;color:white;" asp-controller="Order" asp-action="Index" asp-route-status="inprocess">In Process</a>
-                </li>
-                <li class="list-group-item @pending">
-                    <a style="text-decoration:none; color:white;" asp-controller="Order" asp-action="Index" asp-route-status="pending">Payment Pending</a>
-                </li>
-                <li class="list-group-item @completed">
-                    <a style="text-decoration:none;color:white;" asp-controller="Order" asp-action="Index" asp-route-status="completed">Completed</a>
-                </li>
-                <li class="list-group-item @rejected">
-                    <a style="text-decoration:none;color:white;" asp-controller="Order" asp-action="Index" asp-route-status="rejected">Rejected</a>
-                </li>
-                <li class="list-group-item @all">
-                    <a style="text-decoration:none;color:white;" asp-controller="Order" asp-action="Index" asp-route-status="all">All</a>
-                </li>
-            </ul>
+        <h1 class="item-row-center">
+            Order List
+        </h1>
+        <div class="item-row-right ">
+            <a asp-action="Index" asp-area="Customer" asp-controller="Home" class="p-0 a-btn"><i class="icon-arrow-left-in-square i-btn "></i></a>
         </div>
     </div>
-    
-    <table id="tblData" class="table table-striped " style="width:100%">
-        <thead class="thead-dark">
-            <tr class="">
-                <th>Id</th>
-                <th>Client</th>
-                <th>Phone</th>
-                <th>Email</th>
-                <th>Status</th>
-                <th>CAD</th>
-                <th></th>
-            </tr>
-        </thead>
-    </table>
-</div>
+    <div class="item-header text-header grid-three-column-center main-item header-height ">
+        <div>
+        </div>
+        <h1 class="item-row-center p-5 font-22">
+            Order List
+        </h1>
 
+        <div class="item-row p-5 ">
+            <a asp-action="Index" asp-area="Customer" asp-controller="Home" class="p-0 a-btn item-row-right m-r-15"><i class="icon-arrow-left-in-square i-btn "></i></a>
+        </div>
+    </div>
+
+    <div class="background-medium-grey border-3 height-398-main">
+        <form class="grid-five-column-equal background-light-grey mobile-item radio-group">
+            <div class="item-row-equal  background-medium-grey "><input type="radio" id="inprocess1" class="order-status" name="orderStatus1" value="inprocess1" checked><label for="inprocess1" class="font-mobile-11 label-radio label-radio">inprocess</label></div>
+            <div class="item-row-equal  background-medium-grey  "><input type="radio" id="pending1" class="order-status" name="orderStatus1" value="pending1"><label for="pending1" class="font-mobile-11 label-radio">pending</label></div>
+            <div class="item-row-equal  background-medium-grey "><input type="radio" id="completed1" class="order-status" name="orderStatus1" value="completed1"><label for="completed1" class="font-mobile-11 label-radio">completed</label></div>
+            <div class="item-row-equal  background-medium-grey "><input type="radio" id="rejected1" class="order-status" name="orderStatus1" value="rejected1"><label for="rejected1" class="font-mobile-11 label-radio">rejected</label></div>
+            <div class="item-row-equal  background-medium-grey "><input type="radio" id="all1" class="order-status" name="orderStatus1" value="all1" ><label for="all1" class="font-mobile-11 label-radio " style=" padding: 2px 8px;">all</label></div>
+        </form>
+        <form class="grid-five-column-equal background-light-grey main-item radio-group">
+            <div class="item-row-equal   background-medium-grey "><input type="radio" id="inprocess" class="order-status" name="orderStatus" value="inprocess" checked><label for="inprocess" class="label-radio">inprocess</label></div>
+            <div class="item-row-equal   background-medium-grey  "><input type="radio" id="pending" class="order-status" name="orderStatus" value="pending"><label for="pending"  class="label-radio">pending</label></div>
+            <div class="item-row-equal   background-medium-grey "><input type="radio" id="completed" class="order-status" name="orderStatus" value="completed"><label for="completed"  class="label-radio">completed</label></div>
+            <div class="item-row-equal   background-medium-grey "><input type="radio" id="rejected" class="order-status" name="orderStatus" value="rejected"><label for="rejected"  class="label-radio">rejected</label></div>
+            <div class="item-row-equal   background-medium-grey "><input type="radio" id="all" class="order-status" name="orderStatus" value="all"><label for="all"  class="label-radio">all</label></div>
+        </form>
+
+        @*     See js code*@
+        <div id="columns" class="columns-main font-mobile-11"></div>
+    </div>
+
+    <div class="grid-three-column-equal main-item p-b-15 background-medium-grey shadow5">
+        <div class="item-row p-10">
+        </div>
+        <div>
+            <div class="pagination main-item text-center " style="position:relative;top:10px;min-height:50px;" id="paginationCustom"> </div>
+        </div>
+        <div class="item-row p-10">
+
+        </div>
+    </div>
+</section>
+<div class="loader" id="loader"></div>
 
 @section Scripts{
 
-    <script src="~/js/order.js"></script>
+    <script src="~/js/loginMenu.js"></script>
+    <script src="~/js/order.js"></script> 
+
 }
 

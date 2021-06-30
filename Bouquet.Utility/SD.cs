@@ -33,6 +33,7 @@ namespace Bouquet.Utility
         public const string PaymentStatusRejected = "Rejected";
 
         public const string ImageFolder = @"images\products";
+        public const string Logo = @"\images\NCraft.png";
 
 
         public static string ConvertToRawHtml(string source)

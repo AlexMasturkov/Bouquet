@@ -1,145 +1,132 @@
 ﻿@model Bouquet.Models.ShoppingCart
-@using Bouquet.Utility;
 
-@{
-    string description = SD.ConvertToRawHtml(@Model.Product.Description);
-}
 <form method="post">
     <input hidden asp-for="ProductId" />
 
-
-
-    <section class="item-container">
-        <div class="item-header text-header">@Model.Product.Name</div>
-        <div class="item-container-vertical">
-            <div class="text-description item-1 container1">
-                @description
+    <section class="item-shadow-1 picture show-scale hide z-index10 mobile-item p-0" id="picture">
+        <div class="item-header text-header grid-three-column-center ">
+            <div></div>
+            <h1 class="item-row-center m-0"> @Model.Product.Name</h1>
+            <div class="item-row-right ">
+                <i class="icon-cross-small align-end" id="iconCrossMenuPicture"></i>
             </div>
-            <hr>
-            <div class="text-description item-1 container2">
-                <div class="grid-two-column">
-                    <div class="rounded-5" id="image01">
+            </div>
+            <div class="rounded-5 p-5">
+                <img src="@Model.Product.ImageUrl" class="w3-image" alt="Flower">
+            </div>
+    </section>
+
+    <section class="form-container mobile-item shadow5 background-bright-grey show-scale" id="detailsProduct">
+        <div class="item-header text-header grid-three-column-center " id="orderHeader">
+            <div></div>
+            <h1 class="item-row-center m-0">
+                @Model.Product.Name
+            </h1>
+            <div class="item-row-right ">
+                <a asp-area="Customer" asp-controller="Home" asp-action="Index" class="p-0 a-btn"><i class="icon-arrow-left-in-square i-btn"></i> </a>
+            </div>
+        </div>
+        <div class="item-container-vertical m-10 p-5 font-mobile-12">
+            <div class="grid-description background-light-grey shadow4 rounded-5 font-mobile-12 m-b-5">
+                <div class="p-10 font-mobile-12"> @Model.Product.Description</div>
+                <hr />
+                <div class="text-info">Regular</div>
+                <div> @Model.Product.RegularOption</div>
+                <div class="text-warning">Premium</div>
+                <div> @Model.Product.PremiumOption</div>
+                <div class="text-main">Luxury</div>
+                <div>@Model.Product.LuxuryOption</div>
+            </div>
+            <div class="text-description item-1 container2 background-light-grey rounded-5 font-mobile-12 p-20 shadow4">
+                <div class="grid-two-column ">
+                    <div class="rounded-5" id="image01" onclick="displayImage();" style="cursor: pointer; position: relative;">                       
+                         <i class="icon-zoom " style="position: absolute; top: 8px; right: 8px;"></i>                       
                         <img src="@Model.Product.ImageUrl" class="w3-image" alt="Flower">
                     </div>
-                    <div class="grid-three-column">
-                        <div class="item-row ">
-                            <div class="m-t-10">regular</div>
+                    <div class="grid-three-column font-mobile-12">
+                        <div class="item-row  ">
+                            <div class="m-t-10 text-info font-mobile-12">regular</div>
                         </div>
                         <div class="item-row">
-                            <div class="m-t-10">$ @Model.Product.Price</div>
+                            <div class="m-t-10 font-mobile-12">$ @Model.Product.Price</div>
                         </div>
-                        <div class="item-row"> <i class="icon-plus-in-box item-row"></i></div>
+                        <button class="item-row background-success3" type="submit" value="Add to Cart" asp-route-id="1"> <i class="icon-plus-in-box m-l-1 m-t-1"></i></button>
                         <div class="item-row ">
-                            <div class="m-t-10">premium</div>
+                            <div class="m-t-10 text-warning font-mobile-12">premium</div>
                         </div>
                         <div class="item-row">
-                            <div class="m-t-10">$ @Model.Product.Price</div>
+                            <div class="m-t-10 font-mobile-12">$ @Model.Product.Price2</div>
                         </div>
-                        <div class="item-row"> <i class="icon-plus-in-box item-row"></i></div>
+                        <button class="item-row background-success3" type="submit" value="Add to Cart" asp-route-id="2"> <i class="icon-plus-in-box m-l-1 m-t-1"></i></button>
                         <div class="item-row ">
-                            <div class="m-t-10">luxury</div>
+                            <div class="m-t-10 text-main font-mobile-12">luxury</div>
                         </div>
                         <div class="item-row">
-                            <div class="m-t-10">$ @Model.Product.Price</div>
+                            <div class="m-t-10 font-mobile-12">$ @Model.Product.Price3</div>
                         </div>
-                        <div class="item-row"> <i class="icon-plus-in-box item-row"></i></div>
+                        <button class="item-row background-success3" type="submit" value="Add to Cart" asp-route-id="3"> <i class="icon-plus-in-box m-l-1 m-t-1"></i></button>
                     </div>
                 </div>
-
-            </div>
-            <hr>
-            <div class="text-description item-1 container3">
-                <button asp-action="Index" class="btn-wide btn-secondary m-v-5 " id="btn-cancel-options">Cancel</button>
             </div>
         </div>
     </section>
-
-
-
-    <!--<div class="row d-sm-none my-shadow-transp m-2" style="background-color: rgba(0,51,102,.7);">
-        <div class="col-12 card-header  p-0" style="text-align:center;">-->
-           @* <div class="row  text-center m-0 " style="border-radius:.3rem!important;">
-                <div class="col-12 p-2 my-font my-shadow-transp">
-                    @Model.Product.Name
-                </div>
+    <section class="form-container main-item shadow5  background-medium-grey">
+        <div class="item-header text-header grid-three-column-center header-height " id="orderHeader">
+            <div></div>
+            <h1 class="item-row-center p-5 font-22">
+                @Model.Product.Name
+            </h1>
+            <div class="item-row p-5 ">
+                <a asp-area="Customer" asp-controller="Home" asp-action="Index" class="p-0 a-btn item-row-right m-r-15"><i class="icon-arrow-left-in-square i-btn"></i> </a>
             </div>
-            <div class="col-12 col-lg-3 offset-lg-1 text-center mt-3 mb-3">
-                <img src="@Model.Product.ImageUrl" class="rounded p-0" style="width: 98%;" />
-            </div>*@
-            <!--<div class="col-12 col-lg-8 my-font my-shadow-transp " style="text-align:center; font-size:24px;">-->
-               @* <div class=" m-0 mt-2 p-1 rounded text-center" readonly>
-                    <div class="col-12 p-2 " style="font-size:22px;">
-                        @description
-                    </div>
-                </div>*@
-
-                <!--<div class=" m-0 mt-2 p-1 rounded " readonly style="height:auto; ">
-                    <div class=" row m-0 p-1 " style="font-size:20px;">
-                       
-                        <div class="col-4 ">Amount</div>
-                        <div class="col-3 "><input class="form-control" asp-for="Count" /></div>
-                    </div>
-                </div>
+        </div>
+        <div class="grid-two-column-product-details ">
+            <div class=" p-5 m-5 background-bright-grey shadow4 rounded-5" id="image01">
+                <img src="@Model.Product.ImageUrl" class="w3-image" alt="Flower">
             </div>
-            <div class="card-footer row my-base-color m-0 ">
-                <div class="col-6 col-md-6 pb-1 d-md-none">
-                    <button asp-action="Index" class="btn my-button-return btn-square btn-lg form-control" style="height:50px;">Back to List</button>
-                </div>
-                <div class="col-6 col-md-6 pb-1 d-md-none">
-                    <button type="submit" value="Add to Cart" class="btn my-button-success btn-square btn-lg form-control" style="height:50px;">Add to Cart</button>
+            <div class="item-container-vertical m-15  p-t-5 p-r-5 ">
+                <div class="grid-description background-bright-grey shadow4 rounded-5 font-14 m-b-5">
+                    <div class="p-t-10 " style="height:120px;"> @Model.Product.Description</div>
+                    <hr />
+                    <div class="text-info">Regular</div>
+                    <div> @Model.Product.RegularOption</div>
+                    <div class="text-warning">Premium</div>
+                    <div> @Model.Product.PremiumOption</div>
+                    <div class="text-main">Luxury</div>
+                    <div>@Model.Product.LuxuryOption</div>
+                    <br />
+                    <hr />
+                    <div class="grid-three-column  m-0 p-0 m-t-10 m-l-10">
+                        <div class="item-row  ">
+                            <div class="m-t-10 text-info">regular</div>
+                        </div>
+                        <div class="item-row">
+                            <div class="m-t-10">$ @Model.Product.Price</div>
+                        </div>
+                        <button class="item-row background-success3" type="submit" value="Add to Cart" asp-route-id="1"> <i class="icon-plus-in-box m-l-1 m-t-1"></i></button>
+                        <div class="item-row ">
+                            <div class="m-t-10 text-warning">premium</div>
+                        </div>
+                        <div class="item-row">
+                            <div class="m-t-10">$ @Model.Product.Price2</div>
+                        </div>
+                        <button class="item-row background-success3" type="submit" value="Add to Cart" asp-route-id="2"> <i class="icon-plus-in-box m-l-1 m-t-1"></i></button>
+                        <div class="item-row ">
+                            <div class="m-t-10 text-main">luxury</div>
+                        </div>
+                        <div class="item-row">
+                            <div class="m-t-10">$ @Model.Product.Price3</div>
+                        </div>
+                        <button class="item-row background-success3" type="submit" value="Add to Cart" asp-route-id="3"> <i class="icon-plus-in-box m-l-1 m-t-1"></i></button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>-->
-
-
-
-    @*    <div class="row d-none d-sm-block my-shadow-transp m-2" style="background-color: rgba(0,51,102,.7);">
-        <div class="col-12 card-header  p-0" style="text-align:center;">
-            <div class="row  text-center m-0 my-shadow-transp " style="border-radius:.3rem!important;">
-                <div class="col-4 row my-no-shadows">
-                    <span class="badge badge-warning  p-2 m-2 ">@Model.Product.Category.Name</span>
-                    <span class="badge badge-primary  p-2 m-2">@Model.Product.EventType.Name</span>
-                </div>
-                <div class="col-4 p-2 my-font ">
-                    @Model.Product.Name
-                </div>
-            </div>
-            <div class="row  text-center m-0" >
-                <div class="col-4  text-center mt-3">
-                    <img src="@Model.Product.ImageUrl" class="rounded p-0" style="width: 100%;" />
-                </div>
-                <div class="col-8  my-font  " style="text-align:center; font-size:24px;">
-                    <div class=" m-0 mt-2 p-1 rounded text-center" readonly>
-                        <div class="col-12 p-2 " style="font-size:22px;">
-                            @description
-                        </div>
-                    </div>
-
-                    <div class=" m-0 mt-2 p-1 rounded " readonly style="height:auto; ">
-                        <div class=" row m-0 p-1 " style="font-size:20px;">
-                            <div class="col-5 ">@Model.Product.Price CAD</div>
-                            <div class="col-4 ">Amount</div>
-                            <div class="col-3 "><input class="form-control" asp-for="Count" /></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer row my-base-color m-0 ">
-                    <div class="col-6 col-md-6 pb-1">
-                        <button asp-action="Index" class="btn my-button-return btn-square btn-lg form-control" style="height:50px;">Back to List</button>
-                    </div>
-                    <div class="col-6 col-md-6 pb-1">
-                        <button type="submit" value="Add to Cart" class="btn my-button-success btn-square btn-lg form-control" style="height:50px;">Add to Cart</button>
-                    </div>
-                </div>
-
-            </div>
-
-            </div>
-
-
-
-
-        </div>*@
-
+    </section>
 </form>
+
+@section Scripts {
+    <script src="~/js/loginMenu.js"></script>   
+}
+
+

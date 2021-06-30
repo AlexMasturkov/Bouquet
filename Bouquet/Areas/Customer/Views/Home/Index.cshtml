@@ -1,120 +1,182 @@
 ﻿@model IEnumerable<Bouquet.Models.Product>
 @using Bouquet.Utility;
 
-<div id="main-body">
+<div id="main-body" class=" main-body  ">
+    @if (User.IsInRole(SD.RoleIndividual))
+    {
+        <section class="item-shadow-1 options five-elements hide z-index10 mobile-item " id="options">
+            <div class="item-header text-header">Customer Main Menu</div>
+            <i class="icon-cross-small align-end" id="icon-cross-menu"></i>
+            <div class="item-container-vertical">
+                <div class="text-description container2">
+                    <div class="grid-two-column-right">
+                        <div class="p-10 justify-left">
+                            Your Orders
+                        </div>
+                        <a asp-area="Admin" asp-controller="Order" asp-action="Index" class="icon-arrow-right align-end p-0"></a>
+                    </div>
+                </div>
+                <div class="text-description container2">
+                    <div class="grid-two-column-right">
+                        <div class="p-10 justify-left">
+                            Shipping and Delivery
+                        </div>
+                        <i class="icon-arrow-right align-end" id='option05' onclick="processOption05()"></i>
+                    </div>
+                </div>
+                <div class="text-description container2">
+                    <div class="grid-two-column-right">
+                        <div class="p-10 justify-left">
+                            Payment Methods
+                        </div>
+                        <i class="icon-arrow-right align-end" id='option06' onclick="processOption06()"></i>
+                    </div>
+                </div>
+                <div class="text-description container2">
+                    <div class="grid-two-column-right">
+                        <div class="p-10 justify-left">
+                            About Us
+                        </div>
+                        <i class="icon-arrow-right align-end" id='option07' onclick="processOption07()"></i>
+                    </div>
+                </div>
+                <div class="text-description container2">
+                    <div class="grid-two-column-right">
+                        <div class="p-10 justify-left">
+                            Contact Us
+                        </div>
+                        <i class="icon-arrow-right align-end" id='option04' onclick="processOption04()"></i>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </section>
+    }
+    else if (User.IsInRole(SD.RoleAdmin))
+    {
+        <section class="item-shadow-1 options two-elements hide z-index10 mobile-item" id="options">
+            <div class="item-header text-header">Main Menu</div>
+            <i class="icon-cross-small align-end" id="icon-cross-menu"></i>
 
+            <div class="item-container-vertical">
+                <div class="text-description container2">
+                    <div class="grid-two-column-right">
+                        <div class="p-10 justify-left">
+                            Admin and Employee Section
+                        </div>
+                        <i class="icon-arrow-right align-end" id='option01' onclick="processOption01()"></i>
+                    </div>
+                </div>
+                <hr>
+                <div class="text-description container2">
+                    <div class="grid-two-column-right">
+                        <div class="p-10 justify-left">
+                            Admin Section
+                        </div>
+                        <i class="icon-arrow-right align-end" id='option02' onclick="processOption02()"></i>
+                    </div>
+                </div>
+                <hr>
+                <hr>
+            </div>
+        </section>
+    }
+    else if (User.IsInRole(SD.RoleEmployee))
+    {
+        <section class="item-shadow-1 options one-elements hide z-index10 mobile-item" id="options">
+            <div class="item-header text-header">Main Menu</div>
+            <i class="icon-cross-small align-end" id="icon-cross-menu"></i>
 
-
-  @*  <a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">Category</a>
-    <a class="dropdown-item" asp-area="Admin" asp-controller="EventType" asp-action="Index">Event Type</a>
-    <a class="dropdown-item" asp-area="Admin" asp-controller="Product" asp-action="Index">Product</a>*@
-
-    <section class="item-shadow-1 options hide" id="options">
-        <div class="item-header text-header">Menu</div>
-        <i class="icon-cross-small align-end" id="icon-cross-menu"></i>
-        <div class="item-container-vertical">
-            <div class="text-description container2">
-                <div class="grid-two-column-right">
-                    <div class="p-10 justify-left">
-                        Help
+            <div class="item-container-vertical">
+                <div class="text-description container2">
+                    <div class="grid-two-column-right">
+                        <div class="p-10 justify-left">
+                            Employee Section
+                        </div>
+                        <i class="icon-arrow-right align-end" id='option01' onclick="processOption01()"></i>
                     </div>
-                    <i class="icon-arrow-right align-end" id='option01'></i>
                 </div>
+                <hr>
+                <hr>
             </div>
-            <hr>
-            <div class="text-description container2">
-                <div class="grid-two-column-right">
-                    <div class="p-10 justify-left">
-                        Admin Section
+        </section>
+    }
+    else
+    {
+        <section class="item-shadow-1 options four-elements hide z-index10 mobile-item " id="options">
+            <div class="item-header text-header">Main Menu</div>
+            <i class="icon-cross-small align-end" id="icon-cross-menu"></i>
+            <div class="item-container-vertical">
+                <div class="text-description container2">
+                    <div class="grid-two-column-right">
+                        <div class="p-10 justify-left">
+                            Shipping and Delivery
+                        </div>
+                        <i class="icon-arrow-right align-end" id='option05' onclick="processOption05()"></i>
                     </div>
-                    <i class="icon-arrow-right align-end" id='option02'></i>
                 </div>
-            </div>
-            <hr>
-            <div class="text-description container2">
-                <div class="grid-two-column-right">
-                    <div class="p-10 justify-left">
-                        Customer Section
+                <div class="text-description container2">
+                    <div class="grid-two-column-right">
+                        <div class="p-10 justify-left">
+                            Payment Methods
+                        </div>
+                        <i class="icon-arrow-right align-end" id='option06' onclick="processOption06()"></i>
                     </div>
-                    <i class="icon-arrow-right align-end" id='option03'></i>
                 </div>
-            </div>
-            <hr>
-            <div class="text-description container2">
-                <div class="grid-two-column-right">
-                    <div class="p-10 justify-left">
-                        Section 04
+                <div class="text-description container2">
+                    <div class="grid-two-column-right">
+                        <div class="p-10 justify-left">
+                            About Us
+                        </div>
+                        <i class="icon-arrow-right align-end" id='option07' onclick="processOption07()"></i>
                     </div>
-                    <i class="icon-arrow-right align-end"></i>
                 </div>
-            </div>
-            <hr>
-
-            <div class="text-description container2">
-                <div class="grid-two-column-right">
-                    <div class="p-10 justify-left">
-                        Section 05
+                <div class="text-description container2">
+                    <div class="grid-two-column-right">
+                        <div class="p-10 justify-left">
+                            Contact Us
+                        </div>
+                        <i class="icon-arrow-right align-end" id='option04' onclick="processOption04()"></i>
                     </div>
-                    <i class="icon-arrow-right align-end"></i>
                 </div>
+                <hr>
             </div>
-            <hr>
-            <div class="text-description container2">
-                <div class="grid-two-column-right">
-                    <div class="p-10 justify-left">
-                        Section 06
-                    </div>
-                    <i class="icon-arrow-right align-end"></i>
-                </div>
-            </div>
-            <hr>
-            <div class="text-description container2">
-                <div class="grid-two-column-right">
-                    <div class="p-10 justify-left">
-                        Section 07
-                    </div>
-                    <i class="icon-arrow-right align-end"></i>
-                </div>
-            </div>
-            <hr>
-            <div class="text-description container2">
-                <div class="grid-two-column-right">
-                    <div class="p-10 justify-left">
-                        Section 08
-                    </div>
-                    <i class="icon-arrow-right align-end"></i>
-                </div>
-            </div>
-            <hr>
-        </div>
-    </section>
-
-    <section class="item-shadow-1 options two-elements hide" id="extra-options01">
-        <div class="item-header text-header">Sub Menu 01</div>
+        </section>
+    }
+    <section class="item-shadow-1 options three-elements hide z-index10 mobile-item font-mobile-11" id="extra-options01">
+        <div class="item-header text-header">Company & Users</div>
         <i class="icon-cross-small align-end" id="icon-cross-small01"></i>
         <div class="item-container-vertical">
             <div class="text-description container2">
                 <div class="grid-two-column-right">
                     <div class="p-10 justify-left">
-                        Events
+                        Company
                     </div>
-                    <i class="icon-arrow-right align-end"></i>
+                    <a asp-area="Admin" asp-controller="Company" asp-action="Index" class="icon-arrow-right align-end p-0">Company</a>
                 </div>
             </div>
             <hr>
             <div class="text-description container2">
                 <div class="grid-two-column-right">
                     <div class="p-10 justify-left">
-                        Products
+                        Users
                     </div>
-                    <i class="icon-arrow-right align-end"></i>
+                    <a class="icon-arrow-right align-end p-0" asp-area="Admin" asp-controller="User" asp-action="Index">Users</a>
+                </div>
+            </div>
+            <hr>
+            <div class="text-description container2">
+                <div class="grid-two-column-right">
+                    <div class="p-10 justify-left">
+                        Orders
+                    </div>
+                    <a class="icon-arrow-right align-end p-0" asp-area="Admin" asp-controller="Order" asp-action="Index">Orders</a>
                 </div>
             </div>
             <hr>
         </div>
     </section>
-
-    <section class="item-shadow-1 options three-elements hide" id="extra-options02">
+    <section class="item-shadow-1 options three-elements hide z-index10 mobile-item font-mobile-11" id="extra-options02">
         <div class="item-header text-header">Admin Section</div>
         <i class="icon-cross-small align-end" id="icon-cross-small02"></i>
 
@@ -124,7 +186,7 @@
                     <div class="p-10 justify-left">
                         Category
                     </div>
-                     <a asp-area="Admin" asp-controller="Category" asp-action="Index" class="icon-arrow-right align-end"></a>
+                    <a asp-area="Admin" asp-controller="Category" asp-action="Index" class="icon-arrow-right align-end p-0"></a>
                 </div>
             </div>
             <hr>
@@ -133,159 +195,217 @@
                     <div class="p-10 justify-left">
                         Product
                     </div>
-                    <a asp-area="Admin" asp-controller="Product" asp-action="Index" class="icon-arrow-right align-end"></a>
+                    <a asp-area="Admin" asp-controller="Product" asp-action="Index" class="icon-arrow-right align-end p-0"></a>
                 </div>
             </div>
             <hr>
             <div class="text-description container2">
                 <div class="grid-two-column-right">
                     <div class="p-10 justify-left">
-                       Event Type
+                        Event Type
                     </div>
-                    <a asp-area="Admin" asp-controller="EventType" asp-action="Index" class="icon-arrow-right align-end"></a>
+                    <a asp-area="Admin" asp-controller="EventType" asp-action="Index" class="icon-arrow-right align-end p-0"></a>
                 </div>
             </div>
             <hr>
         </div>
     </section>
 
-    <section class="item-shadow-1 options four-elements hide" id="extra-options03">
-        <div class="item-header text-header">Sub Menu 03</div>
+    <section class="item-shadow-1 options four-elements hide z-index10 mobile-item font-mobile-11" id="extra-options03">
+        <div class="item-header text-header">Customer Menu</div>
         <i class="icon-cross-small align-end" id="icon-cross-small03"></i>
+        <div class="item-container-vertical">
+            <div class="text-description container2">
+                <div class="grid-two-column-right">
+                    <div class="p-10 justify-left">
+                        Your Orders
+                    </div>
+                    <a asp-area="Admin" asp-controller="Order" asp-action="Index" class="icon-arrow-right align-end p-0"></a>
+                </div>
+            </div>
+            <hr>
+            <div class="text-description container2">
+                <div class="grid-two-column-right">
+                    <div class="p-10 justify-left">
+                        Our Philosophy
+                    </div>
+                    <i class="icon-arrow-right align-end"></i>
+                </div>
+            </div>
+            <hr>
+            <div class="text-description container2">
+                <div class="grid-two-column-right">
+                    <div class="p-10 justify-left">
+                        About Us
+                    </div>
+                    <i class="icon-arrow-right align-end"></i>
+                </div>
+            </div>
+            <hr>
+            <div class="text-description container2">
+                <div class="grid-two-column-right">
+                    <div class="p-10 justify-left">
+                        Contact Us
+                    </div>
+                    <i class="icon-arrow-right align-end"></i>
+                </div>
+            </div>
+            <hr>
+        </div>
+    </section>
+    <section class="item-shadow-1 options five-elements hide z-index10 mobile-item font-mobile-11" id="extraFilters">
+        <div class="item-header text-header">More Filters</div>
+        <i class="icon-cross-small align-end" id="iconCrossFiters" onclick="processCrossFilter()"></i>
 
         <div class="item-container-vertical">
             <div class="text-description container2">
                 <div class="grid-two-column-right">
                     <div class="p-10 justify-left">
-                        Events
+                        Romance
                     </div>
-                    <i class="icon-arrow-right align-end"></i>
+                    <i class="icon-arrow-right align-end" onclick="filterByElement(event)" id="romance"></i>
                 </div>
             </div>
             <hr>
             <div class="text-description container2">
                 <div class="grid-two-column-right">
                     <div class="p-10 justify-left">
-                        Products
+                        Special
                     </div>
-                    <i class="icon-arrow-right align-end"></i>
+                    <i class="icon-arrow-right align-end" onclick="filterByElement(event)" id="special"></i>
                 </div>
             </div>
             <hr>
             <div class="text-description container2">
                 <div class="grid-two-column-right">
                     <div class="p-10 justify-left">
-                        Services
+                        Birthday
                     </div>
-                    <i class="icon-arrow-right align-end"></i>
+                    <i class="icon-arrow-right align-end" onclick="filterByElement(event)" id="birthday"></i>
                 </div>
             </div>
             <hr>
             <div class="text-description container2">
                 <div class="grid-two-column-right">
                     <div class="p-10 justify-left">
-                        Global
+                        Decorations
                     </div>
-                    <i class="icon-arrow-right align-end"></i>
+                    <i class="icon-arrow-right align-end" onclick="filterByElement(event)" id="decoration"></i>
+                </div>
+            </div>
+            <hr>
+            <div class="text-description container2">
+                <div class="grid-two-column-right">
+                    <div class="p-10 justify-left">
+                        All
+                    </div>
+                    <i class="icon-arrow-right align-end" onclick="filterByElement(event)" id="all"></i>
                 </div>
             </div>
             <hr>
         </div>
     </section>
 
-
-    <section class="filter-container main-container" id="filter-container">
-        <!-- <label for="search-bouquet"></label> -->
-        <input type="search" placeholder="Search bouquet title or keyword" id="search-bouquet"
-               class="item-8 search-area">
-        <button class="item-3 btn-search btn-default">
-            <i class="icon-search"></i>
-            Search
-        </button>
-    </section>
-    <!-- Keep all products container -->
-    <section class="card-container main-container" id="card-container">
-
-        @foreach (var product in Model)
-        {
-
-            <div>
-                @{
-                    string myString = "" + SD.ConvertToRawHtml(@product.Description);
-                }
-
-                <div class="card w3-container">
-                    <i class="icon-heart-active"></i>
-                    <div class="bouquet-image " id="image01">
-                        <a asp-action="Details" asp-controller="Home" asp-route-id="@product.Id">
-                            <img src="@product.ImageUrl" class="w3-image card-image" style="width:100%" alt="Flower">
-                        </a>
-                    </div>
-                    <div class="card-info">
-                        <div class="text-name">@product.Name</div>
-                        <div class="text-name">$ @product.Price</div>
-                    </div>
-                </div>
-            </div>
-
-        }
-
-        <div class="bottom-fill"></div>
-    </section>
-
-
-
-
-    @* <div class="btn-group ml-1 mr-1 col-12 " id="header-top">
-            <a class="btn   col-2 " id="rust" asp-action="Index" asp-route-id="Roses">Roses</a>
-            <a class="btn  my-button-return col-2 " id="2" asp-action="Index" asp-route-id="Bouquets">Bouquets</a>
-            <a class="btn  my-button-return col-2" id="3" asp-action="Index" asp-route-id="Anniversary">Anniversary</a>
-            <a class="btn  my-button-return col-2" id="4" asp-action="Index" asp-route-id="Birthday">Birthday</a>
-            <a class="btn  my-button-return col-2 " id="6" asp-action="Index" asp-route-id="Valentine">Valentine</a>
-            <a class="btn  my-button-return col-2 " id="5" asp-action="Index" asp-route-id="">All</a>
+    @*  CONTACT US*@
+    <section class="item-shadow-1 options hide z-index10 mobile-item font-mobile-11" id="extra-options04">
+        <div class="item-header text-header">Contact Us</div>
+        <i class="icon-cross-small align-end" id="icon-cross-small04"></i>
+        <div class="item-container-vertical text-center p-15">
+            <div class="font-16 text-info">Location </div>
+            <hr class="m-0 m-t-10" />
+            <p class=" font-13 ">
+                @Html.Raw(SDextra.ContactAddress)
+            </p>
+            <hr class="m-0 p-t-10" />
+            <div class="font-16 text-info">Phone </div>
+            <hr class="m-0 m-t-10" />
+            <p class=" font-13 ">
+                @Html.Raw(SDextra.ContactPhone)
+            </p>
+            <hr class="m-0 p-t-10" />
+            <div class="font-16 text-info">Email </div>
+            <hr class="m-0 m-t-10" />
+            <p class=" font-13 ">
+                @Html.Raw(SDextra.ContactEmail)
+            </p>
         </div>
-        <div id="result"></div>*@
+    </section>
 
-    @* <div class="row justify-content-center">
+    @*  SHIPPING AND DELIVERY*@
+    <section class="item-shadow-1 options hide z-index10 mobile-item font-mobile-11" id="extra-options05">
+        <div class="item-header text-header">Shipping and Delivery</div>
+        <i class="icon-cross-small align-end" id="icon-cross-small05"></i>
+        <div class="item-container-vertical text-center p-15">
 
-        @foreach (var product in Model)
-        {
+            <p class=" font-12 text-left">
+                @Html.Raw(SDextra.Shipping)
+            </p>
+        </div>
+    </section>
 
-            <div class="trest m-1 mr-0">
-                @{
-                    string myString = "" + SD.ConvertToRawHtml(@product.Description);
-                }
+    @*  PAYMENT METHODS*@
+    <section class="item-shadow-1 options hide z-index10 mobile-item font-mobile-11" id="extra-options06">
+        <div class="item-header text-header">Payment Methods</div>
+        <i class="icon-cross-small align-end" id="icon-cross-small06"></i>
+        <div class="item-container-vertical text-center p-20">
+            <div class="font-16 text-info">Payments </div>
+            <hr class="m-0 m-t-10" />
+            <p class=" font-13 text-left">
+                @Html.Raw(SDextra.Payment)
+            </p>
+        </div>
+    </section>
 
-                <div class="card-body p-1 pb-0 m-0 my-shadow-transp" style=" border-radius: .5rem !important; ">
-                    <label class=" p-2 text-center col-12 m-0 font-adjust my-font" style="font-weight: 300;font-size:22px; color: white;">
-                        @product.Name
-                    </label>
-                    <div class="flw">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <img class="frameContainer card-img-top " src="@product.ImageUrl" alt="Card Image" />
+    @*  ABOUT US*@
+    <section class="item-shadow-1 options hide z-index10 mobile-item font-mobile-11" id="extra-options07">
+        <div class="item-header text-header">About Us</div>
+        <i class="icon-cross-small align-end" id="icon-cross-small07"></i>
+        <div class="item-container-vertical text-center p-20">
+            <div class="font-16 text-info">NCraft </div>
+            <hr class="m-0 m-t-10" />
+            <p class=" font-mobile-11 text-left">
+                @Html.Raw(SDextra.About)
 
-                        </div>
-                    </div>
-                    <div class="description">
-                        <div class="d-flex justify-content-center ">
-                            <textarea style="font-size:14px; border-radius:5px; " class="p-1 mt-1 text-center"> @myString</textarea>
-                        </div>
-                    </div>
-                    <div class=" description text-center my-base-color pt-1 pb-1 col-12 row m-0 mt-1 my-no-shadows text-white" style="font-size: 16px; font-weight: 600;background-color:white; border-radius:3px;">
-                        <div class="col-8 mt-1 ">from $ @product.Price</div>
-                        <div class="col-4">
-                            <a class="btn my-button-success  text-white ml-2 mb-0 " asp-action="Details" asp-controller="Home" asp-route-id="@product.Id">Add</a>
-                        </div>
+            </p>
+        </div>
+    </section>
+  
+<section class=" grid-eight-column-filter-main main-item " id="filterOption">
+    <div class="item-row-filter-main " onclick="filterByElement(event)" id="valentine">valentine</div>
+    <div class="item-row-filter-main" onclick="filterByElement(event)" id="year">new year</div>
+    <div class="item-row-filter-main " onclick="filterByElement(event)" id="craft">crafts</div>
+    <div class="item-row-filter-main " onclick="filterByElement(event)" id="decor">decor</div>
+    <div class="item-row-filter-main" onclick="filterByElement(event)" id="plants">plants</div>
+    <div class="item-row-filter-main " onclick="filterByElement(event)" id="birthday">birthday</div>
+    <div class="item-row-filter-main" onclick="filterByElement(event)" id="romance">romance</div>
+    <div class="item-row-filter-main" onclick="filterByElement(event)" id="all">all</div>
+</section>
+    @* //Filter section*@
 
-                    </div>
-                </div>
-            </div>
+    <div class="grid-six-column-filter mobile-item" id="filterContainer">
+        <div class="item-row-filter" onclick="filterByElement(event)" id="all">all</div>
+        <div class="item-row-filter" onclick="filterByElement(event)" id="year">new year </div>
+        <div class="item-row-filter" onclick="filterByElement(event)" id="craft">crafts</div>
+        <div class="item-row-filter" onclick="filterByElement(event)" id="decor">decor</div>
+        <div class="item-row-filter" onclick="filterByElement(event)" id="plants">plants</div>
+        <div class="item-row-filter extra-item-mobile m-0" onclick="filterMore()" id="filterMore"> more </div>      
+    </div> 
 
-            }
-        </div>*@
+    <div class="loader" id="loader"></div>
+    <!-- Keep all products container -->  
+
+<div class="card-container-height">
+   
+    <div class="card-container-fix">
+        <section class="card-container " id="cardContainer"> </section>
+        <div id="noItemsInfo"></div>
+        <div class="pagination main-item text-center background-bright-grey " style="position:relative;top:0px;min-height:60px;" id="paginationMain"> </div>
+    </div>
+</div>
+
 </div>
 
 @section Scripts{
     <script src="~/js/index.js"></script>
-    <script src="~/js/menu.js"></script>
+    <script src="~/js/menu.js"></script>       
 }

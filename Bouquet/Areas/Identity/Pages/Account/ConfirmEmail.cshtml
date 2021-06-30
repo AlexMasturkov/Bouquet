@@ -4,5 +4,33 @@
     ViewData["Title"] = "Confirm email";
 }
 
-<h1>@ViewData["Title"]</h1>
-<partial name="_StatusMessage" model="Model.StatusMessage" />
+
+
+
+<div class="form-container shadow5 background-bright-grey p-b-5">
+
+    <div class="item-header text-header grid-three-column-center  mobile-item">
+        <div></div>
+        <h1 class="item-row-center">
+            @ViewData["Title"]
+        </h1>
+        <div class="item-row-right ">
+            @*<a asp-area="Customer" asp-controller="Home" asp-action="Index" class="p-0 a-btn"><i class="icon-arrow-left-in-square i-btn "></i></a>*@
+
+        </div>
+    </div>
+    <div class="item-header text-header grid-three-column-center main-item header-height">
+        <div></div>
+        <h1 class="item-row-center p-5 font-22">
+            @ViewData["Title"]
+        </h1>
+        <div class="item-row-right p-5">
+          @*  <a asp-area="Customer" asp-controller="Home" asp-action="Index" class="p-0 a-btn item-row-right m-r-15"><i class="icon-arrow-left-in-square i-btn "></i></a>*@
+        </div>
+    </div>
+    <div class="p-5">
+        <partial name="_StatusMessage" model="Model.StatusMessage" />
+        <p class="p-15 center-text">Now you can find your product</p>
+        <a asp-area="Customer" asp-controller="Home" asp-action="Index" class="a-btn btn-wide btn-success">Do Main Page</a>
+    </div>
+</div>

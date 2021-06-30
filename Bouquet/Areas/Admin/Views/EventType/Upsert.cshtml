@@ -4,44 +4,92 @@
     var title = "Create Event Type";
 }
 
-<form method="post">
-    <div class="row p-3 border">
+<section class="form-container shadow5 background-bright-grey">
+    <form method="post" class="mobile-item" enctype="multipart/form-data" autocomplete="off">
+        <div class="item-header text-header grid-three-column-center ">
+            @if (Model.Id != 0)
+            {
+                //edit
+                title = "Edit Event Type";
+                <input type="hidden" asp-for="Id" />
+            }
+            <div></div>
+            <h1 class="item-row-center">@title</h1>
+            <div class="item-row-right ">
+                <a asp-action="Index" class="p-0 a-btn"><i class="icon-arrow-left-in-square i-btn "></i></a>
+            </div>
+        </div>
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        @* Main body part*@
+
+        <div class="p-10 m-0  m-h-5 ">
+            <label asp-for="Name"> Name </label><br>
+            <span asp-validation-for="Name" class="text-danger"></span>
+            <div class="input-container ">
+                <input class="input-field " id="eventName" type="text" asp-for="Name" placeholder="Event Type Name" minlength="3" maxlength="30">
+            </div>
+        </div>
+        <hr class="width-max">
+        <div class="p-h-10">
+            <button class="btn-wide btn-success m-v-10 p-5" onclick="return validateInput()">@title</button>
+        </div>
+        <hr class="width-max">
+    </form>
+
+    @* Main Layout*@
+
+    <form method="post" class="main-item " enctype="multipart/form-data" autocomplete="off">
         @if (Model.Id != 0)
         {
             //edit
             title = "Edit Event Type";
+            <input type="hidden" asp-for="Id" />
         }
+        <div class="item-header text-header grid-three-column-center main-item shadow5 " style="height:68px;">
+            <div></div>
+            <h1 class="item-row-center p-5 font-22">@title</h1>
+            <div class="item-row p-5 ">
+                <a asp-action="Index" class="p-0 a-btn item-row-right m-r-15"><i class="icon-arrow-left-in-square i-btn "></i></a>
+            </div>
+        </div>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-        <div class="col-12 border-bottom">
-            <h2 class="text-primary">@title</h2>
-        </div>
-        <div class="col-8 pt-4">
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="Name"></label>
-                </div>
-                <div class="col-8">
-                    <input asp-for="Name" class="form-control" />
-                    <span asp-validation-for="Name" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-8 offset-4">
-                    @if (Model.Id != 0)
-                    {
-                        <partial name="_EditAndBackToListButton" model="Model.Id" />
-                    }
-                    else
-                    {
-                        <partial name="_CreateAndBackToListButton" />
-                    }
-                </div>
+        @* Main body part*@
+
+        <div class="p-10 m-0  m-h-5 ">
+            <label asp-for="Name"> Name </label><br>
+            <span asp-validation-for="Name" class="text-danger"></span>
+            <div class="input-container ">
+                <input class="input-field " id="eventName1" type="text" asp-for="Name" placeholder="Event Type Name" minlength="3" maxlength="30">
             </div>
         </div>
-    </div>
-</form>
+        <hr class="width-max">
+        <div class="p-h-10">
+            <button class="btn-wide btn-success m-v-10 p-5" onclick="return validateInput1()">@title</button>
+        </div>
+        <hr class="width-max">
+    </form>
+</section>
 
 @section Scripts{
-    <partial name="_ValidationScriptsPartial" />
+<script>           
+        function validateInput() {
+            if (document.getElementById("eventName").value == "") {
+                swal("Error", "Please fill the input field", "error");
+                return false;
+            }
+            return true;
+    }
+    function validateInput1() {
+        if (document.getElementById("eventName1").value == "") {
+            swal("Error", "Please fill the input field", "error");
+            return false;
+        }
+        return true;
+    }
+</script>
 }
+
+
+

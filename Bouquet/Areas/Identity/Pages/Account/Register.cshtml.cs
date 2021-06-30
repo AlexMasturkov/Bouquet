@@ -53,20 +53,22 @@ namespace Bouquet.Areas.Identity.Pages.Account
 
         [BindProperty]
         public InputModel Input { get; set; }
-
         public string ReturnUrl { get; set; }
-
+        [TempData]
+        public string StatusMessage { get; set; }
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
         public class InputModel
         {
-            [Required]
-            [EmailAddress]
             [Display(Name = "Email")]
+            [Required(ErrorMessage = "The email address is required")]
+            [EmailAddress(ErrorMessage = "Invalid Email Address")]
+            [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$", ErrorMessage = "Please enter valid Email.")]
             public string Email { get; set; }
 
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Required]       
+            [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&amp;])[A-Za-z\d$@$!%*?&amp;]{8,}", 
+                ErrorMessage = "Password must contain: Minimum 8 characters at least 1 UpperCase Alphabet, 1 LowerCase Alphabet, 1 Number and 1 Special Character(exp.^,#)")]        
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
             public string Password { get; set; }
@@ -75,17 +77,31 @@ namespace Bouquet.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
             [Required]
+            [RegularExpression(@"^[a-zA-Z]+ [a-zA-Z]+$", ErrorMessage = "Please enter first and second name.")]
             public string Name { get; set; }
+
             [Required]
+            [RegularExpression(@"^[#.0-9a-zA-Z\s,-]+$")]
             public string StreetAddress { get; set; }
+
             [Required]
+            [RegularExpression(@"^(?:[A-Za-z]{2,}(?:(\.\s|'s\s|\s?-\s?|\s)?(?=[A-Za-z]+))){1,2}(?:[A-Za-z]+)?$", ErrorMessage = "Please enter valid City.")]
             public string City { get; set; }
+
             [Required]
+            /*[RegularExpression(@"[^'r]s|[Au][^i]|[vb]|O")]*/
             public string State { get; set; }
+
             [Required]
+            [RegularExpression(@"^(\d{5}(-\d{4})?|[A-Z]\d[A-Z] ?\d[A-Z]\d)$", ErrorMessage = "Please enter valid Postal code /All Capital letters.")]
             public string PostalCode { get; set; }
-            [Required]
+
+            [Required(ErrorMessage = "Phone no. is required")]
+            [StringLength(10)]
+            [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Please enter 10 digit valid phone no.")]
+            [Display(Name = "Phone Number")]
             public string PhoneNumber { get; set; }
             public int? CompanyId { get; set; }
             public string Role { get; set; }
@@ -93,7 +109,6 @@ namespace Bouquet.Areas.Identity.Pages.Account
             public IEnumerable<SelectListItem> RoleList { get; set; }
 
         }
-
         public async Task OnGetAsync(string returnUrl = null)
         {
             ReturnUrl = returnUrl;
@@ -110,7 +125,6 @@ namespace Bouquet.Areas.Identity.Pages.Account
                     Value = i
                 })
             };
-
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
@@ -119,8 +133,7 @@ namespace Bouquet.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
-            {
-                // var user = new IdentityUser { UserName = Input.Email, Email = Input.Email }; it was changed to Application User
+            {              
                 var user = new ApplicationUser
                 {
                     UserName = Input.Email,
@@ -161,34 +174,24 @@ namespace Bouquet.Areas.Identity.Pages.Account
 
                     var pathToFile = _hostEnvironment.WebRootPath + Path.DirectorySeparatorChar.ToString()
                         + "Templates" + Path.DirectorySeparatorChar.ToString() + "EmailTemplates"
-                        + Path.DirectorySeparatorChar.ToString() + "Confirm_Account_Registration.html";
+                        + Path.DirectorySeparatorChar.ToString() + "Confirm_Account_Registration.html";                   
 
-                    var subject = "Confirm Account Registration";
+                    var subject = "Account Registration";
                     string HtmlBody = "";
                     using (StreamReader streamReader = System.IO.File.OpenText(pathToFile))
                     {
                         HtmlBody = streamReader.ReadToEnd();
                     }
-
-                    //{0} : Subject  
-                    //{1} : DateTime  
-                    //{2} : Name  
-                    //{3} : Email  
-                    //{4} : Message  
-                    //{5} : callbackURL  
-
                     string message = $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.";
-
                     string messageBody = string.Format(HtmlBody,
                         subject,
                         String.Format("{0:dddd, d MMMM yyyy}", DateTime.Now),
                         user.Name,
                         user.Email,
                         message,
-                        callbackUrl
+                        callbackUrl                    
                         );
-
-
+                  
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email", messageBody);
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
@@ -211,6 +214,7 @@ namespace Bouquet.Areas.Identity.Pages.Account
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
+                    StatusMessage = "Error: " + error.Description;
                 }
             }
             // If we got this far, something failed, redisplay form
@@ -227,7 +231,8 @@ namespace Bouquet.Areas.Identity.Pages.Account
                     Value = i
                 })
             };
-            return Page();
+            
+            return RedirectToAction("");
         }
     }
 }

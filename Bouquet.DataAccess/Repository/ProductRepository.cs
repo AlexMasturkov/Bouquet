@@ -24,7 +24,12 @@ namespace Bouquet.DataAccess.Repository
                 }
                 productDb.Name = product.Name;
                 productDb.Description = product.Description;
+                productDb.RegularOption = product.RegularOption;
+                productDb.PremiumOption = product.PremiumOption;
+                productDb.LuxuryOption = product.LuxuryOption;
                 productDb.Price = product.Price;
+                productDb.Price2 = product.Price2;
+                productDb.Price3 = product.Price3;
                 productDb.CategoryId = product.CategoryId;
                 productDb.EventTypeId = product.EventTypeId;              
             }

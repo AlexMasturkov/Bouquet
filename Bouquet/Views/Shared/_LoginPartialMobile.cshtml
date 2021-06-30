@@ -1,0 +1,29 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <div class="icon-item1"></div>
+    <div class="icon-item4 text-center ">
+        <a class="text-white i-border-tiny p-0" asp-area="Identity" style="padding-top:6px !important; font-size:16px !important;" asp-page="/Account/Manage/Index" title="Manage">@await Component.InvokeAsync("UserName")
+        <i class="icon-info m-l-10 "></i></a>
+    </div>
+    <div class="icon-item1"></div>
+    <div class="icon-item text-right">
+        <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+            <button class="i-btn-sm-noline btn-default a-btn" style="margin:5px!important;" type="submit"><i class="icon-logout"></i></button>
+        </form>
+    </div>
+    }
+else
+{    <div class="icon-item4"></div>
+    <div class="icon-item">
+        <a class="text-white" style="margin-top:7px !important;" asp-area="Identity" asp-page="/Account/Register"><i class="icon-user-plus "></i></a>
+    </div>
+    <div class="icon-item text-center">
+        <a class="text-white" style="margin-top:7px !important;" asp-area="Identity" asp-page="/Account/Login"><i class="icon-login"></i></a>
+    </div>
+}
+
