@@ -26,7 +26,15 @@ namespace Bouquet.Areas.Admin.Controllers
             return View();
         }
 
-       
+        private class UserCurrent
+        {
+            public string Name { get; set; }
+            public string Role { get; set; }
+            public string Id { get; set; }
+
+            public DateTimeOffset? LockoutEnd { get; set; }
+
+        };
 
         #region API CALLS
 
@@ -36,20 +44,48 @@ namespace Bouquet.Areas.Admin.Controllers
             var userList = _db.ApplicationUsers.Include(u => u.Company).ToList();
             var userRole = _db.UserRoles.ToList();
             var roles = _db.Roles.ToList();
-            foreach(var user in userList)
-            {
+
+            var userApplication = new UserCurrent();
+            var userApplicationList = new List<UserCurrent>();
+            foreach (var user in userList)
+            {              
                 var roleId = userRole.FirstOrDefault(u => u.UserId == user.Id).RoleId;
-                user.Role = roles.FirstOrDefault(u => u.Id == roleId).Name;
-                if(user.Company == null)
+                userApplication.Role = roles.FirstOrDefault(u => u.Id == roleId).Name;             
+                userApplication.Name = user.Name;
+                userApplication.Id = user.Id;
+                userApplication.LockoutEnd = user.LockoutEnd;
+                userApplicationList.Add(new UserCurrent{ Name = user.Name, Id = user.Id, Role= userApplication.Role, LockoutEnd = userApplication.LockoutEnd});
+            }           
+
+            return Json(new { data = userApplicationList });
+        }
+
+        [HttpGet]
+        public IActionResult GetDetails(string id)
+        {
+            var userDb = _db.ApplicationUsers.Include(u => u.Company).FirstOrDefault(u => u.Id == id);
+            if (userDb == null)
+            {
+                return Json(new { success = false, message = "Error get Details" });
+            }
+            else
+            {
+                var userRole = _db.UserRoles.ToList();
+                var roles = _db.Roles.ToList();
+                var roleId = userRole.FirstOrDefault(u => u.UserId == id).RoleId;              
+                userDb.Role = roles.FirstOrDefault(u => u.Id == roleId).Name;
+
+                if (userDb.Company == null)
                 {
-                    user.Company = new Company()
+                    userDb.Company = new Company()
                     {
-                        Name = ""
+                        Name = "",
+                        Phone =""
                     };
                 }
-            }
 
-            return Json(new { data = userList });
+                return Json(new { data = new { userDb.Name, userDb.City, userDb.StreetAddress, userDb.PostalCode, userDb.PhoneNumber, userDb.Email, userDb.State, userDb.Role, userDb.Company } });
+            }
         }
 
         [HttpPost]
@@ -66,12 +102,11 @@ namespace Bouquet.Areas.Admin.Controllers
             }
             else 
             {
-                userDb.LockoutEnd = DateTime.Now.AddYears(50);
+                userDb.LockoutEnd = DateTime.Now.AddDays(90);
             }
             _db.SaveChanges();
             return Json(new { success = true, message = "Success to Lock/Unlock" });
-        }
-       
+        }       
         #endregion
     }
 }

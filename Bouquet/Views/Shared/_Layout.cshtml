@@ -9,145 +9,151 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Bouquet </title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
     <link rel="stylesheet" href="~/css/main.css" />
     <link rel="stylesheet" href="~/css/layout.css" />
     <link rel="stylesheet" href="~/css/icons.css" />
     <link rel="stylesheet" href="~/css/menu.css" />
-
-    @*    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />*@
-    @*   <link rel="stylesheet" href="~/css/site.css" />*@
-    @*    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>*@
+    <link rel="stylesheet" href="~/css/login.css" />
+    <link rel="stylesheet" href="~/css/radioBtn.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-    <header class="header">
-        <div><img src="~/images/icons/HeaderWave.png" class=" no-radius" style="width:100%" alt="Flower"></div>
-        <i class="icon-logo"></i>
-        <i class="icon-expand" id="icon-expand"></i>
-    </header>
+    <div class="wrapper" id="wrapper">
+        <header class="header m-0 p-0">
+            <section id="headerMobile" class="mobile-item" >
+                <div class="header-wave"><img src="~/images/icons/HeaderWave.png" class="no-radius" style="width:100%;max-height:100px; position: sticky; top:0;" alt="Flower"></div>
+                <div class="grid-header">
+                    <div class="icon-item2"> <i class="icon-logo" onclick="redirectHomePage()"></i></div>
+                    <partial name="_LoginPartialMobile" />
+                    <div class="icon-item">  <i class="icon-expand" id="iconExpand"></i></div>
+                </div>
+            </section>
+            <section id="headerMain" class="main-item">     
+                  <div class="header pattern" >
+                    <div class="second-header background-main" ></div>                  
+                    <div class="wave-fixed">
+                        <div class="header-left"> <i class="icon-logo-main shadow1" style="cursor:pointer;" onclick="redirectHomePage()"></i></div>
+                        <div class="header-right" >
+                            <div class="grid-five-column-header " id="filterContainer">
 
-    @*
-        <header >
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm  navbar-dark  my-shadow-transp mb-1">
-                <a class="navbar-brand text-left" asp-area="Customer" asp-controller="Home" asp-action="Index"><i class="fab fa-pagelines"></i></a>
-                <div class="my-font">Natalie Flowers</div>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <partial name="_LoginPartial" />
-                    <ul class="navbar-nav flex-grow-0" style="color:azure!important;">
-
-                        @if (User.IsInRole(SD.RoleAdmin))
-                        {
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fab fa-servicestack"></i>
-                                </a>
-                                <div class="dropdown-menu my-no-shadows" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">Category</a>
-                                    <a class="dropdown-item" asp-area="Admin" asp-controller="EventType" asp-action="Index">Event Type</a>
-                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Product" asp-action="Index">Product</a>
-                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Product" asp-action="IndexTest">ProductTest</a>
-
-                                </div>
-                            </li>
-                        }
-                        @if (User.IsInRole(SD.RoleAdmin) || User.IsInRole(SD.RoleEmployee))
-                        {
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-users-cog"></i>
-                                </a>
-                                <div class="dropdown-menu my-no-shadows" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Company" asp-action="Index">Company</a>
-                                    <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Index">User</a>
-                                </div>
-                            </li>
-                        }
-                        <li class="nav-item">
-                            <a class="nav-link text-light " asp-area="Admin" asp-controller="Order" asp-action="Index">
-
-                                @if (User.IsInRole(SD.RoleAdmin) || User.IsInRole(SD.RoleEmployee))
+                                @if (!User.IsInRole(SD.RoleAdmin) && !User.IsInRole(SD.RoleEmployee))
                                 {
-                                    <span><i class="fas fa-tasks"></i></span>
+                                    <div class="item-row-header "><a asp-area="Customer" asp-controller="Home" asp-action="Contact">contact</a></div>
+                                    <div class="item-row-header "><a asp-area="Customer" asp-controller="Home" asp-action="About">about</a></div>
+                                }
+
+                                @if (User.IsInRole(SD.RoleEmployee))
+                                {
+                                    <div class="item-row-header"> </div>
                                 }
                                 @if (User.IsInRole(SD.RoleIndividual) || User.IsInRole(SD.RoleCompanyUser))
                                 {
-                                    <span>Order History</span>
+                                    <div class="item-row-header shadow2 non-drop "><a asp-area="Admin" asp-controller="Order" asp-action="Index" class="non-drop">orders</a></div>
                                 }
-                            </a>
-                        </li>
-                        @if (User.IsInRole(SD.RoleAdmin) || User.IsInRole(SD.RoleEmployee))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-light " asp-area="Admin" asp-controller="BrainTree" asp-action="Index"><i class="far fa-credit-card"></i></a>
-                            </li>
-                        }
+                                @if (User.IsInRole(SD.RoleAdmin) || User.IsInRole(SD.RoleEmployee))
+                                {
+                                    <div class="item-row-header shadow2 ">
+                                        <div onclick="dropDown(event) " id="employee" class="drop-items">employee</div>
+                                    </div>
+                                }
+                                @if (User.IsInRole(SD.RoleAdmin))
+                                {
+                                    <div class="item-row-header shadow2 ">
+                                        <div onclick="dropDown(event)" id="admin" class="drop-items">admin</div>
+                                    </div>
+                                }
+                                <partial name="_LoginPartial" />
+                                @if (HttpContextAccessor.HttpContext.Session.GetInt32(SD.ssShoppingCart) != null && HttpContextAccessor.HttpContext.Session.GetInt32(SD.ssShoppingCart) > 0)
+                                {
+                                     <div class="icon-item ">
+                                @{
+                                    var count = HttpContextAccessor.HttpContext.Session.GetInt32(SD.ssShoppingCart);
+                                }
+                                <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="non-drop">
+                                    <div class="text-white font-bold m-0 font-12" style=" text-align: center; "> <i class="icon-cart-add m-t-5 non-drop " id="cartIcon"></i> 
+                                        <span  style="width: 20px; position:absolute; transform:translateX(-26px);" id="cartCountMain"> @count</span></div></a>    
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="icon-item ">
+                                        <i class="icon-cart-empty m-t-5 non-drop "></i>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>                       
+            </section>
+        </header>
+        <section class="item-shadow-1 options hide z-index10 drop-down-section background-bright-grey " onmouseleave="dropBoxOver(event)" id="employeeOption" style="width:130px; height:220px; z-index:1000; border-radius:0 0 8px 8px;">
+            <div class=" text-header text-main">Employee</div>
+            <div class="item-container-vertical text-center p-10 font-13">
+                <a asp-area="Admin" asp-controller="Company" asp-action="Index" class="p-10 item-drop">Company</a>
+                <hr class="p-5" />
+                <a asp-area="Admin" asp-controller="User" asp-action="Index" class="p-10 item-drop">Users</a>
+                <hr class="p-5" />
+                <a asp-area="Admin" asp-controller="Order" asp-action="Index" class="p-10 item-drop">Orders</a>
+            </div>
+        </section>
+        <section class="item-shadow-1 options hide z-index10 drop-down-section background-bright-grey" onmouseleave="dropBoxOver(event)" id="adminOption" style="width:130px; height:220px; z-index:1000;border-radius:0 0 8px 8px;">
+            <div class=" text-header text-main">Admin</div>
+            <div class="item-container-vertical text-center p-10 font-13">
+                <a asp-area="Admin" asp-controller="Category" asp-action="Index" class="p-10 item-drop">Category</a>
+                <hr class="p-5" />
+                <a asp-area="Admin" asp-controller="Product" asp-action="Index" class="p-10 item-drop">Product</a>
+                <hr class="p-5" />
+                <a asp-area="Admin" asp-controller="EventType" asp-action="Index" class="p-10 item-drop">Event Type</a>
+            </div>
+        </section>
 
-                        @if (HttpContextAccessor.HttpContext.Session.GetInt32(SD.ssShoppingCart) != null && HttpContextAccessor.HttpContext.Session.GetInt32(SD.ssShoppingCart) > 0)
-                        {
-                            <li style="color:white;" class="my-shadow-transp ">
-                                <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="nav-link text-light">
-                                    @{
-                                        var count = HttpContextAccessor.HttpContext.Session.GetInt32(SD.ssShoppingCart);
-
-                                    }
-                                    <i class="fas fa-shopping-cart "></i> <span style="color:gold;"> @count</span>
-                                </a>
-                            </li>
-                        }
-
-                    </ul>
-                </div>
-            </nav>
-        </header>*@
-
-
-    <div class="wrapper">
-       
-
-
-        <main role="main">
+        <main role="main" class="wave-fixed body-fixed" id="main" >
+            <div id="optionWrap"></div>
             <partial name="_Notifications" />
             @RenderBody()
+           <div class="main-item p-b-85 "></div>
         </main>
         <footer>
-            <div class="icon-item"><a href="/index.html"><i class="icon-home"></i></a> </div>
-            <div class="icon-item"> <a href="/favorites.html"><i class="icon-favorite"></i></a> </div>
-            <div class="icon-item"><i class="icon-user" onclick="signUpForm()"></i> </div>
-            <!-- <div class="icon-item"> <i class="icon-details"></i></div> -->
-            <div class="icon-item"> <i class="icon-filter"></i></div>
-            <div class="icon-item"><a href="/cart.html"><i class="icon-cart-full"></i></a> </div>
-        </footer>
+            <section class="footer mobile-item z-index20" id="footerMobile">
+                <div class="icon-item"><a asp-area="Customer" asp-controller="Home" asp-action="Index"><i class="icon-home"></i></a> </div>
+                @if (User.IsInRole(SD.RoleAdmin) || User.IsInRole(SD.RoleEmployee) || User.IsInRole(SD.RoleIndividual))
+                {
+                    <div class="icon-item"><a asp-area="Identity" asp-page="/Account/Manage/Index"><i class="icon-settings"></i></a> </div>
+                }
+                else
+                {
+                    <div class="icon-item"><i class="icon-settings"></i></div>
+                }
+                <div class="icon-item"><a asp-area="Identity" asp-controller="Account" asp-action="Login"><i class="icon-user"></i></a> </div>
+                <div class="icon-item"><a asp-area="Admin" asp-controller="Order" asp-action="Index"><i class="icon-details"></i></a></div>
+
+                @if (HttpContextAccessor.HttpContext.Session.GetInt32(SD.ssShoppingCart) != null && HttpContextAccessor.HttpContext.Session.GetInt32(SD.ssShoppingCart) > 0)
+                {
+                    <div class="icon-item">
+                        <a asp-area="Customer" asp-controller="Cart" asp-action="Index">
+                            @{
+                                 var count = HttpContextAccessor.HttpContext.Session.GetInt32(SD.ssShoppingCart);
+                            } <div class="text-white font-bold m-0 font-12" style=" text-align: center; "> <i class="icon-cart-add" id="cartIcon"></i><span style="width: 20px; position:absolute; transform:translateX(-26px);"  id="cartCountMobile"> @count</span></div>
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    <div class="icon-item">
+                        <i class="icon-cart-empty"></i>
+                    </div>
+                }
+            </section>
+            <section class="footer-main text-center main-item pattern" id="footerMain">
+                <p class=" pattern font-16">NCraft 2021</p>
+            </section>
+        </footer>       
     </div>
-
-
-
-
-
-
-
-
-
-    @*  <footer class="border-top footer text-muted my-base-color">
-            <div class="container text-center text-light">
-                &copy; 2020 - Bouquet
-            </div>
-        </footer>*@
-    @*  <script src="~/lib/jquery/dist/jquery.min.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
-  @*  <script src="~/js/site.js" asp-append-version="true"></script>*@
-    @* <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-        <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        <script src="https://kit.fontawesome.com/f84f191520.js" crossorigin="anonymous"></script>*@
-
+    <script type="text/javascript" src="~/js/mobile.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

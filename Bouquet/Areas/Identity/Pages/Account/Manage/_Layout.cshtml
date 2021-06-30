@@ -2,21 +2,49 @@
     Layout = "/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Manage your account</h1>
+<section class=" item-container shadow5 background-bright-grey p-b-5">
 
-<div>
-    <h4>Change your account settings</h4>
-    <hr />
-    <div class="row">
-        <div class="col-md-3">
-            <partial name="_ManageNav" />
-        </div>
-        <div class="col-md-9">
-            @RenderBody()
+    <div class="item-header text-header grid-three-column-center mobile-item">
+        <div></div>
+        <h1 class="item-row-center">
+            Manage your account
+        </h1>
+        <div class="item-row-right ">
+            <a asp-area="Customer" asp-controller="Home" asp-action="Index" class="p-0 a-btn"><i class="icon-arrow-left-in-square i-btn"></i> </a>
         </div>
     </div>
-</div>
+
+    <div class="item-header text-header grid-three-column-center main-item header-height">
+        <div></div>
+        <h1 class="item-row-center p-5 font-22">
+            Manage your account
+        </h1>
+        <div class="item-row p-5">
+            <a asp-area="Customer" asp-controller="Home" asp-action="Index" class="p-0 a-btn tem-row-right m-r-15"><i class="icon-arrow-left-in-square i-btn"></i> </a>
+        </div>
+    </div>
+
+
+
+
+    <div class="m-t-5 border-5">
+        <div class="font-18 p-10 text-center">Change your account settings</div>
+        <partial name="_ManageNav" />
+    </div>
+
+
+
+    <div class="m-t-5 border-5">
+        @RenderBody()
+    </div>
+
+
+</section>
 
 @section Scripts {
+    <script src="~/js/loginMenu.js"></script>
     @RenderSection("Scripts", required: false)
 }
+
+
+

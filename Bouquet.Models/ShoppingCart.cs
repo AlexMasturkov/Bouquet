@@ -10,7 +10,7 @@ namespace Bouquet.Models
     {
         public ShoppingCart()
         {
-            Count = 1;
+            Count = 0;
         }
         [Key]
         public int Id { get; set; }
@@ -28,9 +28,41 @@ namespace Bouquet.Models
         [Range(1, 100, ErrorMessage = "Please enter a value between 1 and 100")]
         public int Count { get; set; }
 
+        [Range(1, 100, ErrorMessage = "Please enter a value between 1 and 100")]
+        public int Count2 { get; set; }
+
+        [Range(1, 100, ErrorMessage = "Please enter a value between 1 and 100")]
+        public int Count3 { get; set; }
+
+  
+        [RegularExpression(@"^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4})$", ErrorMessage = "Please enter a valid Phone Number")]
+        public string PhoneNumber { get; set; }
+   
+        public string StreetAddress { get; set; }
+
+        public string Message { get; set; }
+
+        public string City { get; set; }
+     
+        public string State { get; set; }
+     
+        [RegularExpression(@"^[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ]() ?\d[ABCEGHJKLMNPRSTVWXYZ]\d$", ErrorMessage = "Please enter a valid Postal Code")]
+        public string PostalCode { get; set; }
+    
+        public string DeliveryName { get; set; }
+
+
         [NotMapped]
         [Column(TypeName = "decimal(7, 2)")]
         public decimal Price { get; set; }
+
+        [NotMapped]
+        [Column(TypeName = "decimal(7, 2)")]
+        public decimal Price2 { get; set; }
+
+        [NotMapped]
+        [Column(TypeName = "decimal(7, 2)")]
+        public decimal Price3 { get; set; }
 
     }
 }

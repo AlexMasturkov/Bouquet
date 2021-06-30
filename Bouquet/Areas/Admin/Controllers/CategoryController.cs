@@ -18,6 +18,7 @@ namespace Bouquet.Areas.Admin.Controllers
         {
             _unitOfWork = unitOfWork;
         }
+
         public async Task< IActionResult> Index(int productPage = 1)
         {
             CategoryVM categoryVM = new CategoryVM()
@@ -33,7 +34,6 @@ namespace Bouquet.Areas.Admin.Controllers
                 TotalItem = count,
                 UrlParam= "/Admin/Category/Index?productPage=:"
             };
-
             return View(categoryVM);
         }
 
@@ -96,9 +96,8 @@ namespace Bouquet.Areas.Admin.Controllers
                     TempData["Error"] = "Error deleteing Category";
                     return Json(new { success = false, message ="Error while deleting" });
                 }
-               await _unitOfWork.Category.RemoveAsync(removeCategory);
+                await _unitOfWork.Category.RemoveAsync(removeCategory);
                 _unitOfWork.Save();
-
                 TempData["Success"] = "Category successfully deleted";
                 return Json(new { success = true, message = "Success deleting Category: " + removeCategory.Name });
             }

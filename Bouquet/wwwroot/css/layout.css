@@ -6,13 +6,61 @@
     margin-left: 0 !important;
 }
 
+.m-l-1 {
+    margin-left: 1px !important;
+}
+.m-l-2 {
+    margin-left: 2px !important;
+}
+.m-l-3 {
+    margin-left: 3px !important;
+}
+.m-l-4 {
+    margin-left: 4px !important;
+}
+
+.m-l-5 {
+    margin-left: 5px !important;
+}
+.m-l-10 {
+    margin-left: 10px !important;
+}
+.m-l-15 {
+    margin-left: 15px !important;
+}
+.m-l-20 {
+    margin-left: 20px !important;
+}
+
 .m-t-0 {
     margin-top: 0 !important;
+}
+.m-t-1 {
+    margin-top: 1px !important;
+}
+.m-t-7 {
+    margin-top: 7px !important;
+}
+.m-t-8 {
+    margin-top: 8px !important;
+}
+.m-mobile-t-6{
+    margin-top:auto;
+}
+.m-3 {
+    margin: 3px;
 }
 
 
 .p-0 {
     padding: 0 !important;
+}
+.p-2 {
+    padding: 2px !important;
+}
+
+.p-8 {
+    padding: 8px !important;
 }
 
 .m-5 {
@@ -32,7 +80,19 @@
 }
 
 .m-h-10 {
-    margin: 0px 10px;
+    margin: 0px 10px !important;
+}
+.m-r-0 {
+    margin-right: 0px !important;
+}
+.m-r-5 {
+    margin-right: 5px !important;
+}
+.m-r-10 {
+    margin-right: 10px !important;
+}
+.m-r-15 {
+    margin-right: 15px !important;
 }
 
 .m-r-10 {
@@ -41,6 +101,9 @@
 
 .m-t-5 {
     margin-top: 5px !important;
+}
+.m-t-0 {
+    margin-top: 0 !important;
 }
 
 .m-t-10 {
@@ -56,7 +119,7 @@
 }
 
 .m-b-10 {
-    margin-bottom: 10px;
+    margin-bottom: 10px !important;
 }
 
 .m-b-5 {
@@ -67,25 +130,43 @@
     margin-bottom: 0;
 }
 
+.p-t-0 {
+    padding-top: 0 !important;
+}
 
 .p-1 {
-    padding: 1px;
+    padding: 1px !important;
+}
+.p-2 {
+    padding: 2px !important;
 }
 
 .p-5 {
-    padding: 5px;
+    padding: 5px !important;
 }
 
+.p-r-5 {
+    padding-right: 5px !important;
+}
 .p-t-5 {
     padding-top: 5px;
 }
+.p-b-5 {
+    padding-bottom: 5px;
+}
 
 .p-t-10 {
-    padding-top: 10px;
+    padding-top: 10px !important;
 }
 
 .p-10 {
     padding: 10px;
+}
+.p-15 {
+    padding: 15px;
+}
+.p-20 {
+    padding: 20px;
 }
 
 .p-h-10 {
@@ -98,6 +179,12 @@
 
 .p-h-15 {
     padding: 0 15px;
+}
+.p-b-15 {
+    padding-bottom: 15px;
+}
+.p-b-85 {
+    padding-bottom: 85px;
 }
 
 
@@ -116,3 +203,21 @@
 .item-8 {
     flex: 8;
 }
+
+
+
+li {
+    display: list-item;   
+}
+
+@media only screen and (max-width: 480px) {
+
+    .m-mobile-t-6 {
+        margin-top: 6px !important;
+    }
+
+}
+
+
+
+

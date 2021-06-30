@@ -5,25 +5,41 @@
     ViewData["ActivePage"] = ManageNavPages.Index;
 }
 
-<h4>@ViewData["Title"]</h4>
+<div class="font-18 p-10 text-center">@ViewData["Title"]</div>
+
+<hr />
 <partial name="_StatusMessage" model="Model.StatusMessage" />
-<div class="row">
-    <div class="col-md-6">
-        <form id="profile-form" method="post">
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Username"></label>
-                <input asp-for="Username" class="form-control" disabled />
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.PhoneNumber"></label>
-                <input asp-for="Input.PhoneNumber" class="form-control" />
-                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
-            </div>
-            <button id="update-profile-button" type="submit" class="btn btn-primary">Save</button>
-        </form>
+
+<form id="profile-form" method="post" class="back">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="p-h-5">
+        <label asp-for="Username"></label><br>
+        <div class="input-container background-medium-grey">
+            <i class="icon-user-name icon"></i>
+            <input asp-for="Username" class="input-field background-light-grey" disabled>
+        </div>
     </div>
-</div>
+    <div class="p-h-5">
+        <label asp-for="Input.PhoneNumber"></label> <span asp-validation-for="Input.PhoneNumber" class="text-danger font-12"></span><br>
+        <div class="input-container background-medium-grey">
+            <i class="icon-email icon "></i>
+            <input asp-for="Input.PhoneNumber" class="input-field background-light-grey ">
+
+        </div>
+    </div>
+
+
+    <div class="p-h-5">
+        <hr class="m-v-10" />
+        <button id="update-profile-button" type="submit" class="btn-wide btn-success text-center rounded-5 ">Update</button>
+        <hr class="m-v-10" />
+
+    </div>
+
+
+
+</form>
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

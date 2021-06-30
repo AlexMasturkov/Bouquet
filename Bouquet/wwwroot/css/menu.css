@@ -8,161 +8,238 @@
     margin: auto;
     background-color: var(--ui-white);
     opacity: 1;
-    width: 97%;
+    width: 99%;
     position: absolute;
     border-radius: 10px;
     /* padding: 10px 0px; */
     /* padding-bottom: 16px; */
     padding-bottom: 4px;
     font-family: 'Rubik', sans-serif;
-    top: 4px;
+    top: 72px;
     margin: 6px;
+    margin-left:2px;
+    margin-right:2px;
     margin-top: 0px;
-    height: 484px;
-    /* height: calc(100vh - 160px);    */
+  /*  height: 484px;*/
+    
     overflow: visible;
     overflow-x: hidden;
 }
 
-.two-elements {
-    height: 165px !important;
-    padding-bottom: 4px;
-}
-
-.three-elements {
-    height: 218px !important;
-    padding-bottom: 4px;
-}
-
-.four-elements {
-    height: 271px !important;
-    padding-bottom: 4px;
-}
-
-
-.grid-two-column-right {
-    display: grid;
-    grid-template-columns: 7fr 1fr;
-    grid-gap: 2px;
-    width: 100%;
-    /* background-color: lawngreen; */
-}
-
-.non-visible {
-    opacity: 0;
-    animation: non_visible_effect 0.6s ease-out;
-}
-
-@keyframes non_visible_effect {
-    0% {
-        opacity: 1;
-    }
-
-    100% {
-        opacity: 0;
-    }
-}
-
-.visible {
+.picture {
+    margin: auto;
+    background-color: var(--ui-white);
     opacity: 1;
-    animation: visible_effect 0.6s ease-out;
+    width: 99%;
+    position: absolute;
+    border-radius: 10px;
+    /* padding: 10px 0px; */
+    /* padding-bottom: 16px; */
+    padding-bottom: 4px;
+    font-family: 'Rubik', sans-serif;
+    top: 70px;
+    margin: 6px;
+    margin-left: 2px;
+    margin-right: 2px;
+   
+    /* min-height: 484px;*/
+    /*height: calc(100vh - 140px);*/
+    overflow: hidden;
+    margin-top: 10px;
+    
 }
 
-@keyframes visible_effect {
-    0% {
+
+@media only screen and (max-width: 400px) {
+    .options {
+      
+        top: 64px;
+
+    }
+
+}
+    .one-elements {
+        height: 112px !important;
+        padding-bottom: 4px;
+    }
+
+    .two-elements {
+        height: 165px !important;
+        padding-bottom: 4px;
+    }
+
+    .three-elements {
+        height: 218px !important;
+        padding-bottom: 4px;
+    }
+
+    .four-elements {
+        height: 271px !important;
+        padding-bottom: 4px;
+    }
+
+    .five-elements {
+        height: 324px !important;
+        padding-bottom: 4px;
+    }
+
+    .grid-two-column-right {
+        display: grid;
+        grid-template-columns: 7fr 1fr;
+        grid-gap: 2px;
+        width: 100%;
+        /* background-color: lawngreen; */
+    }
+
+    .non-visible {
+        opacity: 0;
+        animation: non_visible_effect 0.6s ease-out;
+    }
+
+    @keyframes non_visible_effect {
+        0% {
+            opacity: 1;
+        }
+
+        100% {
+            opacity: 0;
+        }
+    }
+
+    .visible {
+        opacity: 1;
+        animation: visible_effect 0.6s ease-out;
+    }
+
+    @keyframes visible_effect {
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    .hide {
+        display: none;
         opacity: 0;
     }
 
-    100% {
-        opacity: 1;
-    }
-}
-
-.hide {
-    display: none;
-    opacity: 0;
-}
-
-.show {
-    display: block;
-}
-
-.show-scale {
-    animation: show_effect 0.6s ease-out;
-}
-
-@keyframes show_effect {
-    0% {
-        right: -600px;
-        opacity: 0;
-        /* display:"none"; */
-    }
-
-    100% {
-        opacity: 1;
+    .show {
         display: block;
-        right: 0;
-    }
-}
-
-.show-scale-rev {
-    animation: show_effect_rev 0.6s ease-out;
-}
-
-@keyframes show_effect_rev {
-    0% {
-        opacity: 1;
-        display: block;
-        right: 0;
     }
 
-    100% {
-        right: -600px;
-        opacity: 0;
+    .show-scale {
+        animation: show_effect 0.6s ease-out;
     }
-}
 
+    @keyframes show_effect {
+        0% {
+            right: 600px;
+            opacity: 0;
+            /* display:"none"; */
+        }
 
-.icon-expand-rotate {
-    animation: expand_rotate_effect 0.6s ease-out;
-}
-
-@keyframes expand_rotate_effect {
-    100% {
-        transform: rotate(180deg);
-        opacity: 0;
+        100% {
+            opacity: 1;
+            display: block;
+            right: 0;
+        }
     }
-}
 
-.icon-expand-rotate-rev {
-    animation: expand_rotate_effect-rev 0.6s ease-out;
-}
-
-@keyframes expand_rotate_effect-rev {
-    100% {
-        transform: rotate(-180deg);
-        opacity: 1;
+    .show-scale-rev {
+        animation: show_effect_rev 0.6s ease-out;
     }
-}
 
-.icon-cross-rotate {
-    animation: cross_rotate_effect 0.6s ease-out;
-}
+    @keyframes show_effect_rev {
+        0% {
+            opacity: 1;
+            display: block;
+            right: 0;
+        }
 
-@keyframes cross_rotate_effect {
-    100% {
-        transform: rotate(180deg);
-        opacity: 1;
+        100% {
+            right: 600px;
+            opacity: 0;
+        }
     }
-}
 
-.icon-cross-rotate-rev {
-    animation: cross_rotate_effect 0.6s ease-out;
-}
-
-@keyframes cross_rotate_effect-rev {
-    100% {
-        transform: rotate(180deg);
-        opacity: 0;
+    .slide-down {
+        animation: slide_down_effect 0.6s ease-out;
     }
-}
+
+    @keyframes slide_down_effect {
+        0% {
+            opacity: 0;
+            display: block;
+            top: -30px;
+        }
+
+        100% {
+            top: 72px;
+            opacity: 1;
+        }
+    }
+
+    .slide-up {
+        animation: slide_up_effect 0.6s ease-out;
+    }
+
+    @keyframes slide_up_effect {
+        0% {
+            top: 72px;
+            opacity: 1;
+        }
+
+        100% {
+            opacity: 0;
+            display: block;
+            top: -30px;
+        }
+    }
+
+
+    .icon-expand-rotate {
+        animation: expand_rotate_effect 0.6s ease-out;
+    }
+
+    @keyframes expand_rotate_effect {
+        100% {
+            transform: rotate(-180deg);
+            opacity: 0;
+        }
+    }
+
+    .icon-expand-rotate-rev {
+        animation: expand_rotate_effect-rev 0.6s ease-out;
+    }
+
+    @keyframes expand_rotate_effect-rev {
+        100% {
+            transform: rotate(180deg);
+            opacity: 1;
+        }
+    }
+
+    .icon-cross-rotate {
+        animation: cross_rotate_effect 0.6s ease-out;
+    }
+
+    @keyframes cross_rotate_effect {
+        100% {
+            transform: rotate(-180deg);
+            opacity: 1;
+        }
+    }
+
+    .icon-cross-rotate-rev {
+        animation: cross_rotate_effect 0.6s ease-out;
+    }
+
+    @keyframes cross_rotate_effect-rev {
+        100% {
+            transform: rotate(-180deg);
+            opacity: 0;
+        }
+    }

@@ -3,124 +3,267 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     var title = "Create Product";
 }
+<section class="form-container shadow5 background-bright-grey">
 
-<form method="post" enctype="multipart/form-data">
-    <div class="row p-3 border">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <form method="post" enctype="multipart/form-data" autocomplete="off">
+
         @if (Model.Product.Id != 0)
         {
-            //edit
-            title = "Edit Product";
+            <input type="hidden" asp-for="Product.Id" />
+        }
+        @*   Mobile layout*@
+
+        <div class="item-header text-header grid-three-column-center mobile-item">
+
+            @if (Model.Product.Id != 0)
+            {
+                //edit
+                title = "Edit Product";
+            }
+
+            @if (Model.Product.Id != 0)
+            {
+                <div class="item-row-left m-l-5">
+                    <img src="@Model.Product.ImageUrl" style="width:40px;transform:translateY(-10px) ; border-radius: 5px 0 0 0; " class="i-border-default" />
+                </div>
+            }
+            else
+            {
+                <div></div>
+            }
+            <h1 class="item-row-center">@title</h1>
+
+            <div class="item-row-right ">
+                <a asp-action="Index" class="p-0 a-btn"><i class="icon-arrow-left-in-square i-btn "></i></a>
+            </div>
+        </div>
+        <div asp-validation-summary="ModelOnly" class="text-danger mobile-item"></div>
+
+        @* Main body part*@
+
+    <div class="p-10 m-0  m-h-5 mobile-item ">
+        <label asp-for="Product.Name"> Product Name </label><br>
+        <span asp-validation-for="Product.Name" class="text-danger"></span>
+        <div class="input-container ">
+            <input class="input-field " type="text" asp-for="Product.Name" required minlength="3" maxlength="30">
+        </div>
+        <label asp-for="Product.Description"> Product Description </label><br>
+        <span asp-validation-for="Product.Description" class="text-danger"></span>
+        <div>
+            <textarea class="area-field " asp-for="Product.Description" required minlength="5" rows="5" maxlength="200"></textarea>
+        </div>
+        <label asp-for="Product.RegularOption"> Regular Option Description </label><br>
+        <span asp-validation-for="Product.RegularOption" class="text-danger"></span>
+        <div>
+            <textarea class="area-field p-5" asp-for="Product.RegularOption" required minlength="5" maxlength="100"></textarea>
+        </div>
+        <label asp-for="Product.PremiumOption"> Premium Option Description </label><br>
+        <span asp-validation-for="Product.PremiumOption" class="text-danger"></span>
+        <div>
+            <textarea class="area-field p-5 " asp-for="Product.PremiumOption" required minlength="5" maxlength="100"></textarea>
+        </div>
+        <label asp-for="Product.LuxuryOption"> Luxury Option Description </label><br>
+        <span asp-validation-for="Product.LuxuryOption" class="text-danger"></span>
+        <div>
+            <textarea class="area-field p-5" asp-for="Product.LuxuryOption" required minlength="5" maxlength="100"></textarea>
+        </div>
+
+        <label asp-for="Product.Category.Name"> Category </label><br>
+        <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
+        <div>
+            @Html.DropDownListFor(m => m.Product.CategoryId, Model.CategoryList, "-Select a Category-", new { @class = "area-field " })
+        </div>
+        <label asp-for="Product.EventType.Name"> Event Type </label><br>
+        <span asp-validation-for="Product.EventTypeId" class="text-danger"></span>
+        <div>
+            @Html.DropDownListFor(m => m.Product.EventTypeId, Model.EventTypeList, "-Select an Event-", new { @class = "area-field" })
+        </div>
+        <label asp-for="Product.ImageUrl"> Image (only *jpg,jpeg,png & max.size 5Mb)</label><br>
+        <div class="input-container">
+            <input type="file" name="files" id="uploadBox" multiple class="area-field" />
+        </div>
+        <div class="grid-three-column-equal" style="height:auto;">
+            <span asp-validation-for="Product.Price" class="text-danger font-11" style=""></span>  <span asp-validation-for="Product.Price2" class="text-danger font-11"></span>   <span asp-validation-for="Product.Price3" class="text-danger font-11"></span>
+        </div>
+            <div class="grid-three-column-equal" style="height:70px;">
+                <div class="item-row-left m-0">
+                    <label asp-for="Product.Price"> Regular   </label><br>
+                    <div class="input-container">
+                        <input class="input-field text-right" type="number"  step="0.01"  asp-for="Product.Price">
+                    </div>
+                </div>
+                <div class="item-row-left m-0 m-l-5">
+                    <label asp-for="Product.Price2"> Premium </label><br>
+                    <div class="input-container">
+                        <input class="input-field text-right" type="number" step="0.01"  asp-for="Product.Price2">
+                    </div>
+                  
+
+                </div>
+                <div class="item-row-left m-0 m-l-5">
+                    <label asp-for="Product.Price3">Luxury </label><br>
+                    <div class="input-container ">
+                        <input class="input-field text-right "type="number" step="0.01"  asp-for="Product.Price3">
+                    </div>
+                 
+                </div>
+            </div>
+        </div>
+        <hr class="width-max mobile-item">
+        @if (Model.Product.Id != 0)
+        {
+            <div class="p-h-10 mobile-item">
+                <button class="btn-wide btn-success m-v-10 p-5" id="updateProduct" onclick="return validateInput(event)">@title</button>
+            </div>
+        }
+        else
+        {
+            <div class="p-h-10 mobile-item">
+                <button class="btn-wide btn-success m-v-10 p-5" id="createProduct" onclick="return validateInput(event)">@title</button>
+            </div>
+        }
+        <hr class="width-max mobile-item">
+
+</form>
+    <form method="post" enctype="multipart/form-data" autocomplete="off">
+
+        @if (Model.Product.Id != 0)
+        {
             <input type="hidden" asp-for="Product.Id" />
         }
 
-        <div class="col-12 border-bottom">
-            <h2 class="text-primary">@title</h2>
+        @*     Main Layout*@
+        <div class="item-header text-header grid-three-column-center main-item shadow5 " style="height:68px;">
+
+            @if (Model.Product.Id != 0)
+            {
+                //edit
+                title = "Edit Product";
+            }
+
+            @if (Model.Product.Id != 0)
+            {
+                <div class="item-row ">
+                </div>
+            }
+            else
+            {
+                <div></div>
+            }
+            <h1 class="item-row-center p-5 font-22">@title</h1>
+            <div class="item-row p-5 ">
+                <a asp-action="Index" class="p-0 a-btn item-row-right m-r-15"><i class="icon-arrow-left-in-square i-btn "></i></a>
+            </div>
         </div>
-        <div class="col-8 pt-4">
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="Product.Name"></label>
-                </div>
-                <div class="col-8">
-                    <input asp-for="Product.Name" class="form-control" />
-                    <span asp-validation-for="Product.Name" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="Product.Description"></label>
-                </div>
-                <div class="col-8">
-                    <textarea asp-for="Product.Description" class="form-control"></textarea>
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="Product.Price"></label>
-                </div>
-                <div class="col-8">
-                    <input asp-for="Product.Price" class="form-control text-right" />
-                    <span asp-validation-for="Product.Price" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-4">
-                    Category
-                </div>
-                <div class="col-8">
-                    @Html.DropDownListFor(m => m.Product.CategoryId, Model.CategoryList, "-Select a Category-", new { @class = "form-control" })
-                    <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-4">
-                    Category
-                </div>
-                <div class="col-8">
-                    @Html.DropDownListFor(m => m.Product.EventTypeId, Model.EventTypeList, "-Select an Event-", new { @class = "form-control" })
-                    <span asp-validation-for="Product.EventTypeId" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-4">
-                    Image
-                </div>
-                <div class="col-8">
-                    <input type="file" name="files" id="uploadBox" multiple class="form-control" />
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-8 offset-4">
+        <div asp-validation-summary="ModelOnly" class="text-danger main-item"></div>
+
+        @* Main body part*@
+
+        <div class="p-10 m-0  m-h-5 main-item">
+            <div class="grid-two-column-product ">
+                <div class="item-row-left">
                     @if (Model.Product.Id != 0)
                     {
-                        <partial name="_EditAndBackToListButton" model="Model.Product.Id" />
+                        <img src="@Model.Product.ImageUrl" style="width:220px;" class="border-5" />
                     }
-                    else
-                    {
-                        <div class="row">
-                            <div class="col">
-                                <button type="submit" onclick="return validateInput()" class="btn btn-primary form-control">Create</button>
-                            </div>
-                            <div class="col">
-                                <a asp-action="Index" class="btn btn-success form-control">Back To List</a>
-                            </div>
-                        </div>
-                    }
+                </div>
+                <div class="item-row-left m-h-10">
+                    <label asp-for="Product.Name"> Product Name </label><br>
+                    <span asp-validation-for="Product.Name" class="text-danger"></span>
+                    <div class="input-container ">
+                        <input class="input-field " type="text" asp-for="Product.Name" required minlength="3" maxlength="30">
+                    </div>
+                    <label asp-for="Product.RegularOption"> Regular Option Description </label><br>
+                    <span asp-validation-for="Product.RegularOption" class="text-danger"></span>
+                    <div>
+                        <textarea class="area-field p-5" asp-for="Product.RegularOption" required minlength="5" rows="1" maxlength="100"></textarea>
+                    </div>
+                    <label asp-for="Product.PremiumOption"> Premium Option Description </label><br>
+                    <span asp-validation-for="Product.PremiumOption" class="text-danger"></span>
+                    <div>
+                        <textarea class="area-field p-5 " asp-for="Product.PremiumOption" required minlength="5" rows="1" maxlength="100"></textarea>
+                    </div>
+                    <label asp-for="Product.LuxuryOption"> Luxury Option Description </label><br>
+                    <span asp-validation-for="Product.LuxuryOption" class="text-danger"></span>
+                    <div>
+                        <textarea class="area-field p-5" asp-for="Product.LuxuryOption" required minlength="5" rows="1" maxlength="100"></textarea>
+                    </div>
+                </div>
+            </div>
+            <label asp-for="Product.Description"> Product Description </label><br>
+            <span asp-validation-for="Product.Description" class="text-danger"></span>
+            <div>
+                <textarea class="area-field " asp-for="Product.Description" required minlength="5" rows="3" maxlength="200"></textarea>
+            </div>
+            <div class="grid-three-column-equal">
+                <div class="item-row-left m-5">
+                    <label asp-for="Product.Category.Name"> Category </label><br>
+                    <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
+                    <div>
+                        @Html.DropDownListFor(m => m.Product.CategoryId, Model.CategoryList, "-Select a Category-", new { @class = "area-field category p-10 m-t-5" })
+                    </div>
+                </div>
+                <div class="item-row-left m-5">
+                    <label asp-for="Product.EventType.Name"> Event Type </label><br>
+                    <span asp-validation-for="Product.EventTypeId" class="text-danger"></span>
+                    <div>
+                        @Html.DropDownListFor(m => m.Product.EventTypeId, Model.EventTypeList, "-Select an Event-", new { @class = "area-field event p-10 m-t-5" })
+                    </div>
+                </div>
+                <div class="item-row-left m-5">
+                    <label asp-for="Product.ImageUrl">Image (only *jpg,jpeg,png & max.size 5Mb) </label><br>
+                    <div class="input-container">
+                        <input type="file" name="files" id="uploadBox1" multiple class="area-field p-8" />
+                    </div>
+                </div>
+            </div>
+            <div class="grid-three-column-equal" style="height:70px;">
+                <div class="item-row-left m-5">
+                    <label asp-for="Product.Price"> Regular <span asp-validation-for="Product.Price" class="text-danger font-12"></span></label><br>
+@**@                    
+                    <div class="input-container">
+                        <input class="input-field text-right" type="number" step="0.01" asp-for="Product.Price">
+                    </div>
+                </div>
+                <div class="item-row-left m-5">
+                    <label asp-for="Product.Price2"> Premium  <span asp-validation-for="Product.Price2" class="text-danger font-12"></span></label><br>
+                 
+                    <div class="input-container">
+                        <input class="input-field text-right" type="number" step="0.01" asp-for="Product.Price2">
+                    </div>
+                </div>
+                <div class="item-row-left m-5">
+                    <label asp-for="Product.Price3">Luxury  <span asp-validation-for="Product.Price3" class="text-danger font-12"></span></label><br>                  
+                    <div class="input-container ">
+                        <input class="input-field text-right m-5" type="number" step="0.01" asp-for="Product.Price3">
+                    </div>
                 </div>
             </div>
         </div>
-
-        @if(Model.Product.Id !=0)
+        <hr class="width-max main-item">
+        @if (Model.Product.Id != 0)
         {
-            <div class="col-3 offset-1 pt-4">
-                <img src="@Model.Product.ImageUrl" style="width:100%; border-radius:5px; border:1px solid #bbb9b9" />
+            <div class="p-h-10 main-item">
+                <button class="btn-wide btn-success m-v-10 p-5" id="updateProduct" onclick="return validateInput1(event)">@title</button>
             </div>
         }
-    </div>
-</form>
-
-@section Scripts{
-    <partial name="_ValidationScriptsPartial" />
-
-   @*it is a tiny.cloud API*@
-    <script src="https://cdn.tiny.cloud/1/3kx1nulwgc9eqtgkmtiqik5rwzgpnutoz1y6y7itmz2ek6my/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-
-<script>
-    tinymce.init({
-        selector: 'textarea',
-        plugins: 'list',
-        menubar: 'file edit format'
-    });
-
-    function validateInput() {
-        if (document.getElementById("uploadBox").value == "") {
-            swal("Error", "Please select an image", "error");
-            return false;
+        else
+        {
+            <div class="p-h-10 main-item">
+                <button class="btn-wide btn-success m-v-10 p-5" id="createProduct" onclick="return validateInput1(event)">@title</button>
+            </div>
         }
-        return true;
-    }
-</script>
+        <hr class="width-max main-item">
+    </form>
+</section>
 
+
+
+@section Scripts{   
+<script src="~/js/productUpsert.js"></script> 
+<partial name="_ValidationScriptsPartial" /> 
 
 }
+
+
+

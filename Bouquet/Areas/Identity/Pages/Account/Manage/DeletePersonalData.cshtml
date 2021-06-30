@@ -5,28 +5,30 @@
     ViewData["ActivePage"] = ManageNavPages.PersonalData;
 }
 
-<h4>@ViewData["Title"]</h4>
+<div class="font-18 p-10 text-center">@ViewData["Title"]</div>
 
-<div class="alert alert-warning" role="alert">
-    <p>
-        <strong>Deleting this data will permanently remove your account, and this cannot be recovered.</strong>
+<hr />
+
+<div class="alert m-t-5" role="alert">
+    <p class="text-center text-danger font-bolder" > Deleting this data will permanently remove your account, and this cannot be recovered.
     </p>
 </div>
 
-<div>
-    <form id="delete-user" method="post" class="form-group">
-        <div asp-validation-summary="All" class="text-danger"></div>
-        @if (Model.RequirePassword)
-        {
-            <div class="form-group">
-                <label asp-for="Input.Password"></label>
-                <input asp-for="Input.Password" class="form-control" />
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
-            </div>
-        }
-        <button class="btn btn-danger" type="submit">Delete data and close my account</button>
-    </form>
-</div>
+
+<form id="delete-user" method="post">
+    <div asp-validation-summary="All" class="text-danger font-13"></div>
+    @if (Model.RequirePassword)
+    {
+        <div class="input-container">
+            <label asp-for="Input.Password" style="width:120px;" class="font-13 m-t-10 m-l-10 "></label>
+            <input asp-for="Input.Password" class="input-field" />
+        </div>
+    }
+    <hr class="m-v-10" />
+    <button class="btn-wide btn-danger text-center rounded-5 " type="submit">Delete data and close my account</button>
+    <hr class="m-v-10" />
+</form>
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

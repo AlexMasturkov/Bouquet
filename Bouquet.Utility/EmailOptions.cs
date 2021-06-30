@@ -8,5 +8,8 @@ namespace Bouquet.Utility
     {
         public string  SendGridKey { get; set; }
         public string SendGridUser { get; set; }
+
+        public string MailJetKey { get; set; }
+        public string MailJetAuth { get; set; }
     }
 }

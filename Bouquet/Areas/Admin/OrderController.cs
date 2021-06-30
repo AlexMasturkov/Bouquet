@@ -76,9 +76,6 @@ namespace Bouquet.Areas.Admin
             return RedirectToAction("Details", "Order", new { id = orderHeader.Id });
         }
 
-
-
-
         [Authorize(Roles = SD.RoleAdmin + "," + SD.RoleAdmin)]
         public IActionResult StartProcessing(int id)
         {
@@ -125,7 +122,6 @@ namespace Bouquet.Areas.Admin
             }
             _unitOfWork.Save();
             return RedirectToAction(nameof(Index));
-
         }
 
         #region API CALLS
@@ -136,10 +132,17 @@ namespace Bouquet.Areas.Admin
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
 
+            status.Trim();
+            status.Replace(" ", "");
+            var optionArrange = status.Substring(0,1);//How we want sort it
+            var optionStatus = status.Substring(1, 1);//column we want sort (example 1- Customer , 2- Status)
+            status = status.Substring(2);
+
             IEnumerable<OrderHeader> orderHeaderList;
             if (User.IsInRole(SD.RoleAdmin) || User.IsInRole(SD.RoleEmployee))
             {
                 orderHeaderList = _unitOfWork.OrderHeader.GetAll(includeProperties: "ApplicationUser");
+                //orderHeaderList = orderHeaderList.OrderBy(name => name.ApplicationUser.Name);
             }
             else
             {
@@ -147,10 +150,11 @@ namespace Bouquet.Areas.Admin
                     u => u.ApplicationUserId == claim.Value,
                     includeProperties: "ApplicationUser");
             }
+
             switch (status)
             {
                 case "pending":
-                    orderHeaderList = orderHeaderList.Where(o => o.PaymentStatus == SD.PaymentStatusDelayedPayment);
+                    orderHeaderList = orderHeaderList.Where(o => o.PaymentStatus == SD.PaymentStatusDelayedPayment);                
                     break;
                 case "inprocess":
                     orderHeaderList = orderHeaderList.Where(o => o.OrderStatus == SD.StatusApproved
@@ -168,7 +172,45 @@ namespace Bouquet.Areas.Admin
                 default:
                     break;
             }
-            return Json(new { data = orderHeaderList });
+            switch(optionStatus)
+            {
+                case "1":
+                    if(optionArrange =="1")
+                    {
+                        orderHeaderList = orderHeaderList.OrderByDescending(option => option.ApplicationUser.Name);
+                    }
+                    else
+                    {
+                        orderHeaderList = orderHeaderList.OrderBy(option => option.ApplicationUser.Name);
+                    }
+                    break;
+                case "2":
+                    if (optionArrange == "1")
+                    {
+                        orderHeaderList = orderHeaderList.OrderByDescending(option => option.OrderStatus);
+                    }
+                    else
+                    {
+
+                    orderHeaderList = orderHeaderList.OrderBy(option => option.OrderStatus);
+                    }
+                    break;
+                case "3":
+                    if (optionArrange == "1")
+                    {
+                        orderHeaderList = orderHeaderList.OrderByDescending(option => option.OrderTotal);
+                    }
+                    else
+                    {
+
+                    orderHeaderList = orderHeaderList.OrderBy(option => option.OrderTotal);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        
+            return Json(new { data = orderHeaderList , optionStatus=optionStatus, optionArrange=optionArrange});
         }
 
         #endregion

@@ -97,10 +97,22 @@ namespace Bouquet.DataAccess.Migrations
                     b.Property<int>("Count")
                         .HasColumnType("int");
 
+                    b.Property<int>("Count2")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Count3")
+                        .HasColumnType("int");
+
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Price")
+                        .HasColumnType("decimal(7, 2)");
+
+                    b.Property<decimal>("Price2")
+                        .HasColumnType("decimal(7, 2)");
+
+                    b.Property<decimal>("Price3")
                         .HasColumnType("decimal(7, 2)");
 
                     b.Property<int>("ProductId")
@@ -206,12 +218,27 @@ namespace Bouquet.DataAccess.Migrations
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("LuxuryOption")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PremiumOption")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(7, 2)");
+
+                    b.Property<decimal>("Price2")
+                        .HasColumnType("decimal(7, 2)");
+
+                    b.Property<decimal>("Price3")
+                        .HasColumnType("decimal(7, 2)");
+
+                    b.Property<string>("RegularOption")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -233,11 +260,38 @@ namespace Bouquet.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Count")
                         .HasColumnType("int");
 
+                    b.Property<int>("Count2")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Count3")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DeliveryName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostalCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
+
+                    b.Property<string>("State")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StreetAddress")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

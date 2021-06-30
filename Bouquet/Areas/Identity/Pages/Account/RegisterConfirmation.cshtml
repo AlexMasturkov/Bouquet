@@ -3,20 +3,43 @@
 @{
     ViewData["Title"] = "Register confirmation";
 }
-
-<h1>@ViewData["Title"]</h1>
 @{
     if (@Model.DisplayConfirmAccountLink)
     {
-<p>
-    This app does not currently have a real email sender registered, see <a href="https://aka.ms/aspaccountconf">these docs</a> for how to configure a real email sender.
-    Normally this would be emailed: <a id="confirm-link" href="@Model.EmailConfirmationUrl">Click here to confirm your account</a>
-</p>
+        <p>
+            This app does not currently have a real email sender registered, see <a href="https://aka.ms/aspaccountconf">these docs</a> for how to configure a real email sender.
+            Normally this would be emailed: <a id="confirm-link" href="@Model.EmailConfirmationUrl">Click here to confirm your account</a>
+        </p>
     }
     else
     {
-<p>
-        Please check your email to confirm your account.
-</p>
+        <div class="form-container shadow5 background-bright-grey">
+            <div class="item-header text-header grid-three-column-center mobile-item shadow5">
+                <div></div>
+                <h1 class="item-row-center">
+                    @ViewData["Title"]
+                </h1>
+                <div class="item-row-right ">
+                    <a asp-area="Customer" asp-controller="Home" asp-action="Index" class="p-0 a-btn"><i class="icon-arrow-left-in-square i-btn"></i> </a>
+                </div>
+            </div>
+            <div class="item-header text-header grid-three-column-center main-item shadow5 header-height">
+                <div></div>
+                <h1 class="item-row-center p-5 font-22">
+                    @ViewData["Title"]
+                </h1>
+                <div class="item-row p-5">
+                    <a asp-area="Customer" asp-controller="Home" asp-action="Index" class="p-0 a-btn item-row-right m-r-15"><i class="icon-arrow-left-in-square i-btn"></i> </a>
+                </div>
+            </div>
+            <div class="p-10 m-10 text-center">
+                <img src="~/images/icons/NCraft-color.svg" style="width:50%; " class="shadow2 p-10 m-l-5 m-t-10" />
+                <div class=" text-center text-main p-10 font-14">
+                    <p class="p-15">
+                        Please check your email to confirm registration proccess
+                    </p>
+                </div>
+            </div>
+        </div>
     }
 }

@@ -27,7 +27,6 @@ namespace Bouquet.Area.Customer.Controllers
             _logger = logger;
             _unitOfWork = unitOfWork;
         }
-
         public IActionResult Index(string id ="")
         {
             IEnumerable<Product> productListDb = _unitOfWork.Product.GetAll(includeProperties: "Category,EventType");
@@ -40,10 +39,18 @@ namespace Bouquet.Area.Customer.Controllers
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
             if(claim!=null)
             {
-                var count = _unitOfWork.ShoppingCart
-                .GetAll(c => c.ApplicationUserId == claim.Value)
-                .ToList().Count();
-                HttpContext.Session.SetInt32(SD.ssShoppingCart, count);
+                var count = _unitOfWork.ShoppingCart.GetAll(c => c.ApplicationUserId == claim.Value).ToList().Count();
+                var count1 = _unitOfWork.ShoppingCart.GetAll(c => c.ApplicationUserId == claim.Value).Select(c=>c.Count);
+                var cartItems = _unitOfWork.ShoppingCart.GetAll(c => c.ApplicationUserId == claim.Value).ToList();
+
+                var elements = cartItems;
+                int totalAmount = 0;
+                foreach(var el in cartItems)
+                {
+                    totalAmount = totalAmount + el.Count + el.Count2 + el.Count3;
+                }
+
+                HttpContext.Session.SetInt32(SD.ssShoppingCart, totalAmount);
             }
             return View(productList.ToList());
         }
@@ -77,30 +84,53 @@ namespace Bouquet.Area.Customer.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public IActionResult Details(ShoppingCart cart)
+        public IActionResult Details(ShoppingCart cart , int id)
         {
-            cart.Id = 0;
+            cart.Id = 0;           
+
             if(!ModelState.IsValid)
             {
                 //we can add to cart
                 var claimsIdentity = (ClaimsIdentity)User.Identity;
                 var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
                 cart.ApplicationUserId = claim.Value;
-
-           
-
                 ShoppingCart shoppingCartDb = _unitOfWork.ShoppingCart
-                    .GetFirstOrDefault(u => u.ApplicationUserId == cart.ApplicationUserId && u.ProductId==cart.ProductId,includeProperties:"Product");
-
+                    .GetFirstOrDefault(u => u.ApplicationUserId == cart.ApplicationUserId && u.ProductId==cart.ProductId,includeProperties:"Product");  
 
                 if (shoppingCartDb == null)
                 {
+                    if (id == 1)
+                    {
+                        cart.Count = 1;
+                    }
+                    else if (id == 2)
+                    {
+                        cart.Count2 =  1;
+                    }
+                    else if (id == 3)
+                    {
+                        cart.Count3 =  1;
+                    }
                     _unitOfWork.ShoppingCart.Add(cart);
                 }
                 else
                 {
-                    shoppingCartDb.Count += cart.Count;
-                    //_unitOfWork.ShoppingCart.Update(cart);
+                    int count1 = shoppingCartDb.Count;
+                    int count2 = shoppingCartDb.Count2;
+                    int count3 = shoppingCartDb.Count3;
+
+                    if (id == 1)
+                    {
+                        shoppingCartDb.Count = count1 + 1;
+                    }
+                    else if (id == 2)
+                    {
+                        shoppingCartDb.Count2 = count2 + 1;
+                    }
+                    else if (id == 3)
+                    {
+                        shoppingCartDb.Count3 = count3 + 1;
+                    }
                 }
                 _unitOfWork.Save();
 
@@ -108,12 +138,8 @@ namespace Bouquet.Area.Customer.Controllers
                    .GetAll(c => c.ApplicationUserId == cart.ApplicationUserId)
                    .ToList().Count();
 
-                //HttpContext.Session.SetObject(SD.ssShoppingCart, cart);
-                //var obj = HttpContext.Session.GetObject<ShoppingCart>(SD.ssShoppingCart);
                 HttpContext.Session.SetInt32(SD.ssShoppingCart, count);
-
                 return RedirectToAction(nameof(Index));
-
             }
             else
             {
@@ -125,10 +151,26 @@ namespace Bouquet.Area.Customer.Controllers
                     ProductId = productFromDb.Id
                 };
                 return View(shoppingCart);   
-            }           
+            }          
             
         }
+        public IActionResult Payment()
+        {
+            return View();
+        }
+        public IActionResult About()
+        {
+            return View();
+        }
+        public IActionResult Contact()
+        {
+            return View();
+        }
         public IActionResult Privacy()
+        {
+            return View();
+        }
+        public IActionResult Shipping()
         {
             return View();
         }
@@ -138,54 +180,37 @@ namespace Bouquet.Area.Customer.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
         #region API CALLS
         [HttpGet]
-        public IActionResult GetAllIndex(int? id)
+        public IActionResult GetAllIndex(string id)
         {
-            var allProducts = _unitOfWork.Product.GetAll(includeProperties: "Category,EventType").ToList();           
-            foreach (var item in allProducts)
-            {
-                item.Description = SD.ConvertToRawHtml(item.Description);
-            }
-          
-            if (id == 1)
-            {
-                return Json(new { data = allProducts.Where(p => p.Category.Name == "Rosas").ToList() });
-            }
-            else if (id == 11)
-            {
-                return Json(new { data = allProducts.OrderByDescending(p => p.Name).ToList() });
-            }
-            else if (id == 2)
-            {
-                return Json(new { data = allProducts.OrderBy(p => p.Price).ToList() });
-            }
-            else if (id == 12)
-            {
-                return Json(new { data = allProducts.OrderByDescending(p => p.Price).ToList() });
-            }
-            else if (id == 3)
-            {
-                return Json(new { data = allProducts.OrderBy(p => p.Category.Name).ToList() });
-            }
-            else if (id == 13)
-            {
-                return Json(new { data = allProducts.OrderByDescending(p => p.Category.Name).ToList() });
-            }
-            else if (id == 4)
-            {
-                return Json(new { data = allProducts.OrderBy(p => p.EventType.Name).ToList() });
-            }
-            else if (id == 14)
-            {
-                return Json(new { data = allProducts.OrderByDescending(p => p.EventType.Name).ToList() });
-            }
+            var allProducts = _unitOfWork.Product.GetAll(includeProperties: "Category,EventType");   
+            if (id.Length >= 3 && id !="")
+            {               
+                id = id.First().ToString().ToUpper() + id.Substring(1,2);
+                var productList = allProducts.Where(p => p.Category.Name.Contains(id) || p.EventType.Name.Contains(id) || p.Name.Contains(id)); 
+                return Json(new { data = productList.ToList() });              
+            }        
             else
             {
                 return Json(new { data = allProducts });
             }
-
         }
+
+        [HttpGet]
+        public IActionResult GetDetails(int id)
+        {
+            var productFromDb = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == id, includeProperties: "Category,EventType");
+            ShoppingCart shoppingCart = new ShoppingCart()
+            {
+                Product = productFromDb,
+                ProductId = productFromDb.Id
+            };
+
+            return Json(new { data = shoppingCart });           
+        }        
+
         #endregion
     }
 }

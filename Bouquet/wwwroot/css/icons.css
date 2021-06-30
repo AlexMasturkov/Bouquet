@@ -3,15 +3,50 @@
     /* background-color: wheat; */
     margin: auto;
 }
+.icon-item2 {
+    flex: 2;
+    /* background-color: wheat; */
+    margin: auto;
+}
+.icon-item4 {
+    flex: 4;
+    /* background-color: wheat; */
+    margin: auto;
+}
+.icon-item6 {
+    flex: 6;
+    /* background-color: wheat; */
+    margin: auto;
+}
+
 
 .icon-logo {
-    content: url("../images/icons/FlowerLogo.svg");
+    content: url("../images/icons/NCraft.svg");
     height: auto;
-    width: 12vw;
-    max-width: 86px;
+    width: 16vw;
+    max-width: 186px;
     margin: 2vw;
     position: absolute;
-    top: 0;
+    top: 10px;
+    left: 0;
+}
+.icon-logo-main {
+    content: url("../images/icons/NCraft.svg");
+    height: auto;
+    width: 80px;
+ 
+    margin: 1px;
+    position: relative;
+    top: 12px;
+    left: 0;
+}
+.icon-logo-color {
+    content: url("../images/icons/NCraft-color.svg");
+    height: auto;   
+    max-width: 140px;
+    margin: 2px;
+    position: absolute;
+    top: -7px;
     left: 0;
 }
 
@@ -20,8 +55,8 @@
     height: auto;
     width: 8vw;
     max-width: 56px;
-    margin: 2vw;
-    margin-top: 1vw;
+    margin: 7px;
+    margin-top: 3px;
     position: absolute;
     top: 0;
     right: 0;
@@ -35,10 +70,142 @@
     margin-top: 0px;
 }
 
+.icon-edit-in-square {
+    content: url("../images/icons/edit-in-square01.svg");
+    height: auto;
+    /*  width: 24px;*/
+    margin: auto;
+  /*  margin-top: 12px;
+    margin-right:10px;*/
+    /*transform: scale(1.1);*/
+   /* filter: hue-rotate(130deg);*/
+}
+
+.icon-lock-in-square {
+    content: url("../images/icons/lock.svg");
+    height: auto;
+    margin: auto;
+}
+
+.icon-unlock-in-square {
+    content: url("../images/icons/unlock.svg");
+    height: auto;
+    margin: auto;
+}
+
+.icon-zoom {
+    /* content: url("../images/icons/zoom.svg");*/
+    content: url("../images/icons/zoom-white.svg");
+    height: auto;
+    margin: auto;
+    filter: drop-shadow(0 0 .08rem var(--ui-grey-05));
+    transform: scale(1.2);
+}
+
+
+
+
+
 .icon-plus-in-box {
     content: url("../images/icons/plus-in-box.svg");
+    height: 30px;
+    width: 30px;
+}
+
+.icon-plus-in-square {
+    content: url("../images/icons/plus-in-square.svg");
     height: auto;
-    width: 40px;
+    width: 22px;
+    margin-top:2px;
+}
+
+.icon-arrow-left-in-square {
+    content: url("../images/icons/arrow-in-square.svg");
+    height: auto;
+    width: 22px;
+    margin-top: 2px;
+}
+
+.i-btn {
+    width: 26px;
+    height: 26px;
+    padding: 3px;
+    border-radius: 5px;
+    border: 2px solid white;
+    cursor: pointer;
+}
+
+.i-btn-md {
+    width: 26px;
+    height: 26px;
+    padding: 3px 2px;
+   /* border-radius: 5px;
+    border: 2px solid white;*/
+    cursor: pointer;
+    /* filter: brightness(0.5);*/
+  /*  background-color: var(--secondary-02);*/
+}
+
+.i-btn:hover {
+    border: 3px solid white;
+}
+
+.i-btn-sm-noline {
+    width: 20px;
+    height: 20px;
+    padding: 2px;
+    border-radius: 5px;
+    border: 0px solid ;
+    cursor: pointer;
+   
+}
+
+.i-btn-sm {
+    width: 26px;
+    height: 26px;
+    padding: 1px;
+    border-radius: 5px;
+    border: 2px solid var(--ui-white);
+    cursor: pointer;
+    margin-top: 12px;
+    margin-right: 10px;
+}
+
+    .i-btn-sm:hover {
+      /*  border: 3px !important;*/
+        filter: brightness(1.2);
+    }
+
+.i-border-default {
+    border: 2px solid var(--main-04) !important;
+}
+.i-border-tiny {
+    border: 2px solid var(--main-01) !important;
+    box-shadow: 0 1px 2px var(--ui-grey-01);
+    border-radius: 5px;
+    padding: 2px;
+}
+
+.i-border-danger3 {
+    border: 2px solid var(--danger-03) !important;
+}
+
+.i-border-success3 {
+    border: 2px solid var(--success-03) !important;
+}
+
+.i-border-danger2 {
+    border: 2px solid var(--danger-02) !important;
+}
+
+.i-border-success2 {
+    border: 2px solid var(--success-02) !important;
+}
+
+.icon-plus-in-circle-alt{
+    content: url("../images/icons/plus-in-circle-alt.svg");
+    height: auto;
+    width: 26px;
 }
 
 .icon-home {
@@ -63,6 +230,54 @@
     width: 26px;
     margin: auto;
     margin-top: 8px;
+}
+.icon-settings {
+    content: url("../images/icons/settings03.svg");
+    height: auto;
+    width: 26px;
+    margin: auto;
+    margin-top: 8px;
+}
+.icon-user-sm {
+    content: url("../images/icons/user.svg");
+    height: auto;
+    width: 20px;
+    margin: auto;
+    margin-top: 0px;
+}
+.icon-user-settings {
+    content: url("../images/icons/user-settings.svg");
+    height: auto;
+    width: 20px;
+    margin: auto;
+    margin-top: 0px;
+}
+.icon-user-plus {
+    content: url("../images/icons/user-plus.svg");
+    height: auto;
+    width: 22px;
+    margin: auto;
+    margin-top: 0px;
+}
+.icon-login {
+    content: url("../images/icons/login.svg");
+    height: auto;
+    width: 22px;
+    margin: auto;
+    margin-top: 0px;
+}
+.icon-logout {
+    content: url("../images/icons/logout.svg");
+    height: auto;
+    width: 24px;
+    margin: auto;
+    margin-top: 0px;
+}
+.icon-info {
+    content: url("../images/icons/info.svg");
+    height: auto;
+    width: 16px;
+   transform:translateY(3px);
 }
 
 .icon-details {
@@ -99,8 +314,27 @@
 .icon-trash {
     content: url("../images/icons/trash.svg");
     height: auto;
-    width: 22px;
+    width: 24px;
     margin: auto;
+    margin-top: 8px;
+    /* margin-top: 5px; */
+}
+.icon-trash-square {
+    content: url("../images/icons/trash-square.svg");
+    height: auto;
+   /* width: 24px;*/
+    margin: auto;
+    margin-top: 12px;
+ 
+    /* margin-top: 5px; */
+}
+
+.icon-trash-rounded {
+    content: url("../images/icons/trash-square-rounded.svg");
+    height: auto;
+    width: 24px;
+    margin: auto;
+    margin-top: 8px;
     /* margin-top: 5px; */
 }
 
@@ -110,6 +344,14 @@
     width: 26px;
     margin: auto;
     margin-top: 10px;
+}
+.icon-cart-add {
+    content: url("../images/icons/cart-empty-add.svg");
+    height: auto;
+    width: 26px;
+    margin: auto;
+    margin-top: 5px;
+    margin-right:5px;
 }
 
 .icon-cart-full {
@@ -123,30 +365,81 @@
 .icon-heart-default {
     content: url("../images/icons/HeartDefault.svg");
     height: auto;
-    max-width: 56px;
-    width: 6vw;
-    margin: 2vw;
+    width: 26px;
+    margin: 10px;
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 2px;
+    right: 2px;
     z-index: 3;
+    filter: drop-shadow(0 0 .01rem var(--main-03));
 }
 
 .icon-heart-active {
     content: url("../images/icons/HeartActive.svg");
     height: auto;
-    max-width: 62px;
-    width: 8vw;
-    margin: 2vw;
+    width: 32px;
+    margin: 9px;
     position: absolute;
-    top: 0;
+    top: 1px;
     right: 0;
-    z-index: 3;
+    z-index: 3;   
 }
 
+
+
 .icon-check-in-box {
-    content: url("~/images/icons/check-in-box.svg");
+    content: url("../images/icons/check-in-box.svg");
+    height: auto;
+    width: 24px;
+    margin: auto;
+    margin-top: 0px;
 }
+
+.icon-check-in-box-alt {
+    content: url("../images/icons/check-in-box-alt.svg");
+    height: auto;
+    width: 24px;
+    margin: auto;
+    margin-top: 8px;
+}
+.icon-check-in-box-square {
+    content: url("../images/icons/check-in-box-square.svg");
+    height: auto;
+    width: 24px;
+    margin: auto;
+    margin-top: 8px;
+}
+
+
+.icon-filter-box {
+    content: url("../images/icons/filter-square.svg");
+    height: auto;
+    width: 24px;
+    margin: auto;
+    margin-top: 0px;
+}
+.icon-filter-update {
+    content: url("../images/icons/filter-update.svg");
+    height: auto;
+   /* width: 24px;*/
+    margin: auto;
+    transform:translateY(3px);
+   margin-left:5px;
+}
+
+.icon-arrow-top {
+    content: url("../images/icons//arrow_buttom.svg");
+    height: auto;
+    width: 13px;
+    transform: rotateZ(180deg) translateY(-3px);
+}
+.icon-arrow-bottom {
+    content: url("../images/icons//arrow_buttom.svg");
+    height: auto;
+    width: 13px;
+    transform: translateY(3px);
+}
+
 
 
 
@@ -183,3 +476,31 @@
     .icon-arrow-right:hover {
         transform: scale(1.2) translateX(2px);
     }
+
+
+@media only screen and (min-device-width: 361px) and (max-device-width: 480px) {
+
+    .icon-heart-default {
+        content: url("../images/icons/HeartDefault.svg");
+        height: auto;
+        max-width: 56px;
+        width: 6vw;
+        margin: 2vw;
+        position: absolute;
+        top: 2px;
+        right: 2px;
+        z-index: 3;
+    }
+
+    .icon-heart-active {
+        content: url("../images/icons/HeartActive.svg");
+        height: auto;
+        max-width: 60px;
+        width: 7vw;
+        margin: 2vw;
+        position: absolute;
+        top: 1px;
+        right: 0;
+        z-index: 3;
+    }
+}

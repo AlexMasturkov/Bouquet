@@ -16,11 +16,18 @@ namespace Bouquet.Areas.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var claimsIdentity = (ClaimsIdentity)User.Identity;
-            var claims = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
-            var userFromDb = _unitOfWork.ApplicationUser.GetFirstOrDefault(u => u.Id == claims.Value);
+            try
+            {
+                var claimsIdentity = (ClaimsIdentity)User.Identity;
+                var claims = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+                var userFromDb = _unitOfWork.ApplicationUser.GetFirstOrDefault(u => u.Id == claims.Value);
+                return await Task.Run(() => View(userFromDb));
+            }
+            catch
+            {
+              return await Task.Run(() => View("None Exist"));
+            }
 
-            return await Task.Run(() => View(userFromDb));
         }
     }
 }

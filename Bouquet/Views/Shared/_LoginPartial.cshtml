@@ -2,25 +2,22 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
-<ul class="navbar-nav mt-1">
+
 @if (SignInManager.IsSignedIn(User))
 {
-    <li class="nav-item ">
-        <a  class="nav-link text-light" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@await Component.InvokeAsync("UserName")</a>
-    </li>
-    <li class="nav-item">
-        <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button  type="submit" class="nav-link btn btn-link text-light"><i class="fas fa-sign-out-alt"></i></button>
+    <div class="item-row-header non-drop  ">
+        <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+            <button type="submit"><i class="icon-logout non-drop " style="margin-top:2px;"></i></button>
         </form>
-    </li>
+    </div>
+    <div class="item-row-header non-drop ">
+        <a asp-area="Identity" style="padding:2px 3px; border-radius:10px; border:solid 2px white; width:32px; height:28px; transform:translateY(-2px);" class=" font-14 non-drop " asp-page="/Account/Manage/Index" title="Manage"> @await Component.InvokeAsync("UserName") </a>
+    </div>
 }
 else
-{
-    <li class="nav-item">
-        <a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Register">Register</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Login">Login</a>
-    </li>
+{ 
+    <div class="item-row-header non-drop "><a asp-area="Identity" asp-page="/Account/Register" class="non-drop">register</a></div>
+    <div class="item-row-header  "></div>
+    <div class="item-row-header non-drop "><a asp-area="Identity" asp-page="/Account/Login"><i class="icon-login non-drop "></i></a> </div>
 }
-</ul>
+

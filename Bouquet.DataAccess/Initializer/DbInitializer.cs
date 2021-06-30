@@ -22,6 +22,9 @@ namespace Bouquet.DataAccess.Initializer
             _roleManager = roleManager;
             _userManager = userManager;
         }
+
+        string[] newCategories = { "Bouquets", "Plants", "Decoration" };
+        string[] newEvents = { "Birthday", "Romance", "New Year", "Meeting" };       
         public void Inizialize()
         {
             try
@@ -41,12 +44,77 @@ namespace Bouquet.DataAccess.Initializer
                     UserName = "mastruk@list.ru",
                     Email = "mastruk@list.ru",
                     EmailConfirmed = true,
-                    Name = "Alex Master"
+                    StreetAddress ="25 Chubarova street 14",
+                    City ="Zmerinca",
+                    PostalCode="M3B7G8",
+                    PhoneNumber="4167894455",
+                    State="ON",
+                    Name = "Ustas Master"
                 }, "Admin123*").GetAwaiter().GetResult();
 
                 ApplicationUser user = _db.ApplicationUsers.Where(u => u.Email == "mastruk@list.ru").FirstOrDefault();
                 _userManager.AddToRoleAsync(user, SD.RoleAdmin).GetAwaiter().GetResult();
-            }
+
+                if (_db.Categories.Any(c => c.Id >= 1))
+                {
+                    return;
+                }
+                else
+                {
+                    for (int i = 0; i < newCategories.Length; i++)
+                    {
+                        Category category = new Category();
+                        category.Name = newCategories[i];
+                        _db.Categories.Add(category);
+                        _db.SaveChanges();
+                    }
+                }
+
+                if (_db.EventTypes.Any(e => e.Id >= 1))
+                {
+                    return;
+                }
+                else
+                {
+
+                    for (int i = 0; i < newEvents.Length; i++)
+                    {
+                       EventType eventType = new EventType();
+                        eventType.Name = newEvents[i];
+                        _db.EventTypes.Add(eventType);
+                        _db.SaveChanges();
+                    }
+
+                }
+
+                if (_db.Products.Any(e => e.Id >= 1))
+                {
+                    return;
+                }
+                else
+                {
+                    for (int i = 0; i < 10; i++)
+                    {
+                        Product product = new Product();
+                        product.Name = "Product 1" + i;
+                        product.Description = "Lorem ipsum dolor sit amet consectetur adipisicing elit." +
+                            " Minima orem ipsum dolor sit amet consecteturquisquam adipisci, inventore quasi, " +
+                            "laudantium totam, vero harum delectus recusandae eum id suscipit.";
+                        product.ImageUrl = @"\" + SD.ImageFolder + @"\" + "defaultImage" + ".jpeg";
+                        product.Price = 25.98m;
+                        product.Price2 = 35.98m;
+                        product.Price3 = 45.98m;
+                        product.RegularOption = "5 items plus decoration";
+                        product.PremiumOption = "7 items plus decoration";
+                        product.LuxuryOption = "9 items plus decoration";
+                        product.CategoryId = 1;
+                        product.EventTypeId = 3;
+                        _db.Products.Add(product);
+                        _db.SaveChanges();
+                    }
+                }
+
+                }
             catch (Exception ex)
             {
 

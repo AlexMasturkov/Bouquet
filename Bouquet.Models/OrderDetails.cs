@@ -21,8 +21,16 @@ namespace Bouquet.Models
         public Product Product { get; set; }
 
         public int Count { get; set; }
+        public int Count2 { get; set; }
+        public int Count3 { get; set; }
 
         [Column(TypeName = "decimal(7, 2)")]
         public decimal Price { get; set; }
+
+        [Column(TypeName = "decimal(7, 2)")]
+        public decimal Price2 { get; set; }
+
+        [Column(TypeName = "decimal(7, 2)")]
+        public decimal Price3 { get; set; }
     }
 }

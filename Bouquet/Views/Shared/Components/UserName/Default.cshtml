@@ -1,18 +1,44 @@
 ﻿@model Bouquet.Models.ApplicationUser
 
 @{
-    string fullName = @Model.Name;
-    int foundS1 = fullName.IndexOf(" ");
-    string firstName = fullName;
-    if(foundS1!=-1)
+    string fullName ="";
+    string second = "";
+    if (@Model.Name !="")
     {
-        firstName = firstName.Remove(foundS1+1);
+        fullName = @Model.Name;
+    }
+    string firstName = "";
+
+    if (fullName != "") {
+
+        int foundS1 = fullName.IndexOf(" ");
+        firstName = fullName;
+        if(foundS1!=-1)
+        {
+            string  first = firstName.Substring(0, 1).ToUpper();
+            try
+            {
+
+                second = firstName.Substring((foundS1 + 1),1).ToUpper();
+            }
+            catch
+            {
+                second = "";
+
+            }
+            firstName =  first + second;
+        }
+        else
+        {
+            firstName = firstName + " ";
+        }
+
     }
     else
     {
-        firstName = firstName + " ";
+        firstName = " ";
     }
 
-}
+    }
 
-@firstName<i class="far fa-user-circle"></i>
+    @firstName

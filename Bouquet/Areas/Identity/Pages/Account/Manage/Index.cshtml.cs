@@ -32,9 +32,11 @@ namespace Bouquet.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
-            [Phone]
-            [Display(Name = "Phone number")]
-            public string PhoneNumber { get; set; }
+            [Phone] 
+            [StringLength(10)]
+            [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Please enter 10 digit valid phone no.")]
+            [Display(Name = "Phone Number")]
+            public string PhoneNumber { get; set; }           
         }
 
         private async Task LoadAsync(IdentityUser user)

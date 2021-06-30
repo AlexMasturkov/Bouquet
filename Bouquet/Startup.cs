@@ -28,17 +28,17 @@ namespace Bouquet
         {
             Configuration = configuration;
         }
-
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {       
-            services.AddDbContext<ApplicationDbContext>(options =>options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            // services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<ApplicationDbContext>(); we change it after added IdentityRole in Register page
-            services.AddIdentity<IdentityUser,IdentityRole>().AddDefaultTokenProviders().
+            services.AddDbContext<ApplicationDbContext>(options =>options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));           
+            services.AddIdentity<IdentityUser,IdentityRole>(opt=> {
+                opt.SignIn.RequireConfirmedEmail = true;
+                 opt.SignIn.RequireConfirmedAccount = true; }).AddDefaultTokenProviders().
                 AddEntityFrameworkStores<ApplicationDbContext>();
-            services.AddSingleton<IEmailSender, EmailSender>();
+            services.AddScoped<IEmailSender, EmailSender>();
             services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
             services.Configure<EmailOptions>(Configuration);
             services.Configure<StripeSettings>(Configuration.GetSection("Stripe"));
@@ -49,15 +49,13 @@ namespace Bouquet
             services.AddScoped<IDbInitializer, DbInitializer>();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages();
-            services.AddServerSideBlazor();
-            //services.AddControllersWithViews();
+            services.AddServerSideBlazor();         
+
             services.ConfigureApplicationCookie(options =>
-            {
-                // Cookie settings
-                //options.Cookie.HttpOnly = true;
-                //options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
-                options.LoginPath = "/Identity/Account/Login";
-                options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+            {               
+                options.LoginPath = $"/Identity/Account/Login";
+                options.LogoutPath = $"/Identity/Account/Logout";
+                options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
                 options.SlidingExpiration = true;
             });
             services.AddAuthentication().AddFacebook(options =>
@@ -82,8 +80,7 @@ namespace Bouquet
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
+                app.UseDeveloperExceptionPage();            
             }
             else
             {
@@ -97,6 +94,7 @@ namespace Bouquet
             app.UseRouting();
             StripeConfiguration.ApiKey = Configuration.GetSection("Stripe")["SecretKey"];
             app.UseSession();
+            app.UseCookiePolicy();          
             app.UseAuthentication();
             app.UseAuthorization();
             dbInitializer.Inizialize();

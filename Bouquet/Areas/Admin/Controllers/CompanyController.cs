@@ -18,7 +18,6 @@ namespace Bouquet.Areas.Admin.Controllers
         {
             return View();
         }
-
         public IActionResult Upsert(int? id)
         {
             Company company = new Company();
